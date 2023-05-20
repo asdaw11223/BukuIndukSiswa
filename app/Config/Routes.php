@@ -58,7 +58,7 @@ $routes->get('/rapor', 'Rapor::index');
 
 $routes->get('/laporan', 'Laporan::index');
 
-$routes->get('/profile-sekolah', 'Sekolah::index');
+$routes->get('/profile-sekolah', 'Profile::index');
 
 /*
  * --------------------------------------------------------------------
