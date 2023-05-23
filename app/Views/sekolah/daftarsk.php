@@ -76,12 +76,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
+                        <label for="u_tahunajaran" class="form-label">Tahun Ajaran</label>
+                        <select class="form-select" aria-label="Default select example" name="u_tahunajaran" id="u_tahunajaran">
+                            <option value="" selected>Pilih Tahun Ajaran</option>
+                            <?php $no=1; foreach ($tahunAjaran as $t) : ?>
+                            <option value="<?= $t['id_tahunajaran']?>"><?= $t['nama_tahunajaran']?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="invalid-feedback errorUpdateNama"></div>
+                    </div>
+                    <div class="mb-3">
                         <label for="u_kelas" class="form-label">Ke Kelas</label>
                         <select class="form-select" aria-label="Default select example" name="u_kelas" id="u_kelas">
                             <option value="" selected>Pilih Kelas</option>
-                            <?php $no=1; foreach ($kelasFull as $t) : ?>
-                            <option value="<?= $t['id_kelas']?>"><?= $t['nama_kelas']?></option>
-                            <?php endforeach; ?>
                         </select>
                         <input type="hidden" class="form-control" id="u_NISN" name="u_NISN">
                         <input type="hidden" class="form-control" id="u_daftar" name="u_daftar">
@@ -336,6 +343,23 @@
 
 
     $(document).ready(function(){
+        
+        $('#u_tahunajaran').change(function() {
+            var id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('Kelas/getKelas') ?>",
+                data: {
+                    id: id
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    $('#u_kelas').html(response.data);
+                }
+
+            });
+        });
+
         $('.btn-pindah-siswaKelas').on('click',function(){
             
             const daftar = $(this).data('daftar');

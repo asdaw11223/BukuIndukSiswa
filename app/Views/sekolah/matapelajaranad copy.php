@@ -133,7 +133,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $no=1; foreach($mapel as $mp) : ?>
+                            <?php $no=1; foreach($jadwal as $mp) : ?>
                             <tr>
                                 <td class="w-23"><?= $no++; ?></td>
                                 <td><?= $mp['nama_mapel'] ?></td>

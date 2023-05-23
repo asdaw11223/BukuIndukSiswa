@@ -22,12 +22,9 @@
                                     <tr>
                                         <th>No.</th>
                                         <th class=" text-center">Aksi</th>
-                                        <th>Tahun Masuk</th>
                                         <th>Nama Kelas</th>
                                         <th>Tahun Ajaran</th>
                                         <th>Jurusan</th>
-                                        <th>Kelas</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -40,28 +37,9 @@
                                                 <button type="button" class="btn-edit btn-update-kelas" data-id="<?= $k['id_kelas']; ?>" data-nama="<?= $k['nama_kelas']; ?>" data-tahunajaran="<?= $k['id_tahunajaran']; ?>" data-jurusan="<?= $k['id_jurusan']; ?>" data-bs-toggle="modal" title="Edit"><span class="material-symbols-outlined">edit</span></button>
                                                 <button type="button" class="btn-delete btn-delete-kelas"  data-id="<?= $k['id_kelas']; ?>" data-nama="<?= $k['nama_kelas']; ?>" data-bs-toggle="modal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
                                             </td>
-                                            <td><?= $k['tahun_masuk'] ?></a></td>
                                             <td><?= $k['nama_kelas'] ?></td>
                                             <td><?= $k['nama_tahunajaran'] ?></td>
                                             <td><?= $k['nama_jurusan'] ?></td>
-                                            <form action="javascript:void(0)" method="post" name="formUbahKelas<?= $k['id_kelas'] ?>" id="formUbahKelas<?= $k['id_kelas'] ?>" onsubmit="return validateFormUbahKelas<?= $k['id_kelas'] ?>()">
-                                                <td>
-                                                    <select class="form-select" aria-label="Default select example" name="ubah_kelas" id="ubah_kelas">
-                                                        <?php foreach($tingkat as $jk) : ?>
-                                                            <?php if($jk['id_jurusan'] == $k['id_jurusan']) : ?>
-                                                                <?php if($jk['id_tingkat'] == $k['id_tingkat']) : ?>
-                                                                    <option value="<?= $jk['id_tingkat'] ?>" selected><?= $jk['nama_tingkat'] ?></option>
-                                                                <?php else: ?>
-                                                                    <option value="<?= $jk['id_tingkat'] ?>"><?= $jk['nama_tingkat'] ?></option>
-                                                                <?php endif; ?>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </td>  
-                                                <td>
-                                                    <button type="submit" class="btn-view btn-naik-kelas mlr5" title="Naik Kelas"><span class="material-symbols-outlined">chevron_right</span></a>
-                                                </td>
-                                            </form>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -69,12 +47,9 @@
                                     <tr>
                                         <th>No.</th>
                                         <th class=" text-center">Aksi</th>
-                                        <th>Tahun Masuk</th>
                                         <th>Nama Kelas</th>
                                         <th>Tahun Ajaran</th>
                                         <th>Jurusan</th>
-                                        <th>Kelas</th>
-                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -101,16 +76,6 @@
                         <label for="nama_kelas" class="form-label">Nama kelas</label>
                         <input type="text" class="form-control" placeholder="Nama Kelas" name="nama_kelas" id="nama_kelas">
                         <div class="invalid-feedback errorAddNama"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="tahunmasuk" class="form-label">Tahun Masuk</label>
-                        <select class="form-select" aria-label="Default select example" name="tahunmasuk" id="tahunmasuk">
-                            <option value="" selected>Pilih Tahun Masuk</option>
-                            <?php $no=1; foreach ($tahunAjaran as $j) : ?>
-                            <option value="<?= $j['nama_tahunajaran']?>"><?= $j['nama_tahunajaran']?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <div class="invalid-feedback errorAddTahunMasuk"></div>
                     </div>
                     <div class="mb-3">
                         <label for="tahunajaran" class="form-label">Tahun Ajaran</label>
@@ -366,23 +331,24 @@
             }
         });
     };
-<?php foreach($kelas as $k) : ?>
-    function validateFormUbahKelas<?= $k['id_kelas'] ?>() {
-        $.ajax({
-            url: "<?= site_url('Kelas/ubahKelas/'. $k['id_kelas'] .'') ?>",
-            method: "post",
-            data: $("#formUbahKelas<?= $k['id_kelas'] ?>").serialize(),
-            dataType: "json",
-            success:function (response) {
-                
-                if(response.berhasil){
-                    alert("Data berhasil diubah");
-                    window.location.reload();
+
+    <?php foreach($kelas as $k) : ?>
+        function validateFormUbahKelas<?= $k['id_kelas'] ?>() {
+            $.ajax({
+                url: "<?= site_url('Kelas/ubahKelas/'. $k['id_kelas'] .'') ?>",
+                method: "post",
+                data: $("#formUbahKelas<?= $k['id_kelas'] ?>").serialize(),
+                dataType: "json",
+                success:function (response) {
+                    
+                    if(response.berhasil){
+                        alert("Data berhasil diubah");
+                        window.location.reload();
+                    }
                 }
-            }
-        });
-    };
-<?php endforeach; ?>
+            });
+        };
+    <?php endforeach; ?>
     
     $(document).ready(function(){
         

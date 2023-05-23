@@ -160,6 +160,28 @@ class Kelas extends BaseController
 		}
 	}
 
+    public function getKelas()
+	{
+		if($this->request->isAJAX()){
+			$id_kelas = $this->request->getVar('id');
+
+			$kelas = $this->kelasModel->where(['tb_kelas.id_tahunajaran'=> $id_kelas])->findAll();
+
+			$isidata = '<option value=""> Pilih Tingkat </option>';
+			
+			foreach($kelas as $row ) :
+				$isidata .= '<option value="' . $row['id_kelas'] . '">' . $row['nama_kelas'] . '</option>';
+			endforeach;
+
+			$msg = [
+				'data' => $isidata
+			];
+
+			echo json_encode($msg);
+				
+		}
+	}
+
 	public function save()
 	{
 		if($this->request->isAJAX()){
@@ -174,13 +196,6 @@ class Kelas extends BaseController
 				],
 				'jurusan' => [
 					'label' => "Jurusan",
-					'rules' => 'required',
-					'errors' => [
-						'required' => '{field} harus diisi.'
-					]
-				],
-				'tahunmasuk' => [
-					'label' => "Tahun Masuk",
 					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} harus diisi.'
@@ -209,7 +224,6 @@ class Kelas extends BaseController
 				$msg = [
 					'error' => [
 						'nama_kelas' => $validation->getError('nama_kelas'),
-						'tahunmasuk' => $validation->getError('tahunajaran'),
 						'tahunajaran' => $validation->getError('tahunajaran'),
 						'jurusan' => $validation->getError('jurusan'),
 						'tingkat' => $validation->getError('tingkat')
@@ -220,7 +234,6 @@ class Kelas extends BaseController
 				
 				$this->kelasModel->save([
 					'nama_kelas' => $this->request->getVar('nama_kelas'),
-					'tahun_masuk' => $this->request->getVar('tahunmasuk'),
 					'id_tahunajaran' => $this->request->getVar('tahunajaran'),
 					'id_jurusan' => $this->request->getVar('jurusan'),
 					'id_tingkat' => $this->request->getVar('tingkat')
@@ -439,7 +452,6 @@ class Kelas extends BaseController
 				$this->kelasModel->save([
 					'id_kelas' => $id_kelas,
 					'nama_kelas' => $k['nama_kelas'],
-					'tahun_masuk' => $k['tahun_masuk'],
 					'id_tahunajaran' => $k['id_tahunajaran'],
 					'id_jurusan' => $k['id_jurusan'],
 					'id_tingkat' => $this->request->getVar('ubah_kelas')

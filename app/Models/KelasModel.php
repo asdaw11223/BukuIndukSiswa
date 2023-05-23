@@ -7,7 +7,7 @@ class KelasModel extends Model
 {
     protected $table = 'tb_kelas';
     protected $primaryKey = 'id_kelas';
-    protected $allowedFields = ['id_kelas', 'nama_kelas', 'tahun_masuk', 'id_jurusan', 'id_tahunajaran', 'id_tingkat'];
+    protected $allowedFields = ['id_kelas', 'nama_kelas', 'id_jurusan', 'id_tahunajaran', 'id_tingkat'];
 
     public function getKelas(){
         return $this->db->table('tb_kelas')
