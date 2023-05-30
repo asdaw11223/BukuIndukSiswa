@@ -34,7 +34,7 @@
                 <li class="nav-item">
                     <a href="/profile-sekolah" class="nav-link" aria-current="page" id="side-matapelajaran">
                         <span class="material-symbols-outlined">school</span>
-                        <span class="nav-link-text ms-1">Profile</span>
+                        <span class="nav-link-text ms-1">Profile Sekolah</span>
                     </a>
                 </li>
                 <li class="nav-item">

@@ -23,15 +23,24 @@
                         </div>
                         
                         <div class="col-md-12 mb-3">
-                            <label class="form-label">Matapelajaran</label>
-                            <select class="form-select" aria-label="Default select example" name="filter" id="filter">
-                                <option value="all">Tampil Semua</option>
-                            </select>
+                            <div class="text-cover p-2 pt-2">
+                                <form action="" method="get">
+                                <label class="form-label">Filter Matapelajaran</label>
+                                <select class="form-select" aria-label="Default select example" name="filter" id="filter">
+                                    <option value="">Tampil Semua</option>
+            
+                                    <?php for($i = 0; $i < count($nama_mapel); $i++) : ?>
+                                        <option value="<?= $id_mapel[$i] ?>"><?= $nama_mapel[$i] ?></option>
+                                    <?php endfor ?>
+                                </select>
+                                <button type="submit" class="btn btn-add-import mt-2" style="margin: 0px 0px; width: 100%;">Filter</button>
+                                </form>
+                            </div>
                         </div>
 
 <form action="javascript:void(0)" method="post" name="formAddNilai" id="formAddNilai" onsubmit="return validateAddNilai()">
 
-                        <div class="btn-cover p-3 pt-2 d-flex" style="padding-left: 0 !important; justify-content: space-between;">
+                        <div class="btn-cover p-3 pt-2 d-flex" style="padding-left: 0 !important; padding-right: 0 !important; justify-content: space-between;">
                             <div class="right d-flex">
                                 <button type="button" class="btn green btn-add-import" style="margin: 0px 5px;" data-bs-toggle="modal">Import Nilai</button>
                                 <button type="button" class="btn yellow btn-add-matapelajaran" style="margin: 0px 5px; background-image:linear-gradient(310deg,#ff9c07,#fba73f) !important" data-bs-toggle="modal">Tambah Mepel</button>
@@ -40,7 +49,6 @@
                                 <button type="submit" class="btn btn-add-import" style="margin: 0px 5px;">Simpan</button>
                             </div>
                         </div>
-                        
                         <div class="dt-responsive table-responsive">
                             <table id="simpletable" class="table table-striped table-bordered nowrap">
                                 <thead>
@@ -118,9 +126,6 @@
                                     </tr>
                                     <?php endforeach ?>
                                 </tbody>
-
-</form>
-
                                 <tfoot>
                                     <tr>
                                         <th rowspan="2">No.</th>
@@ -146,6 +151,17 @@
                                 </tfoot>
                             </table>
                         </div>
+                        
+                        <div class="btn-cover mt-3 p-3 pt-2 d-flex" style="padding-left: 0 !important; padding-right: 0 !important; justify-content: space-between;">
+                            <div class="right d-flex">
+
+                            </div>
+                            <div class="left">
+                                <button type="submit" class="btn btn-add-import" style="margin: 0px 5px;">Simpan</button>
+                            </div>
+                        </div>
+
+</form>
 
                     </div>
                 </div>

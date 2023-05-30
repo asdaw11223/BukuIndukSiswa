@@ -19,7 +19,7 @@ class Profile extends BaseController
         $profile = $this->profileModel->first();
         
         $data = [
-            'title' => '&nbsp;',
+            'title' => 'PROFILE SEKOLAH',
             'profile' => $profile
         ];
 

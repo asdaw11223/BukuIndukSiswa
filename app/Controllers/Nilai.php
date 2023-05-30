@@ -62,6 +62,8 @@ class Nilai extends BaseController
 
     public function nilai($id_kelas)
     {
+		$filter = $this->request->getVar('filter');
+        
         $kelas = $this->kelasModel->where('id_kelas', $id_kelas)
         ->join('tb_jurusan', 'tb_jurusan.id_jurusan = tb_kelas.id_jurusan')
         ->join('tb_tahunajaran', 'tb_tahunajaran.id_tahunajaran = tb_kelas.id_tahunajaran')
@@ -71,10 +73,20 @@ class Nilai extends BaseController
         ->join('tb_siswa', 'tb_siswa.s_NISN = tb_daftarsiswakelas.s_NISN')
         ->findAll();
         
-		$nilai = $this->nilaiModel->where('id_kelas', $id_kelas)
+        $search_mapel = $this->nilaiModel->where('id_kelas', $id_kelas)
         ->join('tb_matapelajaran', 'tb_matapelajaran.id_matapelajaran = tb_nilai.id_matapelajaran')
-        ->join('tb_siswa', 'tb_siswa.s_NISN = tb_nilai.s_NISN')
         ->findAll();
+
+        if($filter == null) {
+            $nilai = $this->nilaiModel->where('id_kelas', $id_kelas)
+            ->join('tb_matapelajaran', 'tb_matapelajaran.id_matapelajaran = tb_nilai.id_matapelajaran')
+            ->join('tb_siswa', 'tb_siswa.s_NISN = tb_nilai.s_NISN')
+            ->findAll();
+        }else{
+            $nilai = $this->nilaiModel->where(['tb_nilai.id_matapelajaran' => $filter])->where('id_kelas', $id_kelas)
+            ->join('tb_matapelajaran', 'tb_matapelajaran.id_matapelajaran = tb_nilai.id_matapelajaran')
+            ->findAll();
+        }
 
 		$id_siswa = $this->nilaiModel->where('id_kelas', $id_kelas)
         ->first();
@@ -83,12 +95,21 @@ class Nilai extends BaseController
         $matapelajaran = $this->matapelajaranModel->findAll();
 
         $array = [];
+        $id_mapel = [];
         foreach($nilai as $nm){
             if($id_siswa['s_NISN'] == $nm['s_NISN']){
                 $array[] = $nm['nama_matapelajaran'];
             }
         }
-
+        
+        $nama_mapel = [];
+        $id_mapel = [];
+        foreach($search_mapel as $nm){
+            if($id_siswa['s_NISN'] == $nm['s_NISN']){
+                $nama_mapel[] = $nm['nama_matapelajaran'];
+                $id_mapel[] = $nm['id_matapelajaran'];
+            }
+        }
 
         $data = [
             'title' => 'Nilai',
@@ -96,9 +117,10 @@ class Nilai extends BaseController
             'siswa' => $siswa,
             'tingkat' => $tingkat,
             'array' => $array,
+            'id_mapel' => $id_mapel,
+            'nama_mapel' => $nama_mapel,
             'nilai' => $nilai,
-            'matapelajaran' => $matapelajaran,
-            'nilai' => $nilai
+            'matapelajaran' => $matapelajaran
         ];
 
         return view('nilai/nilai', $data);
