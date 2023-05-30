@@ -43,12 +43,12 @@
                         <span class="nav-link-text ms-1">Kelas</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="/jadwal" class="nav-link" aria-current="page" id="side-kelas">
                         <span class="material-symbols-outlined">calendar_month</span>
                         <span class="nav-link-text ms-1">Jadwal</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a href="/matapelajaran" class="nav-link" aria-current="page" id="side-kelas">
                         <span class="material-symbols-outlined">view_list</span>

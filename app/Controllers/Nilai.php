@@ -39,41 +39,66 @@ class Nilai extends BaseController
 
     public function index()
     {
-        $tahunajaran = $this->tahunajaranModel->findAll();
-        $jurusanModel = $this->jurusanModel->findAll();
-        $tingkat = $this->tingkatModel->findAll();
-        $siswa = $this->siswaModel->findAll();
-		$id_jurusan = $this->request->getVar('jurusan');
+
 		$id_tingkat = $this->request->getVar('tingkat');
-        $mapel = $this->matapelajaranModel->where('id_tingkat', $id_tingkat)->findAll();
-		$id_kelas = $this->request->getVar('kelas');
-        $kelas = $this->kelasModel->where('id_kelas', $id_kelas)
-        ->join('tb_jurusan', 'tb_jurusan.id_jurusan = tb_kelas.id_jurusan')
-        ->join('tb_tahunajaran', 'tb_tahunajaran.id_tahunajaran = tb_kelas.id_tahunajaran')
-        ->findAll();
-		$daftarSiswaKelas  = $this->daftarSiswaKelasModel->getSiswaKelas($id_kelas);
-        
-		$nilai = $this->nilaiModel
-        ->join('tb_daftarsiswakelas', 'tb_daftarsiswakelas.id_daftarsiswakelas = tb_nilai.id_daftarsiswakelas')
-        ->join('tb_kelas', 'tb_kelas.id_kelas = tb_daftarsiswakelas.id_kelas')
-        ->join('tb_siswa', 'tb_siswa.s_NISN = tb_daftarsiswakelas.s_NISN')
-        ->join('tb_matapelajaran', 'tb_matapelajaran.id_matapelajaran = tb_nilai.id_matapelajaran')
-        ->where(['tb_kelas.id_kelas' => $id_kelas])
-        ->findAll();
+
+        $tahunajaran = $this->tahunajaranModel->orderBy('nama_tahunajaran', 'DESC')->findAll();
+        $jurusan = $this->jurusanModel->findAll();
+        $tingkat = $this->tingkatModel->findAll();
+        $kelas = $this->kelasModel->where('id_tingkat', $id_tingkat)->findAll();
 
 
 
         $data = [
-            'title' => 'Nilai',
-            'siswa' => $siswa,
-            'kelas' => $kelas,
+            'title' => 'Pilih Kelas',
             'tingkat' => $tingkat,
+            'kelas' => $kelas,
             'tahunajaran' => $tahunajaran,
-            'jurusan' => $jurusanModel,
-            'mapel' => $mapel,
+            'jurusan' => $jurusan
+        ];
+
+        return view('nilai/nilai_filter', $data);
+    }
+
+    public function nilai($id_kelas)
+    {
+        $kelas = $this->kelasModel->where('id_kelas', $id_kelas)
+        ->join('tb_jurusan', 'tb_jurusan.id_jurusan = tb_kelas.id_jurusan')
+        ->join('tb_tahunajaran', 'tb_tahunajaran.id_tahunajaran = tb_kelas.id_tahunajaran')
+        ->first();
+
+        $siswa = $this->daftarSiswaKelasModel->where('id_kelas', $id_kelas)
+        ->join('tb_siswa', 'tb_siswa.s_NISN = tb_daftarsiswakelas.s_NISN')
+        ->findAll();
+        
+		$nilai = $this->nilaiModel->where('id_kelas', $id_kelas)
+        ->join('tb_matapelajaran', 'tb_matapelajaran.id_matapelajaran = tb_nilai.id_matapelajaran')
+        ->join('tb_siswa', 'tb_siswa.s_NISN = tb_nilai.s_NISN')
+        ->findAll();
+
+		$id_siswa = $this->nilaiModel->where('id_kelas', $id_kelas)
+        ->first();
+
+        $tingkat = $this->tingkatModel->findAll();
+        $matapelajaran = $this->matapelajaranModel->findAll();
+
+        $array = [];
+        foreach($nilai as $nm){
+            if($id_siswa['s_NISN'] == $nm['s_NISN']){
+                $array[] = $nm['nama_matapelajaran'];
+            }
+        }
+
+
+        $data = [
+            'title' => 'Nilai',
+            'kelas' => $kelas,
+            'siswa' => $siswa,
+            'tingkat' => $tingkat,
+            'array' => $array,
             'nilai' => $nilai,
-            'id_kelas' => $id_kelas,
-            'daftarSiswaKelas' => $daftarSiswaKelas
+            'matapelajaran' => $matapelajaran,
+            'nilai' => $nilai
         ];
 
         return view('nilai/nilai', $data);
@@ -100,88 +125,66 @@ class Nilai extends BaseController
 		}
 	}
 
-    public function kelas()
+	public function addMapel()
 	{
 		if($this->request->isAJAX()){
-			$tingkat = $this->request->getVar('id');
-            $kelas = $this->kelasModel->where(['tb_kelas.id_tingkat' => $tingkat])->get()->getResultArray();
 			
-			$isidata = '<option value="">Pilih Kelas</option>';
-
-            foreach($kelas as $row ) :
-                $isidata .= '<option value="' . $row['id_kelas'] . '">' . $row['nama_kelas'] . '</option>';
-			endforeach;
-
-			$msg = [
-				'data' => $isidata
-			];
-
-			echo json_encode($msg);
-				
-		}
-	}
-    
-    public function filterMatapelajaran()
-	{
-		if($this->request->isAJAX()){
-			$id_matapelajaran = $this->request->getVar('id');
-		    $id_kelas = $this->request->getVar('id_kelas');
+            $daftarSiswaKelas = $this->daftarSiswaKelasModel->where('id_kelas', $this->request->getVar('id_kelas'))->findAll();
+            $mapel = $_POST['matapelajarans'];
             
-            $nilai = $this->daftarSiswaKelasModel
-            ->join('tb_siswa', 'tb_siswa.s_NISN = tb_daftarsiswakelas.s_NISN')
-            ->where(['tb_daftarsiswakelas.id_kelas' => $id_kelas])
-            ->findAll();
+            foreach($daftarSiswaKelas as $dsk){
+                for ($i=0; $i < count($mapel); $i++) {
 
-			$no = 1;
-			$isidata = '';
+                    $this->nilaiModel->save([
+                        'np_kb' => 0,
+                        'np_angka' => 0,
+                        'np_predikat' => '',
+                        'np_deskripsi' => '',
+                        'nk_kb' => 0,
+                        'nk_angka' => 0,
+                        'nk_predikat' => '',
+                        'nk_deskripsi' => '',
+                        'id_matapelajaran' => $mapel[$i],
+                        's_NISN' => $dsk['s_NISN'],
+                        'id_kelas' => $this->request->getVar('id_kelas')
+                    ]);
 
-            foreach($nilai as $row ) :
-                $isidata .= '<tr>';
-                $isidata .= '<td>'. $no++ .'</td><td>'. $row['s_NISN'] .'</td><td>'. $row['s_namalengkap'] .'</td>';
-                $isidata .= '<td><input type="text" class="form-control" id="" name="" value=""></td>';
-                $isidata .= '<td><input type="text" class="form-control" id="" name="" value=""></td>';
-                $isidata .= '<td><input type="text" class="form-control" id="" name="" value=""></td>';
-                $isidata .= '<td><textarea class="form-control" id="" name="" rows="2"></textarea></td>';
-                $isidata .= '<td><input type="text" class="form-control" id="" name="" value=""></td>';
-                $isidata .= '<td><input type="text" class="form-control" id="" name="" value=""></td>';
-                $isidata .= '<td><input type="text" class="form-control" id="" name="" value=""></td>';
-                $isidata .= '<td><textarea class="form-control" id="" name="" rows="2"></textarea></td>';
-                $isidata .= '</tr>';
-			endforeach;
+                }
+            }
 
-			$msg = [
-				'data' => $isidata
-			];
+            $msg = [
+                'berhasil' => [
+                    'succes' => "Berhasil"
+                ]
+            ];
 
 			echo json_encode($msg);
-				
-		}
+        }
 	}
 
 	public function addNilai()
 	{
 		if($this->request->isAJAX()){
 			
-            $daftarSiswaKelas = $this->daftarSiswaKelasModel->where('id_kelas', $this->request->getVar('id_kelas'))->findAll();
-            $mapel = $this->matapelajaranModel->where('id_tingkat', $this->request->getVar('id_tingkat'))->findAll();
+            $nilai = $this->nilaiModel->where('id_kelas', $this->request->getVar('id_kelas'))
+            ->join('tb_matapelajaran', 'tb_matapelajaran.id_matapelajaran = tb_nilai.id_matapelajaran')
+            ->join('tb_siswa', 'tb_siswa.s_NISN = tb_nilai.s_NISN')
+            ->findAll();
 
-            foreach($daftarSiswaKelas as $dsk){
-                foreach($mapel as $mp){
-                    $this->nilaiModel->save([
-                        'id_nilai' => $this->request->getVar('id_' . $mp['id_nilai']),
-                        'nama_matapelajaran' => $this->request->getVar('nama_mapel_' . $mp['id_matapelajaran']),
-                        'np_kb' => $this->request->getVar('np_kb_' . $mp['id_matapelajaran']),
-                        'np_angka' => $this->request->getVar('np_angka_' . $mp['id_matapelajaran']),
-                        'np_predikat' => $this->request->getVar('np_predikat_' . $mp['id_matapelajaran']),
-                        'np_deskripsi' => $this->request->getVar('np_deskripsi_' . $mp['id_matapelajaran']),
-                        'nk_kb' => $this->request->getVar('nk_kb_' . $mp['id_matapelajaran']),
-                        'nk_angka' => $this->request->getVar('nk_angka_' . $mp['id_matapelajaran']),
-                        'nk_predikat' => $this->request->getVar('nk_predikat_' . $mp['id_matapelajaran']),
-                        'nk_deskripsi' => $this->request->getVar('nk_deskripsi_' . $mp['id_matapelajaran']),
-                        'id_daftarsiswakelas' => $dsk['id_daftarsiswakelas'],
-                        'id_matapelajaran' => $this->request->getVar('id_mapel_' . $mp['id_matapelajaran'])
-                    ]);
-                }
+            foreach($nilai as $n) {
+                $this->nilaiModel->save([
+                    'id_nilai' => $this->request->getVar('id_nilai'. $n['id_nilai']),
+                    'np_kb' => $this->request->getVar('np_kb'. $n['id_nilai']),
+                    'np_angka' => $this->request->getVar('np_angka'. $n['id_nilai']),
+                    'np_predikat' => $this->request->getVar('np_predikat'. $n['id_nilai']),
+                    'np_deskripsi' => $this->request->getVar('np_deskripsi'. $n['id_nilai']),
+                    'nk_kb' => $this->request->getVar('nk_kb'. $n['id_nilai']),
+                    'nk_angka' => $this->request->getVar('nk_angka'. $n['id_nilai']),
+                    'nk_predikat' => $this->request->getVar('nk_predikat'. $n['id_nilai']),
+                    'nk_deskripsi' => $this->request->getVar('nk_deskripsi'. $n['id_nilai']),
+                    'id_matapelajaran' => $this->request->getVar('id_matapelajaran'. $n['id_nilai']),
+                    's_NISN' => $this->request->getVar('s_NISN'. $n['id_nilai'])
+                ]);
             }
 
             $msg = [

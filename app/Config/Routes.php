@@ -54,6 +54,7 @@ $routes->get('/siswa/edit/kehadiran/(:segment)', 'Kehadiran::index/$1');
 $routes->get('/catatan', 'Catatan::index');
 
 $routes->get('/nilai', 'Nilai::index');
+$routes->get('/nilai/(:segment)', 'Nilai::nilai/$1');
 $routes->get('/rapor', 'Rapor::index');
 
 $routes->get('/laporan', 'Laporan::index');

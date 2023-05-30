@@ -4,8 +4,6 @@
 
 <div class="header-pages"  style="display: flex; justify-content: space-between;">
     <?= $title ?>
-    
-    <button type="button" class="btn btn-daftar-mapel" data-bs-toggle="modal">Daftar</button>
 </div>
 
 <section class="mt-4 mb-5" id="dashboard">
