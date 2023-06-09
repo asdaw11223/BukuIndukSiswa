@@ -60,7 +60,7 @@ class Nilai extends BaseController
         return view('nilai/nilai_filter', $data);
     }
 
-    public function nilai($id_kelas)
+    public function nilai($id_kelas, $semester)
     {
 		$filter = $this->request->getVar('filter');
         
@@ -78,12 +78,12 @@ class Nilai extends BaseController
         ->findAll();
 
         if($filter == null) {
-            $nilai = $this->nilaiModel->where('id_kelas', $id_kelas)
+            $nilai = $this->nilaiModel->where('id_kelas', $id_kelas)->where('semester', $semester)
             ->join('tb_matapelajaran', 'tb_matapelajaran.id_matapelajaran = tb_nilai.id_matapelajaran')
             ->join('tb_siswa', 'tb_siswa.s_NISN = tb_nilai.s_NISN')
             ->findAll();
         }else{
-            $nilai = $this->nilaiModel->where(['tb_nilai.id_matapelajaran' => $filter])->where('id_kelas', $id_kelas)
+            $nilai = $this->nilaiModel->where(['tb_nilai.id_matapelajaran' => $filter])->where('id_kelas', $id_kelas)->where('semester', $semester)
             ->join('tb_matapelajaran', 'tb_matapelajaran.id_matapelajaran = tb_nilai.id_matapelajaran')
             ->findAll();
         }
@@ -95,7 +95,6 @@ class Nilai extends BaseController
         $matapelajaran = $this->matapelajaranModel->findAll();
 
         $array = [];
-        $id_mapel = [];
         foreach($nilai as $nm){
             if($id_siswa['s_NISN'] == $nm['s_NISN']){
                 $array[] = $nm['nama_matapelajaran'];
@@ -105,7 +104,7 @@ class Nilai extends BaseController
         $nama_mapel = [];
         $id_mapel = [];
         foreach($search_mapel as $nm){
-            if($id_siswa['s_NISN'] == $nm['s_NISN']){
+            if($id_siswa['s_NISN'] == $nm['s_NISN'] && $nm['semester'] == 1){
                 $nama_mapel[] = $nm['nama_matapelajaran'];
                 $id_mapel[] = $nm['id_matapelajaran'];
             }
@@ -119,6 +118,7 @@ class Nilai extends BaseController
             'array' => $array,
             'id_mapel' => $id_mapel,
             'nama_mapel' => $nama_mapel,
+            'semester' => $semester,
             'nilai' => $nilai,
             'matapelajaran' => $matapelajaran
         ];
@@ -153,7 +153,7 @@ class Nilai extends BaseController
 			
             $daftarSiswaKelas = $this->daftarSiswaKelasModel->where('id_kelas', $this->request->getVar('id_kelas'))->findAll();
             $mapel = $_POST['matapelajarans'];
-            
+
             foreach($daftarSiswaKelas as $dsk){
                 for ($i=0; $i < count($mapel); $i++) {
 
@@ -166,6 +166,7 @@ class Nilai extends BaseController
                         'nk_angka' => 0,
                         'nk_predikat' => '',
                         'nk_deskripsi' => '',
+                        'semester' => $this->request->getVar('semester'),
                         'id_matapelajaran' => $mapel[$i],
                         's_NISN' => $dsk['s_NISN'],
                         'id_kelas' => $this->request->getVar('id_kelas')
@@ -188,9 +189,7 @@ class Nilai extends BaseController
 	{
 		if($this->request->isAJAX()){
 			
-            $nilai = $this->nilaiModel->where('id_kelas', $this->request->getVar('id_kelas'))
-            ->join('tb_matapelajaran', 'tb_matapelajaran.id_matapelajaran = tb_nilai.id_matapelajaran')
-            ->join('tb_siswa', 'tb_siswa.s_NISN = tb_nilai.s_NISN')
+            $nilai = $this->nilaiModel->where('id_kelas', $this->request->getVar('id_kelas'))->where('semester', $this->request->getVar('semester'))
             ->findAll();
 
             foreach($nilai as $n) {
@@ -204,8 +203,6 @@ class Nilai extends BaseController
                     'nk_angka' => $this->request->getVar('nk_angka'. $n['id_nilai']),
                     'nk_predikat' => $this->request->getVar('nk_predikat'. $n['id_nilai']),
                     'nk_deskripsi' => $this->request->getVar('nk_deskripsi'. $n['id_nilai']),
-                    'id_matapelajaran' => $this->request->getVar('id_matapelajaran'. $n['id_nilai']),
-                    's_NISN' => $this->request->getVar('s_NISN'. $n['id_nilai'])
                 ]);
             }
 

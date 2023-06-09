@@ -11,7 +11,7 @@
         <div class="col-md-12 mt-4">
             <div class="card mb-2">
                 <div class="card-header for-header p-3 pt-2" style="padding: 15px 1.5rem 15px !important; background-color: #6777ef; border-radius: 12px 12px 0 0; color:#ffffff;">
-                    Pilih Kelas
+                    Filter Kelas
                 </div>
                 <div class="content">
                     <div class="card-block">
@@ -19,24 +19,38 @@
                     <form action="" method="post">
                     <div class="mb-3">
                         <div class="row">
-                            <div class="col-md-5">
+                            <form action="" method="post">
+                            <div class="col-md-4">
                                 <label for="jurusan" class="form-label">Jurusan</label>
                                 <select class="form-select" aria-label="Default select example" name="jurusan" id="jurusan">
                                     <option value>Pilih Jurusan</option>
+                                    <?php foreach($jurusan as $j) : ?>
+                                    <option value="<?= $j['id_jurusan'] ?>"><?= $j['nama_jurusan'] ?></option>
+                                    <?php endforeach ?>
                                 </select>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-4">
+                                <label for="tahunajaran" class="form-label">Tahun Ajaran</label>
+                                <select class="form-select" aria-label="Default select example" name="tahunajaran" id="tahunajaran">
+                                    <option value>Pilih Tahun Ajaran</option>
+                                    <?php foreach($tahunajaran as $ta) : ?>
+                                    <option value="<?= $ta['id_tahunajaran'] ?>"><?= $ta['nama_tahunajaran'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
                                 <label for="kelas" class="form-label">Kelas</label>
                                 <select class="form-select" aria-label="Default select example" name="kelas" id="kelas">
                                     <option value>Pilih Kelas</option>
                                 </select>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-12">
                                 <label for="" class="form-label">&nbsp;</label>
-                                <button type="button" class="btn btn-add-siswa" data-bs-toggle="modal">
+                                <button type="submit" class="btn btn-add-siswa" data-bs-toggle="modal" style="width: 100%;">
                                 Tampilkan
                                 </button>
                             </div>
+                            </form>
                         </div>
                     </div>
                     </form>
@@ -98,5 +112,62 @@
     </div>
 </section>
 
+<script>
+    function validateAddNilai() {
+        $.ajax({
+            url: "<?= site_url('Nilai/addNilai') ?>",
+            method: "post",
+            data: $("#formAddNilai").serialize(),
+            dataType: "json",
+            success: function(response) {
+
+                if (response.berhasil) {
+                    alert("Data berhasil disimpan");
+                    window.location.reload();
+                }
+            }
+        });
+    };
+
+    function validateFormAddMatapelajaran() {
+        $.ajax({
+            url: "<?= site_url('Nilai/addMapel') ?>",
+            method: "post",
+            data: $("#formAddMatapelajaran").serialize(),
+            dataType: "json",
+            success: function(response) {
+
+                if (response.berhasil) {
+                    alert("Data berhasil disimpan");
+                    window.location.reload();
+                }
+            }
+        });
+    };
+    
+    $(document).ready(function(){
+        
+        $('#jurusan').change(function() {
+            var id_jurusan = $(this).val();
+            $('#tahunajaran').change(function() {
+            var id_tahunajaran = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "<?= base_url('Rapor/getKelas') ?>",
+                    data: {
+                        id_tahunajaran: id_tahunajaran,
+                        id_jurusan: id_jurusan
+                    },
+                    dataType: "JSON",
+                    success: function(response) {
+                        $('#kelas').html(response.data);
+                    }
+
+                });
+            });
+        });
+
+    });
+</script>
 
 <?= $this->endSection(); ?>

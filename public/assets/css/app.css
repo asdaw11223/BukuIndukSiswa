@@ -800,3 +800,14 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination{
 .t-none{
     display: none;
 }
+
+#in-nilai .nav-item .nav-link{
+    border: none;
+    border-radius: 6px;
+}
+
+#in-nilai .nav-item .nav-link.active{
+    background-image: linear-gradient(310deg,#17c1e8,#17c1e8) ;
+    color: white !important;
+    border: none;
+}

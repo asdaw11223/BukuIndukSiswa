@@ -74,10 +74,10 @@
                                             <h4 class="mb-0"><?= $k['nama_kelas'] ?></h4>
                                         </div>
                                     </div>
-                                    <a href="/nilai/<?= $k['id_kelas']?>" class="link card-footer p-3">
-                                        <p class="mb-0">Buka Kelas</p>
-                                        <span class="material-symbols-outlined">arrow_forward</span>
-                                    </a>
+                                    <div class="card-footer" style="letter-spacing:normal">
+                                        <a href="/nilai/<?= $k['id_kelas']?>/1" class="btn w-100 m-1 p-2">Semester 1</a>
+                                        <a href="/nilai/<?= $k['id_kelas']?>/2" class="btn w-100 m-1 p-2">Semester 2</a>
+                                    </div>
                                 </div>
                             </div>
                         <?php endif ?>

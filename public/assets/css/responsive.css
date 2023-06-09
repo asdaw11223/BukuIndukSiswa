@@ -1,0 +1,6 @@
+@media only screen and (max-width: 1024px) {
+    #dashboard .card .card-footer{
+        display: block;
+        margin: none;
+    }
+}

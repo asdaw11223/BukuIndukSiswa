@@ -7,7 +7,7 @@ class NilaiModel extends Model
 {
     protected $table = 'tb_nilai';
     protected $primaryKey = 'id_nilai';
-    protected $allowedFields = ['id_nilai', 'np_kb', 'np_angka', 'np_predikat', 'np_deskripsi', 'nk_kb', 'nk_angka', 'nk_predikat', 'nk_deskripsi', 'id_matapelajaran', 's_NISN', 'id_kelas'];
+    protected $allowedFields = ['id_nilai', 'np_kb', 'np_angka', 'np_predikat', 'np_deskripsi', 'nk_kb', 'nk_angka', 'nk_predikat', 'nk_deskripsi', 'semester', 'id_matapelajaran', 's_NISN', 'id_kelas'];
 
     public function getSiswaDetail($s_NISN)
     {

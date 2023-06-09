@@ -24,6 +24,7 @@
 
     <!-- App Master -->
     <link href="/assets/css/app.css" rel="stylesheet">
+    <link href="/assets/css/responsive.css" rel="stylesheet">
 
     <title>Buku Induk | SMK Pasundan Rancaekek</title>
 </head>

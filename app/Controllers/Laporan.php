@@ -10,6 +10,6 @@ class Laporan extends BaseController
             'title' => 'Laporan',
         ];
 
-        return view('Pages/laporan', $data);
+        return view('auth/login', $data);
     }
 }
