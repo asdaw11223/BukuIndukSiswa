@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <a href="/siswa" class="link card-footer p-3">
-                    <p class="mb-0">Lihat lainnya</p>
+                    <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
             </div>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <a href="/kelas" class="link card-footer p-3">
-                    <p class="mb-0">Lihat lainnya</p>
+                    <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
             </div>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <a href="/jurusan" class="link card-footer p-3">
-                    <p class="mb-0">Lihat lainnya</p>
+                    <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
             </div>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <a href="/matapelajaran" class="link card-footer p-3">
-                    <p class="mb-0">Lihat lainnya</p>
+                    <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
             </div>

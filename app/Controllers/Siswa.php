@@ -404,6 +404,10 @@ class Siswa extends BaseController
 	
     public function edit($s_nisn)
     {
+		if($s_nisn == "baru"){
+			$s_nisn = $_POST['next_data_nisn'];
+		}
+
         $tahunajaran = $this->tahunajaranModel->findAll();
         $jurusan = $this->jurusanModel->findAll();
         $jk = $this->jenisKelaminModel->findAll();

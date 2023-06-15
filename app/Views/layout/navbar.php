@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#" style="color: red;">
+                    <a class="dropdown-item" href="/logout" style="color: red;">
                         <span class="material-symbols-sharp">logout</span>
                         <span class="text">Keluar</span>
                     </a>

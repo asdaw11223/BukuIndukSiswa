@@ -290,22 +290,21 @@
     </div>
 
 <!-- Comp -->
-<form action="javascript:void(0)" method="post" name="formComp" id="formComp" onsubmit="return validateFormComp()">
-<?= csrf_field(); ?>
+<form action="siswa/edit/baru/" method="post" name="formComp" id="formComp">
     <div class="modal delete fade" id="modalFormComp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-center mb-3">
                     <span class="material-symbols-outlined" style="color: #2ebd2e;">done</span>
                     <div class="m-text mb-4">
-                        <p>Data Siswa Berhasil tersimpan.</p>
+                        <p>Inti Data Siswa Berhasil tersimpan.</p>
                     </div>
                     <div id="nisn_id_place">
-
+                                        
                     </div>
                     <div class="m-footer d-flex" style="flex-direction: column-reverse;">
                         <a href="/siswa" class="fly">Nanti</a>
-                        <button type="submit" class="btn" data-id="" style="margin-bottom: 15px; width:200px; background-image: linear-gradient(310deg,#2ebd2e,#2ebd2e);">Lengkapi Data Siswa</button>
+                        <button type="submit" class="btn" data-id="" style="margin-bottom: 15px; width:200px; background-image: linear-gradient(310deg,#2ebd2e,#2ebd2e);">Lanjut Isi Data Siswa</button>
                     </div>
                 </div>
             </div>
