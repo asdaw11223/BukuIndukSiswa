@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2023 at 05:17 PM
+-- Generation Time: Jun 17, 2023 at 06:57 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,166 @@ SET time_zone = "+00:00";
 --
 -- Database: `smk_pasundan_rancaekek`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_activation_attempts`
+--
+
+CREATE TABLE `auth_activation_attempts` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `ip_address` varchar(255) NOT NULL,
+  `user_agent` varchar(255) NOT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `auth_activation_attempts`
+--
+
+INSERT INTO `auth_activation_attempts` (`id`, `ip_address`, `user_agent`, `token`, `created_at`) VALUES
+(1, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36', '59760a18e2f38c947863d0b019eb470b', '2023-06-08 16:31:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_groups`
+--
+
+CREATE TABLE `auth_groups` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_groups_permissions`
+--
+
+CREATE TABLE `auth_groups_permissions` (
+  `group_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_groups_users`
+--
+
+CREATE TABLE `auth_groups_users` (
+  `group_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `user_id` int(11) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_logins`
+--
+
+CREATE TABLE `auth_logins` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `ip_address` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `user_id` int(11) UNSIGNED DEFAULT NULL,
+  `date` datetime NOT NULL,
+  `success` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `auth_logins`
+--
+
+INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `success`) VALUES
+(1, '::1', 'dikifauzi', 6, '2023-06-08 15:42:49', 0),
+(2, '::1', 'dikifauzi', 7, '2023-06-08 16:30:50', 0),
+(3, '::1', 'akbareskhart@gmail.com', 7, '2023-06-08 16:31:22', 1),
+(4, '::1', 'akbareskhart@gmail.com', 7, '2023-06-08 17:45:48', 1),
+(5, '::1', 'akbareskhart@gmail.com', 7, '2023-06-10 17:02:45', 1),
+(6, '::1', 'akbareskhart@gmail.com', 7, '2023-06-11 22:52:46', 1),
+(7, '::1', 'akbareskhart@gmail.com', 7, '2023-06-12 02:36:11', 1),
+(8, '::1', 'akbareskhart@gmail.com', 7, '2023-06-12 11:28:49', 1),
+(9, '::1', 'akbareskhart@gmail.com', 7, '2023-06-12 11:46:12', 1),
+(10, '::1', 'akbareskhart@gmail.com', 7, '2023-06-13 21:14:46', 1),
+(11, '::1', 'akbareskhart@gmail.com', 7, '2023-06-13 21:45:43', 1),
+(12, '::1', 'akbareskhart@gmail.com', 7, '2023-06-13 21:46:18', 1),
+(13, '::1', 'akbareskhart@gmail.com', 7, '2023-06-13 21:46:30', 1),
+(14, '::1', 'akbareskhart@gmail.com', 7, '2023-06-13 21:46:52', 1),
+(15, '::1', 'akbareskhart@gmail.com', 7, '2023-06-13 21:47:03', 1),
+(16, '::1', 'akbareskhart@gmail.com', 7, '2023-06-13 21:50:20', 1),
+(17, '::1', 'akbareskhart@gmail.com', 7, '2023-06-13 22:05:55', 1),
+(18, '::1', 'akbareskhart@gmail.com', 7, '2023-06-13 22:35:18', 1),
+(19, '::1', 'akbareskhart@gmail.com', 7, '2023-06-14 09:36:32', 1),
+(20, '::1', 'akbareskhart@gmail.com', 7, '2023-06-14 17:45:34', 1),
+(21, '::1', 'akbareskhart@gmail.com', 7, '2023-06-14 23:45:12', 1),
+(22, '::1', 'akbareskhart@gmail.com', 7, '2023-06-15 05:48:36', 1),
+(23, '::1', 'akbareskhart@gmail.com', 7, '2023-06-15 21:58:32', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_permissions`
+--
+
+CREATE TABLE `auth_permissions` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_reset_attempts`
+--
+
+CREATE TABLE `auth_reset_attempts` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `ip_address` varchar(255) NOT NULL,
+  `user_agent` varchar(255) NOT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `auth_reset_attempts`
+--
+
+INSERT INTO `auth_reset_attempts` (`id`, `email`, `ip_address`, `user_agent`, `token`, `created_at`) VALUES
+(1, 'dikifauzi@gmasa.c.c', '::1', 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36', '', '2023-06-13 21:43:35'),
+(2, 'dikifauzi@gmasa.c.c', '::1', 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36', '', '2023-06-13 21:44:30'),
+(3, 'akbareskhart@gmail.com', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36', '083669416e6410a737ca93530020760a', '2023-06-13 21:50:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_tokens`
+--
+
+CREATE TABLE `auth_tokens` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `selector` varchar(255) NOT NULL,
+  `hashedValidator` varchar(255) NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `expires` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_users_permissions`
+--
+
+CREATE TABLE `auth_users_permissions` (
+  `user_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -7530,6 +7690,29 @@ INSERT INTO `districts` (`dis_id`, `dis_name`, `city_id`) VALUES
 (6992, 'KAITARO', 475),
 (6993, 'ABUN', 472),
 (6994, 'ROSWAR', 474);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `version` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `group` varchar(255) NOT NULL,
+  `namespace` varchar(255) NOT NULL,
+  `time` int(11) NOT NULL,
+  `batch` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`, `batch`) VALUES
+(1, '2017-11-20-223112', 'Myth\\Auth\\Database\\Migrations\\CreateAuthTables', 'default', 'Myth\\Auth', 1686236388, 1);
 
 -- --------------------------------------------------------
 
@@ -88900,7 +89083,21 @@ CREATE TABLE `tb_alamat` (
 
 INSERT INTO `tb_alamat` (`id_alamat`, `s_alamat`, `s_rt`, `s_rw`, `subdis_id`, `dis_id`, `city_id`, `prov_id`, `s_telprumah`, `s_tinggal`, `s_jaraksekolah`, `s_kendaraan`, `s_NISN`) VALUES
 (108, '10', '10', '10', 0, 0, 0, 0, '10', '10', '10', '10', '10'),
-(109, '11', '11', '11', 0, 0, 0, 0, '11', '11', '11', '11', '11');
+(109, '11', '11', '11', 0, 0, 0, 0, '11', '11', '11', '11', '11'),
+(110, '12', '12', '12', 0, 0, 0, 0, '12', '12', '12', '12', '12'),
+(111, '1', '1', '1', 0, 0, 0, 0, '1', '1', '1', '1', '13'),
+(113, 'Jln. Bunga', '13', '01', 71458, 6028, 406, 29, '', '', '', '', '14'),
+(114, 'asadasdasd', '3', '3', 13313, 851, 60, 3, '', '', '', '', '123123123'),
+(115, 'asdasd', '2', '4', 37792, 2569, 180, 13, '', '', '', '', '3131'),
+(116, 'asd', '3', '3', 12331, 363, 37, 2, '', '', '', '', '090909'),
+(117, 'asd', '3', '3', 5485, 45, 4, 1, '', '', '', '', '0902909'),
+(118, 'asd', '3', '3', 7652, 472, 26, 2, '', '', '', '', '09029093'),
+(119, 'asdasd', '3', '3', 47609, 3278, 217, 15, '', '', '', '', '124124124'),
+(120, 'asdasd', '3', '3', 2981, 184, 11, 1, '', '', '', '', '1241241224'),
+(121, 'asdasdad', '1', '2', 42265, 3318, 216, 15, '', '', '', '', '030699'),
+(122, 'asdasd', '3', '3', 39926, 3172, 212, 14, '', '', '', '', '111110090'),
+(123, 'asdasd', '2', '2', 4657, 54, 4, 1, '', '', '', '', '908070'),
+(124, 'gfgfg', '5', '6', 4405, 83, 4, 1, '', '', '', '', '5656');
 
 -- --------------------------------------------------------
 
@@ -88926,7 +89123,13 @@ INSERT INTO `tb_beasiswa` (`id_beasiswa`, `s_namabeasiswa`, `s_tahunbeasiswa`, `
 (185, '10', '10', '10', '10'),
 (186, '11', '11', '11', '11'),
 (187, '11', '11', '11', '11'),
-(188, '11', '11', '11', '11');
+(188, '11', '11', '11', '11'),
+(189, '12', '12', '12', '12'),
+(190, '12', '12', '12', '12'),
+(191, '12', '12', '12', '12'),
+(192, '1', '1', ' ', '13'),
+(193, ' ', ' ', ' ', '13'),
+(194, ' ', ' ', ' ', '13');
 
 -- --------------------------------------------------------
 
@@ -88946,7 +89149,9 @@ CREATE TABLE `tb_catatanpenting` (
 
 INSERT INTO `tb_catatanpenting` (`id_catatanpenting`, `s_catatanpenting`, `s_NISN`) VALUES
 (66, '10', '10'),
-(67, '11', '11');
+(67, '11', '11'),
+(68, '12', '12'),
+(69, ' ', '13');
 
 -- --------------------------------------------------------
 
@@ -88966,7 +89171,10 @@ CREATE TABLE `tb_daftarsiswakelas` (
 
 INSERT INTO `tb_daftarsiswakelas` (`id_daftarsiswakelas`, `id_kelas`, `s_NISN`) VALUES
 (22, 14, '10'),
-(24, 14, '11');
+(24, 14, '11'),
+(25, 14, '12'),
+(26, 14, '13'),
+(27, 14, '14');
 
 -- --------------------------------------------------------
 
@@ -89033,7 +89241,6 @@ CREATE TABLE `tb_kehadiran` (
 CREATE TABLE `tb_kelas` (
   `id_kelas` int(11) NOT NULL,
   `nama_kelas` varchar(255) NOT NULL,
-  `tahun_masuk` varchar(255) NOT NULL,
   `id_tahunajaran` int(11) NOT NULL,
   `id_jurusan` int(11) NOT NULL,
   `id_tingkat` int(11) NOT NULL
@@ -89043,10 +89250,11 @@ CREATE TABLE `tb_kelas` (
 -- Dumping data for table `tb_kelas`
 --
 
-INSERT INTO `tb_kelas` (`id_kelas`, `nama_kelas`, `tahun_masuk`, `id_tahunajaran`, `id_jurusan`, `id_tingkat`) VALUES
-(10, 'BDP 1', '2021/2022', 5, 1, 4),
-(14, 'BDP 2', '2021/2022', 5, 1, 4),
-(15, 'BDP 3', '2021/2022', 5, 1, 6);
+INSERT INTO `tb_kelas` (`id_kelas`, `nama_kelas`, `id_tahunajaran`, `id_jurusan`, `id_tingkat`) VALUES
+(10, 'BDP 1', 5, 1, 4),
+(14, 'BDP 2', 6, 1, 4),
+(15, 'BDP 3', 7, 1, 4),
+(24, 'TKJ 1', 5, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -89073,7 +89281,9 @@ CREATE TABLE `tb_kepribadian` (
 
 INSERT INTO `tb_kepribadian` (`id_kepribadian`, `s_intelegensi`, `s_tgltestiq`, `sk_disiplin`, `sk_kreativitas`, `sk_tanggungjawab`, `sk_penyesuaiandiri`, `sk_kemantapanemosi`, `sk_kerjasama`, `s_NISN`) VALUES
 (68, '10', '0000-00-00', '10', '10', '10', '10', '10', '10', '10'),
-(69, '11', '2039-12-22', '11', '11', '11', '11', '11', '11', '11');
+(69, '11', '2039-12-22', '11', '11', '11', '11', '11', '11', '11'),
+(70, '12', '0000-00-00', '12', '12', '12', '12', '12', '12', '12'),
+(71, '1', '2040-01-01', '1', '1', '1', '1', '1', '1', '13');
 
 -- --------------------------------------------------------
 
@@ -89098,27 +89308,21 @@ CREATE TABLE `tb_kesehatan` (
 
 INSERT INTO `tb_kesehatan` (`id_kesehatan`, `s_bbterima`, `s_tbterima`, `s_bbkeluar`, `s_tbkeluar`, `s_golongandarah`, `s_kelainan`, `s_NISN`) VALUES
 (99, 10, 10, 10, 10, '10', '10', '10'),
-(100, 11, 11, 11, 11, '11', '11', '11');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_mapel_jadwal`
---
-
-CREATE TABLE `tb_mapel_jadwal` (
-  `id_mapel_jawal` int(11) NOT NULL,
-  `id_tingkat` int(11) NOT NULL,
-  `id_tahunajaran` int(11) NOT NULL,
-  `id_matapelajaran` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tb_mapel_jadwal`
---
-
-INSERT INTO `tb_mapel_jadwal` (`id_mapel_jawal`, `id_tingkat`, `id_tahunajaran`, `id_matapelajaran`) VALUES
-(1160, 1, 5, 1);
+(100, 11, 11, 11, 11, '11', '11', '11'),
+(101, 12, 12, 12, 12, '12', '12', '12'),
+(102, 1, 1, 1, 1, '1', '1', '13'),
+(104, NULL, NULL, NULL, NULL, '', '', '14'),
+(105, NULL, NULL, NULL, NULL, '', '', '123123123'),
+(106, NULL, NULL, NULL, NULL, '', '', '3131'),
+(107, NULL, NULL, NULL, NULL, '', '', '090909'),
+(108, NULL, NULL, NULL, NULL, '', '', '0902909'),
+(109, NULL, NULL, NULL, NULL, '', '', '09029093'),
+(110, NULL, NULL, NULL, NULL, '', '', '124124124'),
+(111, NULL, NULL, NULL, NULL, '', '', '1241241224'),
+(112, NULL, NULL, NULL, NULL, '', '', '030699'),
+(113, NULL, NULL, NULL, NULL, '', '', '111110090'),
+(114, NULL, NULL, NULL, NULL, '', '', '908070'),
+(115, NULL, NULL, NULL, NULL, '', '', '5656');
 
 -- --------------------------------------------------------
 
@@ -89149,7 +89353,11 @@ INSERT INTO `tb_masuk` (`id_masuk`, `sp_diterimatgl`, `sp_asalsekolah`, `sp_tgln
 (245, '0000-00-00', '10', '10', '0000-00-00', '10', '10', '', '', '', 'Baru', '10'),
 (246, '0000-00-00', '10', '10', '0000-00-00', '10', '10', '10', '10', '10', 'Pindahan', '10'),
 (247, '2039-12-22', '11', '11', '2039-12-22', '11', '11', '', '', '', 'Baru', '11'),
-(248, '2039-12-22', '11', '11', '2039-12-22', '11', '11', '11', '11', '11', 'Pindahan', '11');
+(248, '2039-12-22', '11', '11', '2039-12-22', '11', '11', '11', '11', '11', 'Pindahan', '11'),
+(249, '0000-00-00', '12', '12', '0000-00-00', '12', '12', '', '', '', 'Baru', '12'),
+(250, '0000-00-00', '12', '12', '0000-00-00', '12', '12', '12', '12', '12', 'Pindahan', '12'),
+(251, '2040-01-01', '1', '1', '2040-01-01', '1', '1', '', '', '', 'Baru', '13'),
+(252, '2040-01-01', '1', '1', '2040-01-01', '1', '1', '1', '1', '1', 'Pindahan', '13');
 
 -- --------------------------------------------------------
 
@@ -89194,10 +89402,82 @@ CREATE TABLE `tb_nilai` (
   `nk_angka` int(11) NOT NULL,
   `nk_predikat` varchar(255) NOT NULL,
   `nk_deskripsi` varchar(255) NOT NULL,
+  `semester` int(11) NOT NULL,
   `id_matapelajaran` int(11) NOT NULL,
   `s_NISN` varchar(255) NOT NULL,
   `id_kelas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_nilai`
+--
+
+INSERT INTO `tb_nilai` (`id_nilai`, `np_kb`, `np_angka`, `np_predikat`, `np_deskripsi`, `nk_kb`, `nk_angka`, `nk_predikat`, `nk_deskripsi`, `semester`, `id_matapelajaran`, `s_NISN`, `id_kelas`) VALUES
+(21, 1, 2, 'A', 'B', 3, 4, 'C', 'D', 1, 1, '10', 14),
+(22, 1, 2, 'A', 'B', 3, 4, 'C', 'D', 1, 1, '11', 14),
+(23, 2, 3, 'D', 'E', 4, 5, 'F', 'G', 1, 1, '12', 14),
+(24, 0, 0, '', '', 0, 0, '', '', 1, 1, '13', 14),
+(25, 0, 0, '', '', 0, 0, '', '', 1, 1, '14', 14),
+(26, 0, 0, '', '', 0, 0, '', '', 2, 16, '10', 14),
+(27, 0, 0, '', '', 0, 0, '', '', 2, 16, '11', 14),
+(28, 0, 0, '', '', 0, 0, '', '', 2, 16, '12', 14),
+(29, 0, 0, '', '', 0, 0, '', '', 2, 16, '13', 14),
+(30, 0, 0, '', '', 0, 0, '', '', 2, 16, '14', 14),
+(31, 0, 0, '', '', 0, 0, '', '', 2, 11, '10', 14),
+(32, 0, 0, '', '', 0, 0, '', '', 2, 11, '11', 14),
+(33, 0, 0, '', '', 0, 0, '', '', 2, 11, '12', 14),
+(34, 0, 0, '', '', 0, 0, '', '', 2, 11, '13', 14),
+(35, 0, 0, '', '', 0, 0, '', '', 2, 11, '14', 14),
+(36, 1, 2, 'E', 'A', 3, 4, 'W', 'Q', 2, 15, '10', 14),
+(37, 0, 0, '', '', 0, 0, '', '', 2, 15, '11', 14),
+(38, 0, 0, '', '', 0, 0, '', '', 2, 15, '12', 14),
+(39, 0, 0, '', '', 0, 0, '', '', 2, 15, '13', 14),
+(40, 0, 0, '', '', 0, 0, '', '', 2, 15, '14', 14),
+(41, 0, 0, '', '', 0, 0, '', '', 2, 16, '10', 14),
+(42, 0, 0, '', '', 0, 0, '', '', 2, 16, '11', 14),
+(43, 0, 0, '', '', 0, 0, '', '', 2, 16, '12', 14),
+(44, 0, 0, '', '', 0, 0, '', '', 2, 16, '13', 14),
+(45, 0, 0, '', '', 0, 0, '', '', 2, 16, '14', 14),
+(46, 2, 3, 'A', 'E', 4, 5, 'A', 'D', 1, 18, '10', 14),
+(47, 5, 6, 'E', 'F', 7, 8, 'G', 'H', 1, 18, '11', 14),
+(48, 6, 7, 'R', 'T', 8, 9, 'I', 'O', 1, 18, '12', 14),
+(49, 0, 0, '', '', 0, 0, '', '', 1, 18, '13', 14),
+(50, 0, 0, '', '', 0, 0, '', '', 1, 18, '14', 14),
+(51, 0, 0, '', '', 0, 0, '', '', 1, 11, '10', 14),
+(52, 0, 0, '', '', 0, 0, '', '', 1, 11, '11', 14),
+(53, 0, 0, '', '', 0, 0, '', '', 1, 11, '12', 14),
+(54, 0, 0, '', '', 0, 0, '', '', 1, 11, '13', 14),
+(55, 0, 0, '', '', 0, 0, '', '', 1, 11, '14', 14),
+(56, 0, 0, '', '', 0, 0, '', '', 2, 21, '10', 14),
+(57, 0, 0, '', '', 0, 0, '', '', 2, 21, '11', 14),
+(58, 0, 0, '', '', 0, 0, '', '', 2, 21, '12', 14),
+(59, 0, 0, '', '', 0, 0, '', '', 2, 21, '13', 14),
+(60, 0, 0, '', '', 0, 0, '', '', 2, 21, '14', 14),
+(61, 0, 0, '', '', 0, 0, '', '', 1, 16, '10', 14),
+(62, 0, 0, '', '', 0, 0, '', '', 1, 16, '11', 14),
+(63, 0, 0, '', '', 0, 0, '', '', 1, 16, '12', 14),
+(64, 0, 0, '', '', 0, 0, '', '', 1, 16, '13', 14),
+(65, 0, 0, '', '', 0, 0, '', '', 1, 16, '14', 14),
+(66, 0, 0, '', '', 0, 0, '', '', 1, 21, '10', 14),
+(67, 0, 0, '', '', 0, 0, '', '', 1, 21, '11', 14),
+(68, 0, 0, '', '', 0, 0, '', '', 1, 21, '12', 14),
+(69, 0, 0, '', '', 0, 0, '', '', 1, 21, '13', 14),
+(70, 0, 0, '', '', 0, 0, '', '', 1, 21, '14', 14),
+(91, 0, 0, '', '', 0, 0, '', '', 1, 15, '10', 14),
+(92, 0, 0, '', '', 0, 0, '', '', 1, 15, '11', 14),
+(93, 0, 0, '', '', 0, 0, '', '', 1, 15, '12', 14),
+(94, 0, 0, '', '', 0, 0, '', '', 1, 15, '13', 14),
+(95, 0, 0, '', '', 0, 0, '', '', 1, 15, '14', 14),
+(96, 0, 0, '', '', 0, 0, '', '', 1, 14, '10', 14),
+(97, 0, 0, '', '', 0, 0, '', '', 1, 15, '10', 14),
+(98, 0, 0, '', '', 0, 0, '', '', 1, 14, '11', 14),
+(99, 0, 0, '', '', 0, 0, '', '', 1, 15, '11', 14),
+(100, 0, 0, '', '', 0, 0, '', '', 1, 14, '12', 14),
+(101, 0, 0, '', '', 0, 0, '', '', 1, 15, '12', 14),
+(102, 0, 0, '', '', 0, 0, '', '', 1, 14, '13', 14),
+(103, 0, 0, '', '', 0, 0, '', '', 1, 15, '13', 14),
+(104, 0, 0, '', '', 0, 0, '', '', 1, 14, '14', 14),
+(105, 0, 0, '', '', 0, 0, '', '', 1, 15, '14', 14);
 
 -- --------------------------------------------------------
 
@@ -89227,7 +89507,11 @@ INSERT INTO `tb_orangtua` (`id_orangtua`, `id_jeniskelamin`, `sa_nama`, `sa_temp
 (157, 1, '10', '10', '0000-00-00', '10', '10', '10', 10, '10', '10'),
 (158, 2, '10', '10', '0000-00-00', '10', '10', '10', 10, '10', '10'),
 (159, 1, '11', '11', '2039-12-22', '11', '11', '11', 11, '11', '11'),
-(160, 2, '11', '11', '2039-12-22', '11', '11', '11', 11, '11', '11');
+(160, 2, '11', '11', '2039-12-22', '11', '11', '11', 11, '11', '11'),
+(161, 1, '12', '12', '0000-00-00', '12', '12', '12', 12, '12', '12'),
+(162, 2, '12', '12', '0000-00-00', '12', '12', '12', 12, '12', '12'),
+(163, 1, '1', '1', '2040-01-01', '1', '1', '1', 1, '1', '13'),
+(164, 2, '1', '1', '2040-01-01', '1', '1', '1', 1, '1', '13');
 
 -- --------------------------------------------------------
 
@@ -89252,7 +89536,21 @@ CREATE TABLE `tb_pendidikan` (
 
 INSERT INTO `tb_pendidikan` (`id_pendidikan`, `s_tgltamat`, `s_noijasah`, `s_melanjutkansekolah`, `s_alamat`, `s_tglputus`, `s_alasaputus`, `s_NISN`) VALUES
 (108, '0000-00-00', '10', '10', '10', '0000-00-00', '10', '10'),
-(109, '2039-12-22', '11', '11', '11', '2039-12-22', '11', '11');
+(109, '2039-12-22', '11', '11', '11', '2039-12-22', '11', '11'),
+(110, '0000-00-00', '12', '12', '12', '0000-00-00', '12', '12'),
+(111, '2040-01-01', '1', '1', '1', '2040-01-01', '1', '13'),
+(113, '0000-00-00', '', '', '', '0000-00-00', '', '14'),
+(114, '0000-00-00', '', '', '', '0000-00-00', '', '123123123'),
+(115, '0000-00-00', '', '', '', '0000-00-00', '', '3131'),
+(116, '0000-00-00', '', '', '', '0000-00-00', '', '090909'),
+(117, '0000-00-00', '', '', '', '0000-00-00', '', '0902909'),
+(118, '0000-00-00', '', '', '', '0000-00-00', '', '09029093'),
+(119, '0000-00-00', '', '', '', '0000-00-00', '', '124124124'),
+(120, '0000-00-00', '', '', '', '0000-00-00', '', '1241241224'),
+(121, '0000-00-00', '', '', '', '0000-00-00', '', '030699'),
+(122, '0000-00-00', '', '', '', '0000-00-00', '', '111110090'),
+(123, '0000-00-00', '', '', '', '0000-00-00', '', '908070'),
+(124, '0000-00-00', '', '', '', '0000-00-00', '', '5656');
 
 -- --------------------------------------------------------
 
@@ -89292,7 +89590,9 @@ CREATE TABLE `tb_pindah` (
 
 INSERT INTO `tb_pindah` (`id_pindah`, `pp_kesekolah`, `pp_tglpindah`, `pp_drkelas`, `pp_alamatsekolah`, `pp_alasanpindah`, `s_NISN`) VALUES
 (115, '10', '0000-00-00', '10', '10', '10', '10'),
-(116, '11', '2039-12-22', '11', '11', '11', '11');
+(116, '11', '2039-12-22', '11', '11', '11', '11'),
+(117, '12', '0000-00-00', '12', '12', '12', '12'),
+(118, '1', '2040-01-01', '1', '1', '1', '13');
 
 -- --------------------------------------------------------
 
@@ -89317,21 +89617,31 @@ INSERT INTO `tb_prestasi` (`id_prestasi`, `pre_jenisprestasi`, `pre_keterangan`,
 (187, '10', '10', '10'),
 (188, '11', '11', '11'),
 (189, '11', '11', '11'),
-(190, '11', '11', '11');
+(190, '11', '11', '11'),
+(191, '12', '12', '12'),
+(192, '12', '12', '12'),
+(193, '12', '12', '12'),
+(194, '1', '1', '13'),
+(195, '1', '1', '13'),
+(196, '1', '1', '13');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_semester`
+-- Table structure for table `tb_profile`
 --
 
-CREATE TABLE `tb_semester` (
-  `id_semester` int(11) NOT NULL,
-  `nama_semester` varchar(255) NOT NULL,
-  `dns_spiritual` varchar(255) NOT NULL,
-  `dns_sosial` varchar(255) NOT NULL,
-  `id_daftarsiswakelas` int(11) NOT NULL
+CREATE TABLE `tb_profile` (
+  `id_profile` int(11) NOT NULL,
+  `nama_profile` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_profile`
+--
+
+INSERT INTO `tb_profile` (`id_profile`, `nama_profile`) VALUES
+(1, '<figure class=\"table\"><table><tbody><tr><td><strong>Nama Sekolah</strong></td><td>:</td><td>SMK PASUNDAN RANCAEKEK</td></tr><tr><td><strong>NPSN</strong></td><td>:</td><td>69815424</td></tr><tr><td><strong>Alamat</strong></td><td>:</td><td>Jln. Babakan Radio No.1 RT 06 RW 21</td></tr><tr><td><strong>Kelurahan</strong></td><td>:</td><td>Rancaekek Wetan</td></tr><tr><td><strong>Kode Pos</strong></td><td>:</td><td>40394</td></tr><tr><td><strong>Kecamatan</strong></td><td>:</td><td>Rancaekek</td></tr><tr><td><strong>Kota</strong></td><td>:</td><td>Kab. Bandung</td></tr><tr><td><strong>Propinsi</strong></td><td>:</td><td>Jawa Barat</td></tr><tr><td><strong>No. Telepon</strong></td><td>:</td><td>(022) 87837856</td></tr><tr><td><strong>Email</strong></td><td>:</td><td>smkpasrancaekek@gmail.com</td></tr></tbody></table></figure>');
 
 -- --------------------------------------------------------
 
@@ -89368,7 +89678,21 @@ CREATE TABLE `tb_siswa` (
 
 INSERT INTO `tb_siswa` (`id_siswa`, `s_NISN`, `s_namalengkap`, `s_namapanggilan`, `id_jeniskelamin`, `s_tempatlahir`, `s_tanggallahir`, `s_photo`, `s_agama`, `s_kewanegaraan`, `s_anakke`, `s_anakyp`, `s_bahasaharian`, `s_kandung`, `s_tiri`, `s_angkat`, `id_tahunajaran`, `id_jurusan`, `created_at`, `updated_at`) VALUES
 (158, '10', '10', '10', 2, '10', '0000-00-00', '10', '10', '11', '10', '10', '10', 10, 10, 10, 5, 2, '2023-04-24 07:16:44', '2023-04-24 07:16:44'),
-(159, '11', '11', '11', 2, '11', '2039-12-22', '2039-12-22', '11', '11', '11', '11', '11', 11, 11, 11, 7, 1, '2023-05-14 03:14:41', '2023-05-14 03:14:41');
+(159, '11', '11', '11', 2, '11', '2039-12-22', '2039-12-22', '11', '11', '11', '11', '11', 11, 11, 11, 7, 1, '2023-05-14 03:14:41', '2023-05-14 03:14:41'),
+(160, '12', '12', '12', 2, '12', '0000-00-00', '12', '12', '12', '12', '12', '12', 12, 12, 12, 7, 1, '2023-05-23 06:38:13', '2023-05-23 06:38:13'),
+(161, '13', 'Diki', '1', 2, '1', '2040-01-01', '2040-01-01', '1', '1', '1', '1', '1', 1, 1, 1, 7, 1, '2023-05-23 06:40:15', '2023-05-23 06:40:15'),
+(163, '14', 'Rizki', '', 1, 'Sumedang', '1999-05-06', '', '', '', '', '', '', 0, 0, 0, 7, 1, '2023-05-23 06:43:47', '2023-05-23 06:43:47'),
+(164, '123123123', 'Asdasd', '', 1, 'asdad', '3333-12-31', '', '', '', '', '', '', 0, 0, 0, 7, 2, '2023-06-13 22:10:02', '2023-06-13 22:10:02'),
+(165, '3131', 'asdad', '', 1, 'asd', '2233-12-31', '', '', '', '', '', '', 0, 0, 0, 7, 2, '2023-06-13 22:16:11', '2023-06-13 22:16:11'),
+(166, '090909', 'asdasfgg', '', 2, '123das', '3333-03-12', '', '', '', '', '', '', 0, 0, 0, 7, 1, '2023-06-13 22:18:31', '2023-06-13 22:18:31'),
+(167, '0902909', 'asdasfgg', '', 2, '123das', '3333-03-12', '', '', '', '', '', '', 0, 0, 0, 7, 1, '2023-06-13 22:19:14', '2023-06-13 22:19:14'),
+(168, '09029093', 'asdasfgg', '', 2, '123das', '3333-03-12', '', '', '', '', '', '', 0, 0, 0, 7, 1, '2023-06-13 22:21:19', '2023-06-13 22:21:19'),
+(169, '124124124', 'asdasdfqf', '', 1, 'qweqwe', '3332-12-12', '', '', '', '', '', '', 0, 0, 0, 6, 2, '2023-06-13 22:22:59', '2023-06-13 22:22:59'),
+(170, '1241241224', 'asdasdfqf', '', 1, 'qweqwe', '3332-12-12', '', '', '', '', '', '', 0, 0, 0, 6, 2, '2023-06-13 22:25:45', '2023-06-13 22:25:45'),
+(171, '030699', 'asdasdfqf', '', 2, '123das', '1999-06-03', '', '', '', '', '', '', 0, 0, 0, 7, 1, '2023-06-13 22:27:13', '2023-06-13 22:27:13'),
+(172, '111110090', 'dasd', '', 2, 'adasd', '1999-03-06', '', '', '', '', '', '', 0, 0, 0, 6, 2, '2023-06-13 22:31:31', '2023-06-13 22:31:31'),
+(173, '908070', 'asdasdfqf', '', 2, 'qweqwe', '1999-03-03', '', '', '', '', '', '', 0, 0, 0, 7, 2, '2023-06-13 22:33:05', '2023-06-13 22:33:05'),
+(174, '5656', 'dasd', '', 1, '123das', '1998-09-07', '', '', '', '', '', '', 0, 0, 0, 5, 1, '2023-06-13 22:34:17', '2023-06-13 22:34:17');
 
 -- --------------------------------------------------------
 
@@ -89440,11 +89764,105 @@ CREATE TABLE `tb_wali` (
 
 INSERT INTO `tb_wali` (`id_wali`, `sw_nama`, `sw_tempatlahir`, `sw_tgllahir`, `sw_kewanegaraan`, `sw_ptertinggi`, `sw_pekerjaan`, `sw_penghasilan`, `sw_alamat`, `sw_hubunganpeserta`, `s_NISN`) VALUES
 (67, '10', '10', '0000-00-00', '10', '10', '10', 10, '10', '10', '10'),
-(68, '11', '11', '2039-12-22', '11', '11', '11', 11, '11', '11', '11');
+(68, '11', '11', '2039-12-22', '11', '11', '11', 11, '11', '11', '11'),
+(69, '12', '12', '0000-00-00', '12', '12', '12', 12, '12', '12', '12'),
+(70, '1', '1', '2040-01-01', '1', '1', '1', 1, '1', '1', '13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `username` varchar(30) DEFAULT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `reset_hash` varchar(255) DEFAULT NULL,
+  `reset_at` datetime DEFAULT NULL,
+  `reset_expires` datetime DEFAULT NULL,
+  `activate_hash` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `status_message` varchar(255) DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `force_pass_reset` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `username`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(7, 'akbareskhart@gmail.com', 'dikifauzi', '$2y$10$S1p1en.noOSy64jlOXkTu.AhgcQRiImOUFksmCkx/OwcRM8GCcWti', NULL, '2023-06-13 21:50:14', NULL, NULL, NULL, NULL, 1, 0, '2023-06-08 16:30:01', '2023-06-13 21:50:14', NULL);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `auth_activation_attempts`
+--
+ALTER TABLE `auth_activation_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `auth_groups`
+--
+ALTER TABLE `auth_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `auth_groups_permissions`
+--
+ALTER TABLE `auth_groups_permissions`
+  ADD KEY `auth_groups_permissions_permission_id_foreign` (`permission_id`),
+  ADD KEY `group_id_permission_id` (`group_id`,`permission_id`);
+
+--
+-- Indexes for table `auth_groups_users`
+--
+ALTER TABLE `auth_groups_users`
+  ADD KEY `auth_groups_users_user_id_foreign` (`user_id`),
+  ADD KEY `group_id_user_id` (`group_id`,`user_id`);
+
+--
+-- Indexes for table `auth_logins`
+--
+ALTER TABLE `auth_logins`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `email` (`email`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `auth_permissions`
+--
+ALTER TABLE `auth_permissions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `auth_reset_attempts`
+--
+ALTER TABLE `auth_reset_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `auth_tokens`
+--
+ALTER TABLE `auth_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `auth_tokens_user_id_foreign` (`user_id`),
+  ADD KEY `selector` (`selector`);
+
+--
+-- Indexes for table `auth_users_permissions`
+--
+ALTER TABLE `auth_users_permissions`
+  ADD KEY `auth_users_permissions_permission_id_foreign` (`permission_id`),
+  ADD KEY `user_id_permission_id` (`user_id`,`permission_id`);
 
 --
 -- Indexes for table `cities`
@@ -89459,6 +89877,12 @@ ALTER TABLE `cities`
 ALTER TABLE `districts`
   ADD PRIMARY KEY (`dis_id`),
   ADD KEY `city_id` (`city_id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `provinces`
@@ -89549,15 +89973,6 @@ ALTER TABLE `tb_kesehatan`
   ADD KEY `s_NISN` (`s_NISN`);
 
 --
--- Indexes for table `tb_mapel_jadwal`
---
-ALTER TABLE `tb_mapel_jadwal`
-  ADD PRIMARY KEY (`id_mapel_jawal`),
-  ADD KEY `id_tingkat` (`id_tingkat`),
-  ADD KEY `id_tahunajaran` (`id_tahunajaran`),
-  ADD KEY `id_matapelajaran` (`id_matapelajaran`);
-
---
 -- Indexes for table `tb_masuk`
 --
 ALTER TABLE `tb_masuk`
@@ -89575,9 +89990,9 @@ ALTER TABLE `tb_matapelajaran`
 --
 ALTER TABLE `tb_nilai`
   ADD PRIMARY KEY (`id_nilai`),
-  ADD KEY `tb_nilai_ibfk_2` (`id_matapelajaran`),
   ADD KEY `tb_nilai_ibfk_3` (`id_kelas`),
-  ADD KEY `tb_nilai_ibfk_4` (`s_NISN`);
+  ADD KEY `tb_nilai_ibfk_4` (`s_NISN`),
+  ADD KEY `id_matapelajaran` (`id_matapelajaran`);
 
 --
 -- Indexes for table `tb_orangtua`
@@ -89616,11 +90031,10 @@ ALTER TABLE `tb_prestasi`
   ADD KEY `s_NISN` (`s_NISN`);
 
 --
--- Indexes for table `tb_semester`
+-- Indexes for table `tb_profile`
 --
-ALTER TABLE `tb_semester`
-  ADD PRIMARY KEY (`id_semester`),
-  ADD KEY `id_daftarsiswakelas` (`id_daftarsiswakelas`);
+ALTER TABLE `tb_profile`
+  ADD PRIMARY KEY (`id_profile`);
 
 --
 -- Indexes for table `tb_siswa`
@@ -89653,8 +90067,52 @@ ALTER TABLE `tb_wali`
   ADD KEY `s_NISN` (`s_NISN`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `auth_activation_attempts`
+--
+ALTER TABLE `auth_activation_attempts`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `auth_groups`
+--
+ALTER TABLE `auth_groups`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `auth_logins`
+--
+ALTER TABLE `auth_logins`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `auth_permissions`
+--
+ALTER TABLE `auth_permissions`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `auth_reset_attempts`
+--
+ALTER TABLE `auth_reset_attempts`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `auth_tokens`
+--
+ALTER TABLE `auth_tokens`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -89667,6 +90125,12 @@ ALTER TABLE `cities`
 --
 ALTER TABLE `districts`
   MODIFY `dis_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6996;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `provinces`
@@ -89684,25 +90148,25 @@ ALTER TABLE `subdistricts`
 -- AUTO_INCREMENT for table `tb_alamat`
 --
 ALTER TABLE `tb_alamat`
-  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `tb_beasiswa`
 --
 ALTER TABLE `tb_beasiswa`
-  MODIFY `id_beasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `id_beasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
 
 --
 -- AUTO_INCREMENT for table `tb_catatanpenting`
 --
 ALTER TABLE `tb_catatanpenting`
-  MODIFY `id_catatanpenting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id_catatanpenting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `tb_daftarsiswakelas`
 --
 ALTER TABLE `tb_daftarsiswakelas`
-  MODIFY `id_daftarsiswakelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_daftarsiswakelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tb_jeniskelamin`
@@ -89726,55 +90190,49 @@ ALTER TABLE `tb_kehadiran`
 -- AUTO_INCREMENT for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tb_kepribadian`
 --
 ALTER TABLE `tb_kepribadian`
-  MODIFY `id_kepribadian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id_kepribadian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `tb_kesehatan`
 --
 ALTER TABLE `tb_kesehatan`
-  MODIFY `id_kesehatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
-
---
--- AUTO_INCREMENT for table `tb_mapel_jadwal`
---
-ALTER TABLE `tb_mapel_jadwal`
-  MODIFY `id_mapel_jawal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1161;
+  MODIFY `id_kesehatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT for table `tb_masuk`
 --
 ALTER TABLE `tb_masuk`
-  MODIFY `id_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
+  MODIFY `id_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
 
 --
 -- AUTO_INCREMENT for table `tb_matapelajaran`
 --
 ALTER TABLE `tb_matapelajaran`
-  MODIFY `id_matapelajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_matapelajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tb_nilai`
 --
 ALTER TABLE `tb_nilai`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `tb_orangtua`
 --
 ALTER TABLE `tb_orangtua`
-  MODIFY `id_orangtua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id_orangtua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT for table `tb_pendidikan`
 --
 ALTER TABLE `tb_pendidikan`
-  MODIFY `id_pendidikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id_pendidikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `tb_penyakitkhusus`
@@ -89786,25 +90244,25 @@ ALTER TABLE `tb_penyakitkhusus`
 -- AUTO_INCREMENT for table `tb_pindah`
 --
 ALTER TABLE `tb_pindah`
-  MODIFY `id_pindah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id_pindah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `tb_prestasi`
 --
 ALTER TABLE `tb_prestasi`
-  MODIFY `id_prestasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
+  MODIFY `id_prestasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
 
 --
--- AUTO_INCREMENT for table `tb_semester`
+-- AUTO_INCREMENT for table `tb_profile`
 --
-ALTER TABLE `tb_semester`
-  MODIFY `id_semester` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tb_profile`
+  MODIFY `id_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_siswa`
 --
 ALTER TABLE `tb_siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
 
 --
 -- AUTO_INCREMENT for table `tb_tahunajaran`
@@ -89822,11 +90280,44 @@ ALTER TABLE `tb_tingkat`
 -- AUTO_INCREMENT for table `tb_wali`
 --
 ALTER TABLE `tb_wali`
-  MODIFY `id_wali` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id_wali` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `auth_groups_permissions`
+--
+ALTER TABLE `auth_groups_permissions`
+  ADD CONSTRAINT `auth_groups_permissions_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `auth_groups` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `auth_groups_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `auth_permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `auth_groups_users`
+--
+ALTER TABLE `auth_groups_users`
+  ADD CONSTRAINT `auth_groups_users_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `auth_groups` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `auth_groups_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `auth_tokens`
+--
+ALTER TABLE `auth_tokens`
+  ADD CONSTRAINT `auth_tokens_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `auth_users_permissions`
+--
+ALTER TABLE `auth_users_permissions`
+  ADD CONSTRAINT `auth_users_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `auth_permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `auth_users_permissions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `cities`
@@ -89902,14 +90393,6 @@ ALTER TABLE `tb_kesehatan`
   ADD CONSTRAINT `tb_kesehatan_ibfk_1` FOREIGN KEY (`s_NISN`) REFERENCES `tb_siswa` (`s_NISN`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tb_mapel_jadwal`
---
-ALTER TABLE `tb_mapel_jadwal`
-  ADD CONSTRAINT `tb_mapel_jadwal_ibfk_1` FOREIGN KEY (`id_tingkat`) REFERENCES `tb_tingkat` (`id_tingkat`),
-  ADD CONSTRAINT `tb_mapel_jadwal_ibfk_2` FOREIGN KEY (`id_tahunajaran`) REFERENCES `tb_tahunajaran` (`id_tahunajaran`) ON DELETE CASCADE,
-  ADD CONSTRAINT `tb_mapel_jadwal_ibfk_3` FOREIGN KEY (`id_matapelajaran`) REFERENCES `tb_matapelajaran` (`id_matapelajaran`) ON DELETE CASCADE;
-
---
 -- Constraints for table `tb_masuk`
 --
 ALTER TABLE `tb_masuk`
@@ -89919,9 +90402,9 @@ ALTER TABLE `tb_masuk`
 -- Constraints for table `tb_nilai`
 --
 ALTER TABLE `tb_nilai`
-  ADD CONSTRAINT `tb_nilai_ibfk_2` FOREIGN KEY (`id_matapelajaran`) REFERENCES `tb_mapel_jadwal` (`id_mapel_jawal`) ON DELETE CASCADE,
   ADD CONSTRAINT `tb_nilai_ibfk_3` FOREIGN KEY (`id_kelas`) REFERENCES `tb_kelas` (`id_kelas`) ON DELETE CASCADE,
-  ADD CONSTRAINT `tb_nilai_ibfk_4` FOREIGN KEY (`s_NISN`) REFERENCES `tb_siswa` (`s_NISN`) ON DELETE CASCADE;
+  ADD CONSTRAINT `tb_nilai_ibfk_4` FOREIGN KEY (`s_NISN`) REFERENCES `tb_siswa` (`s_NISN`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tb_nilai_ibfk_5` FOREIGN KEY (`id_matapelajaran`) REFERENCES `tb_matapelajaran` (`id_matapelajaran`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tb_orangtua`
@@ -89953,12 +90436,6 @@ ALTER TABLE `tb_pindah`
 --
 ALTER TABLE `tb_prestasi`
   ADD CONSTRAINT `tb_prestasi_ibfk_1` FOREIGN KEY (`s_NISN`) REFERENCES `tb_siswa` (`s_NISN`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_semester`
---
-ALTER TABLE `tb_semester`
-  ADD CONSTRAINT `tb_semester_ibfk_1` FOREIGN KEY (`id_daftarsiswakelas`) REFERENCES `tb_daftarsiswakelas` (`id_daftarsiswakelas`);
 
 --
 -- Constraints for table `tb_siswa`
