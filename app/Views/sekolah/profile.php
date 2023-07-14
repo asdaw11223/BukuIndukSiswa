@@ -45,7 +45,7 @@
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                     <div class="modal-body">
-                            <input type="text" name="id_profile" id="id_profile" value="<?= $profile['id_profile'] ?>">
+                            <input type="hidden" name="id_profile" id="id_profile" value="<?= $profile['id_profile'] ?>">
                             <textarea name="nama_profile" id="nama_profile" cols="30" rows="10"><?= $profile['nama_profile'] ?></textarea>
                     </div>
                     <div class="modal-footer">

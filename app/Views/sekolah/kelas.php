@@ -34,7 +34,7 @@
                                             <td class="w-23"><?= $no++; ?></td>
                                             <td class="w-120 text-center">
                                                 <a href="daftar-siswa/<?= $k['id_kelas']; ?>" class="btn-view btn-view-kelas" title="View"><span class="material-symbols-outlined">demography</span></a>
-                                                <button type="button" class="btn-edit btn-update-kelas" data-id="<?= $k['id_kelas']; ?>" data-nama="<?= $k['nama_kelas']; ?>" data-tahunajaran="<?= $k['id_tahunajaran']; ?>" data-jurusan="<?= $k['id_jurusan']; ?>" data-bs-toggle="modal" title="Edit"><span class="material-symbols-outlined">edit</span></button>
+                                                <button type="button" class="btn-edit btn-update-kelas" data-id="<?= $k['id_kelas']; ?>" data-nama="<?= $k['nama_kelas']; ?>" data-tahunajaran="<?= $k['id_tahunajaran']; ?>" data-jurusann="<?= $k['id_jurusan']; ?>" data-bs-toggle="modal" title="Edit"><span class="material-symbols-outlined">edit</span></button>
                                                 <button type="button" class="btn-delete btn-delete-kelas"  data-id="<?= $k['id_kelas']; ?>" data-nama="<?= $k['nama_kelas']; ?>" data-bs-toggle="modal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
                                             </td>
                                             <td><?= $k['nama_kelas'] ?></td>
@@ -381,7 +381,7 @@
             var nama = $(this).data('nama');
             var semester = $(this).data('semester');
             const tahunajaran = $(this).data('tahunajaran');
-            const jurusan = $(this).data('jurusan');
+            const jurusan = $(this).data('jurusann');
             $('#u_id_kelas').val(id);
             $('#u_nama_kelas').val(nama);
             $('#u_tahunajaran').val(tahunajaran);

@@ -26,6 +26,17 @@
     width: 120px;
 }
 
+.column{
+    flex-direction: column;
+}
+
+.auto-center{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .fz-12{
     font-size: 12px;
 }
@@ -76,6 +87,18 @@ h6{
     text-transform: uppercase;
     letter-spacing: 1.3px;
     font-weight: 800;
+}
+
+.line{
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    flex-shrink: 0;
+    border-width: 0px 0px thin;
+    border-style: solid;
+    border-color: rgba(76, 78, 100, 0.12);
+    margin-top: 1rem !important;
+    width: 100%;
 }
 
 .material-symbols {

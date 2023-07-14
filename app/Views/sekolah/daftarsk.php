@@ -154,10 +154,12 @@
         </form>
                     
                     <div class="col-md-12">
-                        <div class="mb-3">
-                            <input class="form-control" aria-label="Default select example" name="search" id="search" placeholder="Cari">
-                            <div class="invalid-feedback errorAddTingkat"></div>
-                        </div>
+                        <form action="" method="post">
+                            <div class="mb-3">
+                                <input class="form-control mb-2" aria-label="Default select example" name="keyword" id="keyword" autocomplete="off" placeholder="Cari">
+                                <div class="invalid-feedback errorAddTingkat"></div>
+                            </div>
+                        </form>
                     </div>
 
                     <div class="col-md-12">
@@ -165,11 +167,12 @@
         <?= csrf_field(); ?>
 
                             <input type="hidden" name="id_kelas" id="id_kelas" value="<?= $kelas['id_kelas'] ?>">
+                            <input type="hidden" name="id_tahunajaran" id="id_tahunajaran" value="<?= $kelas['id_tahunajaran'] ?>">
                             <div class="dt-responsive table-responsive">
                                 <table id="simpletable" class="table table-striped table-bordered nowrap">
                                     <thead>
                                         <tr>
-                                            <th style="width: 30px;">&nbsp;</th>
+                                            <th style="width: 30px;">#</th>
                                             <th>NISN</th>
                                             <th>Nama Siswa</th>
                                         </tr>
@@ -179,7 +182,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>&nbsp;</th>
+                                            <th>#</th>
                                             <th>NISN</th>
                                             <th>Nama Siswa</th>
                                         </tr>
@@ -227,7 +230,26 @@
 
 <script>
     
-    var idKelas; 
+    var idKelas;
+    // var keyword = document.getElementById('keyword');
+    // var tombolCari = document.getElementById('tombol-cari');
+    // var container = document.getElementById('addSiswaFilter');
+
+    // keyword.addEventListener('keyup', function(){
+        
+    //     var xhr = new XMLHttpRequest();
+
+    //     // cek kesiapan ajax
+    //     xhr.onreadystatechange = function() {
+    //         if( xhr.readyState == 4 && xhr.status == 200 ) {
+    //             container.innerHTML = xhr.responseText;
+    //         }
+    //     }
+
+    //     // eksekusi ajax
+    //     xhr.open('GET', 'ajax/mahasiswa.php?keyword=' + keyword.value, true);
+    //     xhr.send();
+    // });
 
     function validateFormPindah() {
         $.ajax({
@@ -344,6 +366,22 @@
 
     $(document).ready(function(){
         
+        $('#keyword').keyup(function() {
+            var id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url('Kelas/search') ?>",
+                data: {
+                    id: id
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    $('#addSiswaFilter').html(response.filter);
+                }
+
+            });
+        });
+
         $('#u_tahunajaran').change(function() {
             var id = $(this).val();
             $.ajax({

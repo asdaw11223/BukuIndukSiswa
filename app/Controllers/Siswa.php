@@ -20,6 +20,7 @@ use App\Models\PrestasiModel;
 use App\Models\KehadiranModel;
 use App\Models\JenisKelaminModel;
 use App\Models\JurusanModel;
+use App\Models\NilaiModel;
 
 use PHPExcel;
 use PHPExcel_IOFactory;
@@ -45,6 +46,7 @@ class Siswa extends BaseController
     protected $kehadiranModel;
     protected $jenisKelaminModel;
     protected $jurusanModel;
+    protected $nilaiModel;
      
     public function __construct()
     {
@@ -67,6 +69,7 @@ class Siswa extends BaseController
         $this->kehadiranModel = new KehadiranModel();
         $this->jenisKelaminModel = new JenisKelaminModel();
         $this->jurusanModel = new JurusanModel();
+        $this->nilaiModel = new NilaiModel();
     }
 
     public function index()
@@ -408,6 +411,10 @@ class Siswa extends BaseController
 			$s_nisn = $_POST['next_data_nisn'];
 		}
 
+        $search_kelas = $this->daftarSiswaKelasModel->where('s_nisn', $s_nisn)
+        ->join('tb_kelas', 'tb_kelas.id_kelas = tb_daftarsiswakelas.id_kelas')
+        ->findAll();
+
         $tahunajaran = $this->tahunajaranModel->findAll();
         $jurusan = $this->jurusanModel->findAll();
         $jk = $this->jenisKelaminModel->findAll();
@@ -514,7 +521,8 @@ class Siswa extends BaseController
             'ibu' => '',
             'prestasi' => $prestasi,
             'beasiswa' => $beasiswa,
-            'kehadiran' => $kehadiran
+            'kehadiran' => $kehadiran,
+			'search_kelas' => $search_kelas
         ];
 		
 
@@ -699,174 +707,458 @@ class Siswa extends BaseController
 				];
 
 			}else{
+
+				$NISN = $this->request->getVar('siswa_nisn');
+				$siswa = $this->siswaModel->findAll();
+
+				foreach($siswa as $s){
+					if($s['s_NISN'] == $NISN){
+						$NISN = $this->request->getVar('siswa_nisn_lama');
+					}
+				}
+
+				if($NISN != $this->request->getVar('siswa_nisn_lama')){
+					
+					
+					$dskd = $this->daftarSiswaKelasModel->where('s_NISN', $this->request->getVar('siswa_nisn_lama'))
+					->findAll();
+					$nilaid = $this->nilaiModel->where('s_NISN', $this->request->getVar('siswa_nisn_lama'))
+					->findAll();
+					$beasiswad = $this->beasiswaModel->where('s_NISN', $this->request->getVar('siswa_nisn_lama'))
+					->findAll();
+					$prestasid = $this->prestasiModel->where('s_NISN', $this->request->getVar('siswa_nisn_lama'))
+					->findAll();
+					$penyakitd = $this->penyakitKhususModel->where('s_NISN', $this->request->getVar('siswa_nisn_lama'))
+					->findAll();
+
+					foreach($dskd as $d){
+						$this->daftarSiswaKelasModel->save([
+							'id_daftarsiswakelas' => $d['id_daftarsiswakelas'],
+							's_NISN' => '0000000000'
+						]);
+					}
+					foreach($nilaid as $n){
+						$this->nilaiModel->save([
+							'id_nilai' => $n['id_nilai'],
+							's_NISN' => '0000000000'
+						]);
+					}
+					foreach($beasiswad as $b){
+						$this->beasiswaModel->save([
+							'id_beasiswa' => $b['id_beasiswa'],
+							's_NISN' => '0000000000'
+						]);
+					}
+					foreach($prestasid as $p){
+						$this->prestasiModel->save([
+							'id_prestasi' => $p['id_prestasi'],
+							's_NISN' => '0000000000'
+						]);
+					}
+					foreach($penyakitd as $pk){
+						$this->penyakitKhususModel->save([
+							'id_penyakit' => $pk['id_penyakit'],
+							's_NISN' => '0000000000'
+						]);
+					}
+
+					$this->alamatModel->save([
+						'id_alamat' => $this->request->getVar('id_alamat'),
+						's_NISN' => '0000000000'
+					]);
+
+					$this->kesehatanModel->save([
+						'id_kesehatan' => $this->request->getVar('id_kesehatan'),
+						's_NISN' => '0000000000'
+					]);
+					
+					$this->masukModel->save([
+						'id_masuk' => $this->request->getVar('id_masuk'),
+						's_NISN' => '0000000000'
+					]);
+
+					$this->masukModel->save([
+						'id_masuk' => $this->request->getVar('id_pindahan'),
+						's_NISN' => '0000000000'
+					]);
+					
+					$this->pendidikanModel->save([
+						'id_pendidikan' => $this->request->getVar('id_pendidikan'),
+						's_NISN' => '0000000000'
+					]);
+
+					$this->pindahModel->save([
+						'id_pindah' => $this->request->getVar('id_pindah'),
+						's_NISN' => '0000000000'
+					]);
+
+					$this->pendidikanModel->save([
+						'id_pendidikan' => $this->request->getVar('id_pendidikan'),
+						's_NISN' => '0000000000'
+					]);
+
+					//AYAH
+					$this->orangTuaModel->save([
+						'id_orangtua' => $this->request->getVar('id_orangtua_ayah'),
+						's_NISN' => '0000000000'
+					]);
+
+					//IBU
+					$this->orangTuaModel->save([
+						'id_orangtua' => $this->request->getVar('id_orangtua_ibu'),
+						's_NISN' => '0000000000'
+					]);
+
+					//WALi
+					$this->waliModel->save([
+						'id_wali' => $this->request->getVar('id_wali'),
+						's_NISN' => '0000000000'
+					]);
+
+					$this->kepribadianModel->save([
+						'id_kepribadian' => $this->request->getVar('id_kepribadian'),
+						's_NISN' => '0000000000'
+					]);
+
+					$this->catatanModel->save([
+						'id_catatanpenting' => $this->request->getVar('id_catatanpenting'),
+						's_NISN' => '0000000000'
+					]);
+					
+					$this->siswaModel->save([
+						'id_siswa' => $this->request->getVar('id_siswa'),
+						's_NISN' => $NISN,
+						's_namalengkap' => $this->request->getVar('siswa_nl'),
+						's_namapanggilan' => $this->request->getVar('siswa_np'),
+						'id_jeniskelamin' => $this->request->getVar('siswa_jk'),
+						's_tempatlahir' => $this->request->getVar('siswa_tempatlahir'),
+						's_tanggallahir' => $this->request->getVar('siswa_tgllahir'),
+						's_photo' => $this->request->getVar('siswa_foto'),
+						's_agama' => $this->request->getVar('siswa_agama'),
+						's_kewanegaraan' => $this->request->getVar('siswa_kewanegaraan'),
+						's_anakke' => $this->request->getVar('siswa_anakke'),
+						's_anakyp' => $this->request->getVar('siswa_anak'),
+						's_bahasaharian' => $this->request->getVar('s_bahasaharian'),
+						's_kandung' => $this->request->getVar('s_kandung'),
+						's_tiri' => $this->request->getVar('s_tiri'),
+						's_angkat' => $this->request->getVar('s_angkat')
+					]);
+
+					$this->alamatModel->save([
+						'id_alamat' => $this->request->getVar('id_alamat'),
+						's_alamat' => $this->request->getVar('siswaAddAlamat'),
+						's_rt' => $this->request->getVar('siswaAddRT'),
+						's_rw' => $this->request->getVar('siswaAddRW'),
+						'subdis_id' => $this->request->getVar('siswaAddSubdis'),
+						'dis_id' => $this->request->getVar('siswaAddDis'),
+						'city_id' => $this->request->getVar('siswaAddCity'),
+						'prov_id' => $this->request->getVar('siswaAddProv'),
+						's_telprumah' => $this->request->getVar('siswaAddNoTelp'),
+						's_tinggal' => $this->request->getVar('siswaAddTinggalDengan'),
+						's_jaraksekolah' => $this->request->getVar('siswaAddJarakTinggal'),
+						's_kendaraan' => $this->request->getVar('siswaKendaraan'),
+						's_NISN' => $NISN
+					]);
+
+					$this->kesehatanModel->save([
+						'id_kesehatan' => $this->request->getVar('id_kesehatan'),
+						's_bbterima' => $this->request->getVar('siswaBBmasuk'),
+						's_tbterima' => $this->request->getVar('siswaTBMasuk'),
+						's_bbkeluar' => $this->request->getVar('siswaBBKeluar'),
+						's_tbkeluar' => $this->request->getVar('siswaTBKeluar'),
+						's_golongandarah' => $this->request->getVar('siswaGolonganDarah'),
+						's_kelainan' => $this->request->getVar('siswaKelainan'),
+						's_NISN' => $NISN
+					]);
+					
+					$this->masukModel->save([
+						'id_masuk' => $this->request->getVar('id_masuk'),
+						'sp_diterimatgl' => $this->request->getVar('sp_diterimatgl'),
+						'sp_asalsekolah' => $this->request->getVar('sp_asalsekolah'),
+						'sp_tglnoijasah' => $this->request->getVar('sp_tglnoijasah'),
+						'sp_tglijasah' => $this->request->getVar('sp_tglijasah'),
+						'sp_thnskhun' => $this->request->getVar('sp_thnskhun'),
+						'sp_thnnoskhun' => $this->request->getVar('sp_thnnoskhun'),
+						'sp_jenis' => 'Baru',
+						's_NISN' => $NISN
+					]);
+
+					$this->masukModel->save([
+						'id_masuk' => $this->request->getVar('id_pindahan'),
+						'sp_diterimatgl' => $this->request->getVar('sp_diterimatgl_p'),
+						'sp_asalsekolah' => $this->request->getVar('sp_asalsekolah'),
+						'sp_tglnoijasah' => $this->request->getVar('sp_tglnoijasah'),
+						'sp_tglijasah' => $this->request->getVar('sp_tglijasah'),
+						'sp_thnskhun' => $this->request->getVar('sp_thnskhun'),
+						'sp_thnnoskhun' => $this->request->getVar('sp_thnnoskhun'),
+						'sp_dikelas' => $this->request->getVar('sp_dikelas'),
+						'sp_drsekolah' => $this->request->getVar('sp_drsekolah'),
+						'sp_alasanpindah' => $this->request->getVar('sp_alasanpindah'),
+						'sp_jenis' => 'Pindahan',
+						's_NISN' => $NISN
+					]);
+					
+					$this->pendidikanModel->save([
+						'id_pendidikan' => $this->request->getVar('id_pendidikan'),
+						's_tgltamat' => $this->request->getVar('s_tgltamat'),
+						's_noijasah' => $this->request->getVar('s_noijasah'),
+						's_melanjutkansekolah' => $this->request->getVar('s_melanjutkansekolah'),
+						's_alamat' => $this->request->getVar('s_alamat'),
+						's_NISN' => $NISN
+					]);
+
+					$this->pindahModel->save([
+						'id_pindah' => $this->request->getVar('id_pindah'),
+						'pp_kesekolah' => $this->request->getVar('pp_kesekolah'),
+						'pp_tglpindah' => $this->request->getVar('pp_tglpindah'),
+						'pp_drkelas' => $this->request->getVar('pp_drkelas'),
+						'pp_alamatsekolah' => $this->request->getVar('pp_alamatsekolah'),
+						'pp_alasanpindah' => $this->request->getVar('pp_alasanpindah'),
+						's_NISN' => $NISN
+					]);
+
+					$this->pendidikanModel->save([
+						'id_pendidikan' => $this->request->getVar('id_pendidikan'),
+						's_tglputus' => $this->request->getVar('s_tglputus'),
+						's_alasaputus' => $this->request->getVar('s_alasaputus'),
+						's_NISN' => $NISN
+					]);
+
+					//AYAH
+					$this->orangTuaModel->save([
+						'id_orangtua' => $this->request->getVar('id_orangtua_ayah'),
+						'id_jeniskelamin' => $this->request->getVar('id_jeniskelamin_ayah'),
+						'sa_nama' => $this->request->getVar('sa_nama_ayah'),
+						'sa_tempatlahir' => $this->request->getVar('sa_tempatlahir_ayah'),
+						'sa_tgllahir' => $this->request->getVar('sa_tgllahir_ayah'),
+						'sa_kewanegaraan' => $this->request->getVar('sa_kewanegaraan_ayah'),
+						'sa_ptertinggi' => $this->request->getVar('sa_ptertinggi_ayah'),
+						'sa_pekerjaan' => $this->request->getVar('sa_pekerjaan_ayah'),
+						'sa_penghasilan' => $this->request->getVar('sa_penghasilan_ayah'),
+						'sa_alamat' => $this->request->getVar('sa_alamat_ayah'),
+						's_NISN' => $NISN
+					]);
+
+					//IBU
+					$this->orangTuaModel->save([
+						'id_orangtua' => $this->request->getVar('id_orangtua_ibu'),
+						'id_jeniskelamin' => $this->request->getVar('id_jeniskelamin_ibu'),
+						'sa_nama' => $this->request->getVar('sa_nama_ibu'),
+						'sa_tempatlahir' => $this->request->getVar('sa_tempatlahir_ibu'),
+						'sa_tgllahir' => $this->request->getVar('sa_tgllahir_ibu'),
+						'sa_kewanegaraan' => $this->request->getVar('sa_kewanegaraan_ibu'),
+						'sa_ptertinggi' => $this->request->getVar('sa_ptertinggi_ibu'),
+						'sa_pekerjaan' => $this->request->getVar('sa_pekerjaan_ibu'),
+						'sa_penghasilan' => $this->request->getVar('sa_penghasilan_ibu'),
+						'sa_alamat' => $this->request->getVar('sa_alamat_ibu'),
+						's_NISN' => $NISN
+					]);
+
+					//LAKI-LAKI
+					$this->waliModel->save([
+						'id_wali' => $this->request->getVar('id_wali'),
+						'sw_nama' => $this->request->getVar('sw_nama'),
+						'sw_tempatlahir' => $this->request->getVar('sw_tempatlahir'),
+						'sw_tgllahir' => $this->request->getVar('sw_tgllahir'),
+						'sw_kewanegaraan' => $this->request->getVar('sw_kewanegaraan'),
+						'sw_ptertinggi' => $this->request->getVar('sw_ptertinggi'),
+						'sw_pekerjaan' => $this->request->getVar('sw_pekerjaan'),
+						'sw_penghasilan' => $this->request->getVar('sw_penghasilan'),
+						'sw_alamat' => $this->request->getVar('sw_alamat'),
+						'sw_hubunganpeserta' => $this->request->getVar('sw_hubunganpeserta'),
+						's_NISN' => $NISN
+					]);
+
+					$this->kepribadianModel->save([
+						'id_kepribadian' => $this->request->getVar('id_kepribadian'),
+						's_intelegensi' => $this->request->getVar('s_intelegensi'),
+						's_tgltestiq' => $this->request->getVar('s_tgltestiq'),
+						'sk_disiplin' => $this->request->getVar('sk_disiplin'),
+						'sk_kreativitas' => $this->request->getVar('sk_kreativitas'),
+						'sk_tanggungjawab' => $this->request->getVar('sk_tanggungjawab'),
+						'sk_penyesuaiandiri' => $this->request->getVar('sk_penyesuaiandiri'),
+						'sk_kemantapanemosi' => $this->request->getVar('sk_kemantapanemosi'),
+						'sk_kerjasama' => $this->request->getVar('sk_kerjasama'),
+						's_NISN' => $NISN
+					]);
+
+					$this->catatanModel->save([
+						'id_catatanpenting' => $this->request->getVar('id_catatanpenting'),
+						's_catatanpenting' => $this->request->getVar('s_catatanpenting'),
+						's_NISN' => $NISN
+					]);
+
+				}else{
 				
-				$this->siswaModel->save([
-					'id_siswa' => $this->request->getVar('id_siswa'),
-					's_NISN' => $this->request->getVar('siswa_nisn'),
-					's_namalengkap' => $this->request->getVar('siswa_nl'),
-					's_namapanggilan' => $this->request->getVar('siswa_np'),
-					'id_jeniskelamin' => $this->request->getVar('siswa_jk'),
-					's_tempatlahir' => $this->request->getVar('siswa_tempatlahir'),
-					's_tanggallahir' => $this->request->getVar('siswa_tgllahir'),
-					's_photo' => $this->request->getVar('siswa_foto'),
-					's_agama' => $this->request->getVar('siswa_agama'),
-					's_kewanegaraan' => $this->request->getVar('siswa_kewanegaraan'),
-					's_anakke' => $this->request->getVar('siswa_anakke'),
-					's_anakyp' => $this->request->getVar('siswa_anak'),
-					's_bahasaharian' => $this->request->getVar('s_bahasaharian'),
-					's_kandung' => $this->request->getVar('s_kandung'),
-					's_tiri' => $this->request->getVar('s_tiri'),
-					's_angkat' => $this->request->getVar('s_angkat')
-				]);
+					$this->siswaModel->save([
+						'id_siswa' => $this->request->getVar('id_siswa'),
+						's_NISN' => $NISN,
+						's_namalengkap' => $this->request->getVar('siswa_nl'),
+						's_namapanggilan' => $this->request->getVar('siswa_np'),
+						'id_jeniskelamin' => $this->request->getVar('siswa_jk'),
+						's_tempatlahir' => $this->request->getVar('siswa_tempatlahir'),
+						's_tanggallahir' => $this->request->getVar('siswa_tgllahir'),
+						's_photo' => $this->request->getVar('siswa_foto'),
+						's_agama' => $this->request->getVar('siswa_agama'),
+						's_kewanegaraan' => $this->request->getVar('siswa_kewanegaraan'),
+						's_anakke' => $this->request->getVar('siswa_anakke'),
+						's_anakyp' => $this->request->getVar('siswa_anak'),
+						's_bahasaharian' => $this->request->getVar('s_bahasaharian'),
+						's_kandung' => $this->request->getVar('s_kandung'),
+						's_tiri' => $this->request->getVar('s_tiri'),
+						's_angkat' => $this->request->getVar('s_angkat')
+					]);
 
-				$this->alamatModel->save([
-					'id_alamat' => $this->request->getVar('id_alamat'),
-					's_alamat' => $this->request->getVar('siswaAddAlamat'),
-					's_rt' => $this->request->getVar('siswaAddRT'),
-					's_rw' => $this->request->getVar('siswaAddRW'),
-					'subdis_id' => $this->request->getVar('siswaAddSubdis'),
-					'dis_id' => $this->request->getVar('siswaAddDis'),
-					'city_id' => $this->request->getVar('siswaAddCity'),
-					'prov_id' => $this->request->getVar('siswaAddProv'),
-					's_telprumah' => $this->request->getVar('siswaAddNoTelp'),
-					's_tinggal' => $this->request->getVar('siswaAddTinggalDengan'),
-					's_jaraksekolah' => $this->request->getVar('siswaAddJarakTinggal'),
-					's_kendaraan' => $this->request->getVar('siswaKendaraan'),
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
+					$this->alamatModel->save([
+						'id_alamat' => $this->request->getVar('id_alamat'),
+						's_alamat' => $this->request->getVar('siswaAddAlamat'),
+						's_rt' => $this->request->getVar('siswaAddRT'),
+						's_rw' => $this->request->getVar('siswaAddRW'),
+						'subdis_id' => $this->request->getVar('siswaAddSubdis'),
+						'dis_id' => $this->request->getVar('siswaAddDis'),
+						'city_id' => $this->request->getVar('siswaAddCity'),
+						'prov_id' => $this->request->getVar('siswaAddProv'),
+						's_telprumah' => $this->request->getVar('siswaAddNoTelp'),
+						's_tinggal' => $this->request->getVar('siswaAddTinggalDengan'),
+						's_jaraksekolah' => $this->request->getVar('siswaAddJarakTinggal'),
+						's_kendaraan' => $this->request->getVar('siswaKendaraan'),
+						's_NISN' => $NISN
+					]);
 
-				$this->kesehatanModel->save([
-					'id_kesehatan' => $this->request->getVar('id_kesehatan'),
-					's_bbterima' => $this->request->getVar('siswaBBmasuk'),
-					's_tbterima' => $this->request->getVar('siswaTBMasuk'),
-					's_bbkeluar' => $this->request->getVar('siswaBBKeluar'),
-					's_tbkeluar' => $this->request->getVar('siswaTBKeluar'),
-					's_golongandarah' => $this->request->getVar('siswaGolonganDarah'),
-					's_kelainan' => $this->request->getVar('siswaKelainan'),
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
-				
-				$this->masukModel->save([
-					'id_masuk' => $this->request->getVar('id_masuk'),
-					'sp_diterimatgl' => $this->request->getVar('sp_diterimatgl'),
-					'sp_asalsekolah' => $this->request->getVar('sp_asalsekolah'),
-					'sp_tglnoijasah' => $this->request->getVar('sp_tglnoijasah'),
-					'sp_tglijasah' => $this->request->getVar('sp_tglijasah'),
-					'sp_thnskhun' => $this->request->getVar('sp_thnskhun'),
-					'sp_thnnoskhun' => $this->request->getVar('sp_thnnoskhun'),
-					'sp_jenis' => 'Baru',
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
+					$this->kesehatanModel->save([
+						'id_kesehatan' => $this->request->getVar('id_kesehatan'),
+						's_bbterima' => $this->request->getVar('siswaBBmasuk'),
+						's_tbterima' => $this->request->getVar('siswaTBMasuk'),
+						's_bbkeluar' => $this->request->getVar('siswaBBKeluar'),
+						's_tbkeluar' => $this->request->getVar('siswaTBKeluar'),
+						's_golongandarah' => $this->request->getVar('siswaGolonganDarah'),
+						's_kelainan' => $this->request->getVar('siswaKelainan'),
+						's_NISN' => $NISN
+					]);
+					
+					$this->masukModel->save([
+						'id_masuk' => $this->request->getVar('id_masuk'),
+						'sp_diterimatgl' => $this->request->getVar('sp_diterimatgl'),
+						'sp_asalsekolah' => $this->request->getVar('sp_asalsekolah'),
+						'sp_tglnoijasah' => $this->request->getVar('sp_tglnoijasah'),
+						'sp_tglijasah' => $this->request->getVar('sp_tglijasah'),
+						'sp_thnskhun' => $this->request->getVar('sp_thnskhun'),
+						'sp_thnnoskhun' => $this->request->getVar('sp_thnnoskhun'),
+						'sp_jenis' => 'Baru',
+						's_NISN' => $NISN
+					]);
 
-				$this->masukModel->save([
-					'id_masuk' => $this->request->getVar('id_pindahan'),
-					'sp_diterimatgl' => $this->request->getVar('sp_diterimatgl_p'),
-					'sp_asalsekolah' => $this->request->getVar('sp_asalsekolah'),
-					'sp_tglnoijasah' => $this->request->getVar('sp_tglnoijasah'),
-					'sp_tglijasah' => $this->request->getVar('sp_tglijasah'),
-					'sp_thnskhun' => $this->request->getVar('sp_thnskhun'),
-					'sp_thnnoskhun' => $this->request->getVar('sp_thnnoskhun'),
-					'sp_dikelas' => $this->request->getVar('sp_dikelas'),
-					'sp_drsekolah' => $this->request->getVar('sp_drsekolah'),
-					'sp_alasanpindah' => $this->request->getVar('sp_alasanpindah'),
-					'sp_jenis' => 'Pindahan',
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
-				
-				$this->pendidikanModel->save([
-					'id_pendidikan' => $this->request->getVar('id_pendidikan'),
-					's_tgltamat' => $this->request->getVar('s_tgltamat'),
-					's_noijasah' => $this->request->getVar('s_noijasah'),
-					's_melanjutkansekolah' => $this->request->getVar('s_melanjutkansekolah'),
-					's_alamat' => $this->request->getVar('s_alamat'),
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
+					$this->masukModel->save([
+						'id_masuk' => $this->request->getVar('id_pindahan'),
+						'sp_diterimatgl' => $this->request->getVar('sp_diterimatgl_p'),
+						'sp_asalsekolah' => $this->request->getVar('sp_asalsekolah'),
+						'sp_tglnoijasah' => $this->request->getVar('sp_tglnoijasah'),
+						'sp_tglijasah' => $this->request->getVar('sp_tglijasah'),
+						'sp_thnskhun' => $this->request->getVar('sp_thnskhun'),
+						'sp_thnnoskhun' => $this->request->getVar('sp_thnnoskhun'),
+						'sp_dikelas' => $this->request->getVar('sp_dikelas'),
+						'sp_drsekolah' => $this->request->getVar('sp_drsekolah'),
+						'sp_alasanpindah' => $this->request->getVar('sp_alasanpindah'),
+						'sp_jenis' => 'Pindahan',
+						's_NISN' => $NISN
+					]);
+					
+					$this->pendidikanModel->save([
+						'id_pendidikan' => $this->request->getVar('id_pendidikan'),
+						's_tgltamat' => $this->request->getVar('s_tgltamat'),
+						's_noijasah' => $this->request->getVar('s_noijasah'),
+						's_melanjutkansekolah' => $this->request->getVar('s_melanjutkansekolah'),
+						's_alamat' => $this->request->getVar('s_alamat'),
+						's_NISN' => $NISN
+					]);
 
-				$this->pindahModel->save([
-					'id_pindah' => $this->request->getVar('id_pindah'),
-					'pp_kesekolah' => $this->request->getVar('pp_kesekolah'),
-					'pp_tglpindah' => $this->request->getVar('pp_tglpindah'),
-					'pp_drkelas' => $this->request->getVar('pp_drkelas'),
-					'pp_alamatsekolah' => $this->request->getVar('pp_alamatsekolah'),
-					'pp_alasanpindah' => $this->request->getVar('pp_alasanpindah'),
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
+					$this->pindahModel->save([
+						'id_pindah' => $this->request->getVar('id_pindah'),
+						'pp_kesekolah' => $this->request->getVar('pp_kesekolah'),
+						'pp_tglpindah' => $this->request->getVar('pp_tglpindah'),
+						'pp_drkelas' => $this->request->getVar('pp_drkelas'),
+						'pp_alamatsekolah' => $this->request->getVar('pp_alamatsekolah'),
+						'pp_alasanpindah' => $this->request->getVar('pp_alasanpindah'),
+						's_NISN' => $NISN
+					]);
 
-				$this->pendidikanModel->save([
-					'id_pendidikan' => $this->request->getVar('id_pendidikan'),
-					's_tglputus' => $this->request->getVar('s_tglputus'),
-					's_alasaputus' => $this->request->getVar('s_alasaputus'),
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
+					$this->pendidikanModel->save([
+						'id_pendidikan' => $this->request->getVar('id_pendidikan'),
+						's_tglputus' => $this->request->getVar('s_tglputus'),
+						's_alasaputus' => $this->request->getVar('s_alasaputus'),
+						's_NISN' => $NISN
+					]);
 
-				//AYAH
-				$this->orangTuaModel->save([
-					'id_orangtua' => $this->request->getVar('id_orangtua_ayah'),
-					'id_jeniskelamin' => $this->request->getVar('id_jeniskelamin_ayah'),
-					'sa_nama' => $this->request->getVar('sa_nama_ayah'),
-					'sa_tempatlahir' => $this->request->getVar('sa_tempatlahir_ayah'),
-					'sa_tgllahir' => $this->request->getVar('sa_tgllahir_ayah'),
-					'sa_kewanegaraan' => $this->request->getVar('sa_kewanegaraan_ayah'),
-					'sa_ptertinggi' => $this->request->getVar('sa_ptertinggi_ayah'),
-					'sa_pekerjaan' => $this->request->getVar('sa_pekerjaan_ayah'),
-					'sa_penghasilan' => $this->request->getVar('sa_penghasilan_ayah'),
-					'sa_alamat' => $this->request->getVar('sa_alamat_ayah'),
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
+					//AYAH
+					$this->orangTuaModel->save([
+						'id_orangtua' => $this->request->getVar('id_orangtua_ayah'),
+						'id_jeniskelamin' => $this->request->getVar('id_jeniskelamin_ayah'),
+						'sa_nama' => $this->request->getVar('sa_nama_ayah'),
+						'sa_tempatlahir' => $this->request->getVar('sa_tempatlahir_ayah'),
+						'sa_tgllahir' => $this->request->getVar('sa_tgllahir_ayah'),
+						'sa_kewanegaraan' => $this->request->getVar('sa_kewanegaraan_ayah'),
+						'sa_ptertinggi' => $this->request->getVar('sa_ptertinggi_ayah'),
+						'sa_pekerjaan' => $this->request->getVar('sa_pekerjaan_ayah'),
+						'sa_penghasilan' => $this->request->getVar('sa_penghasilan_ayah'),
+						'sa_alamat' => $this->request->getVar('sa_alamat_ayah'),
+						's_NISN' => $NISN
+					]);
 
-				//IBU
-				$this->orangTuaModel->save([
-					'id_orangtua' => $this->request->getVar('id_orangtua_ibu'),
-					'id_jeniskelamin' => $this->request->getVar('id_jeniskelamin_ibu'),
-					'sa_nama' => $this->request->getVar('sa_nama_ibu'),
-					'sa_tempatlahir' => $this->request->getVar('sa_tempatlahir_ibu'),
-					'sa_tgllahir' => $this->request->getVar('sa_tgllahir_ibu'),
-					'sa_kewanegaraan' => $this->request->getVar('sa_kewanegaraan_ibu'),
-					'sa_ptertinggi' => $this->request->getVar('sa_ptertinggi_ibu'),
-					'sa_pekerjaan' => $this->request->getVar('sa_pekerjaan_ibu'),
-					'sa_penghasilan' => $this->request->getVar('sa_penghasilan_ibu'),
-					'sa_alamat' => $this->request->getVar('sa_alamat_ibu'),
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
+					//IBU
+					$this->orangTuaModel->save([
+						'id_orangtua' => $this->request->getVar('id_orangtua_ibu'),
+						'id_jeniskelamin' => $this->request->getVar('id_jeniskelamin_ibu'),
+						'sa_nama' => $this->request->getVar('sa_nama_ibu'),
+						'sa_tempatlahir' => $this->request->getVar('sa_tempatlahir_ibu'),
+						'sa_tgllahir' => $this->request->getVar('sa_tgllahir_ibu'),
+						'sa_kewanegaraan' => $this->request->getVar('sa_kewanegaraan_ibu'),
+						'sa_ptertinggi' => $this->request->getVar('sa_ptertinggi_ibu'),
+						'sa_pekerjaan' => $this->request->getVar('sa_pekerjaan_ibu'),
+						'sa_penghasilan' => $this->request->getVar('sa_penghasilan_ibu'),
+						'sa_alamat' => $this->request->getVar('sa_alamat_ibu'),
+						's_NISN' => $NISN
+					]);
 
-				//LAKI-LAKI
-				$this->waliModel->save([
-					'id_wali' => $this->request->getVar('id_wali'),
-					'sw_nama' => $this->request->getVar('sw_nama'),
-					'sw_tempatlahir' => $this->request->getVar('sw_tempatlahir'),
-					'sw_tgllahir' => $this->request->getVar('sw_tgllahir'),
-					'sw_kewanegaraan' => $this->request->getVar('sw_kewanegaraan'),
-					'sw_ptertinggi' => $this->request->getVar('sw_ptertinggi'),
-					'sw_pekerjaan' => $this->request->getVar('sw_pekerjaan'),
-					'sw_penghasilan' => $this->request->getVar('sw_penghasilan'),
-					'sw_alamat' => $this->request->getVar('sw_alamat'),
-					'sw_hubunganpeserta' => $this->request->getVar('sw_hubunganpeserta'),
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
+					//LAKI-LAKI
+					$this->waliModel->save([
+						'id_wali' => $this->request->getVar('id_wali'),
+						'sw_nama' => $this->request->getVar('sw_nama'),
+						'sw_tempatlahir' => $this->request->getVar('sw_tempatlahir'),
+						'sw_tgllahir' => $this->request->getVar('sw_tgllahir'),
+						'sw_kewanegaraan' => $this->request->getVar('sw_kewanegaraan'),
+						'sw_ptertinggi' => $this->request->getVar('sw_ptertinggi'),
+						'sw_pekerjaan' => $this->request->getVar('sw_pekerjaan'),
+						'sw_penghasilan' => $this->request->getVar('sw_penghasilan'),
+						'sw_alamat' => $this->request->getVar('sw_alamat'),
+						'sw_hubunganpeserta' => $this->request->getVar('sw_hubunganpeserta'),
+						's_NISN' => $NISN
+					]);
 
-				$this->kepribadianModel->save([
-					'id_kepribadian' => $this->request->getVar('id_kepribadian'),
-					's_intelegensi' => $this->request->getVar('s_intelegensi'),
-					's_tgltestiq' => $this->request->getVar('s_tgltestiq'),
-					'sk_disiplin' => $this->request->getVar('sk_disiplin'),
-					'sk_kreativitas' => $this->request->getVar('sk_kreativitas'),
-					'sk_tanggungjawab' => $this->request->getVar('sk_tanggungjawab'),
-					'sk_penyesuaiandiri' => $this->request->getVar('sk_penyesuaiandiri'),
-					'sk_kemantapanemosi' => $this->request->getVar('sk_kemantapanemosi'),
-					'sk_kerjasama' => $this->request->getVar('sk_kerjasama'),
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
+					$this->kepribadianModel->save([
+						'id_kepribadian' => $this->request->getVar('id_kepribadian'),
+						's_intelegensi' => $this->request->getVar('s_intelegensi'),
+						's_tgltestiq' => $this->request->getVar('s_tgltestiq'),
+						'sk_disiplin' => $this->request->getVar('sk_disiplin'),
+						'sk_kreativitas' => $this->request->getVar('sk_kreativitas'),
+						'sk_tanggungjawab' => $this->request->getVar('sk_tanggungjawab'),
+						'sk_penyesuaiandiri' => $this->request->getVar('sk_penyesuaiandiri'),
+						'sk_kemantapanemosi' => $this->request->getVar('sk_kemantapanemosi'),
+						'sk_kerjasama' => $this->request->getVar('sk_kerjasama'),
+						's_NISN' => $NISN
+					]);
 
-				$this->catatanModel->save([
-					'id_catatanpenting' => $this->request->getVar('id_catatanpenting'),
-					's_catatanpenting' => $this->request->getVar('s_catatanpenting'),
-					's_NISN' => $this->request->getVar('siswa_nisn')
-				]);
+					$this->catatanModel->save([
+						'id_catatanpenting' => $this->request->getVar('id_catatanpenting'),
+						's_catatanpenting' => $this->request->getVar('s_catatanpenting'),
+						's_NISN' => $NISN
+					]);
+				}
 
 				$msg = [
 					'berhasil' => [
 						'succes' => "Berhasil",
-					]
+					],
+					'id' => $NISN
 				];
 			}
 

@@ -2,7 +2,7 @@
 
 <?= $this->section('content'); ?>
 
-<form action="javascript:void(0)" method="post" name="formAddSiswa" id="formAddSiswa" onsubmit="return validateFormAddSiswa()">
+<form action="javascript:void(0)" method="post" name="formAddSiswa" id="formAddSiswa" onsubmit="return validateFormAddSiswa()" enctype="multipart/form-data">
 <div class="header-pages"  style="display: flex; justify-content: space-between;">
     <?= $title ?>
     
@@ -109,6 +109,7 @@
                                                 <label for="siswa_nisn" class="form-label">Nomor Induk / NISN</label>
                                                 <input type="hidden" class="form-control" id="id_siswa" name="id_siswa" value="<?= $siswa['id_siswa'] ?>">
                                                 <input type="text" class="form-control" id="siswa_nisn" name="siswa_nisn" value="<?= $siswa['s_NISN'] ?>">
+                                                <input type="hidden" class="form-control" id="siswa_nisn_lama" name="siswa_nisn_lama" value="<?= $siswa['s_NISN'] ?>">
                                                 <div class="invalid-feedback errorSiswaNisn"></div>
                                             </div>
                                             <div class="mb-3">
@@ -149,7 +150,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="siswa_foto" class="form-label">Foto</label>
-                                                <input type="text" class="form-control" id="siswa_foto" name="siswa_foto"  value="<?= $siswa['s_photo'] ?>">
+                                                <input type="file" class="form-control" id="siswa_foto" name="siswa_foto"  value="<?= $siswa['s_photo'] ?>">
                                                 <div class="invalid-feedback errorSiswaFoto"></div>
                                             </div>
                                             <div class="mb-3">
@@ -1142,14 +1143,19 @@
                 <div class="modal-body">
                     <div class="mt-3">
                         <div class="row">
+
                             <div class="col-md-12">
-                                <label for="kh_kelas" class="form-label for-header">Kelas</label>
-                            </div>
-                            
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="kh_kelas" name="kh_kelas">
                                     <input type="hidden" class="form-control" id="k_s_nisn" name="k_s_nisn">
+                                <div class="mb-3">
+                                    <label for="id_kelas" class="form-label for-header">Kelas</label>
+                                    <select class="form-select" aria-label="Default select example" name="id_kelas" id="id_kelas">
+                                        
+                                        <option selected>Pilih Kelas</option>
+                                        <?php foreach($search_kelas as $sk) : ?>
+                                            <option value="<?= $sk['id_kelas']; ?>"><?= $sk['nama_kelas']; ?></option>
+                                        <?php endforeach ?>
+                                    
+                                    </select>
                                     <div class="invalid-feedback errorkh_kelas"></div>
                                 </div>
                             </div>
@@ -1157,20 +1163,14 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="kh_semester" class="form-label for-header">Semester</label>
-                                    <input type="number" class="form-control" id="kh_semester" name="kh_semester">
+                                    <select class="form-select" aria-label="Default select example" name="kh_semester" id="kh_semester">
+                                        
+                                        <option selected>Pilih Semester</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    
+                                    </select>
                                     <div class="invalid-feedback errorkh_semester"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label for="kh_jmlhadir" class="form-label for-header">Hadir</label>
-                            </div>
-                            
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="kh_jmlhadir" class="form-label">Jumlah Pertemuan</label>
-                                    <input type="number" class="form-control" id="kh_jmlhadir" name="kh_jmlhadir">
-                                    <div class="invalid-feedback errorkh_jmlhadir"></div>
                                 </div>
                             </div>
 
@@ -1197,14 +1197,7 @@
                                     <input type="number" class="form-control" id="kh_alpa" name="kh_alpa">
                                     <div class="invalid-feedback errorkh_alpa"></div>
                                 </div>
-                            </div>                            
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="kh_jmlbelajar" class="form-label for-header">Jumlah Siswa Belajar Efektif</label>
-                                    <input type="number" class="form-control" id="kh_jmlbelajar" name="kh_jmlbelajar">
-                                    <div class="invalid-feedback errorkh_jmlbelajar"></div>
-                                </div>
-                            </div>
+                            </div>   
 
                         </div>
                     </div>
@@ -1582,7 +1575,8 @@ var sub;
 
                 }else if(response.berhasil){
                     alert("Data berhasil disimpan");
-                    window.location.reload();
+                    window.location =  response.id;
+
                 }
             }
         });

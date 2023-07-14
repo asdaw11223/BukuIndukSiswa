@@ -16,10 +16,4 @@ class NilaiModel extends Model
         ->get()->getResultArray();
     }
 
-    public function deleteMasuk($id)
-    {
-        $query = $this->db->table('tb_nilai')->delete(array('id_nilai' => $id));
-        return $query;
-    }
-
 }

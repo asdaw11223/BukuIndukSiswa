@@ -3,22 +3,32 @@
 namespace App\Controllers;
 
 use App\Models\KehadiranModel;
+use App\Models\DaftarSiswaKelasModel;
 
 class Kehadiran extends BaseController
 {
     protected $kehadiranModel;
+    protected $daftarSiswaKelasModel;
      
     public function __construct()
     {
         $this->kehadiranModel = new KehadiranModel();
+        $this->daftarSiswaKelasModel = new DaftarSiswaKelasModel();
     }
 
     public function index($s_nisn)
     {
-		$kehadiran = $this->kehadiranModel->getSiswaDetail($s_nisn);
-
+		$kehadiran = $this->kehadiranModel->where('s_nisn', $s_nisn)
+        ->join('tb_kelas', 'tb_kelas.id_kelas = tb_kehadiran.id_kelas')
+        ->findAll();
+        
+        $search_kelas = $this->daftarSiswaKelasModel->where('s_nisn', $s_nisn)
+        ->join('tb_kelas', 'tb_kelas.id_kelas = tb_daftarsiswakelas.id_kelas')
+        ->findAll();
+		
 		$data = [
-			'kehadiran' => $kehadiran
+			'kehadiran' => $kehadiran,
+			'search_kelas' => $search_kelas,
 		];
 
 		return view('BukuInduk/kehadiran', $data);
@@ -29,7 +39,7 @@ class Kehadiran extends BaseController
 		if($this->request->isAJAX()){
 			
 			$valid = $this->validate([
-				'kh_kelas' => [
+				'id_kelas' => [
 					'label' => "Kelas",
 					'rules' => 'required',
 					'errors' => [
@@ -51,7 +61,7 @@ class Kehadiran extends BaseController
 				$validation = \Config\Services::validation();
 				$msg = [
 					'error' => [
-						'kh_kelas' => $validation->getError('kh_kelas'),
+						'id_kelas' => $validation->getError('id_kelas'),
 						'kh_semester' => $validation->getError('kh_semester')
 					]
 				];
@@ -59,13 +69,11 @@ class Kehadiran extends BaseController
 			}else{
 				
 				$this->kehadiranModel->save([
-					'kh_kelas' => $this->request->getVar('kh_kelas'),
+					'id_kelas' => $this->request->getVar('id_kelas'),
 					'kh_semester' => $this->request->getVar('kh_semester'),
-					'kh_jmlhadir' => $this->request->getVar('kh_jmlhadir'),
 					'kh_sakit' => $this->request->getVar('kh_sakit'),
 					'kh_izin' => $this->request->getVar('kh_izin'),
 					'kh_alpa' => $this->request->getVar('kh_alpa'),
-					'kh_jmlbelajar' => $this->request->getVar('kh_jmlbelajar'),
 					's_NISN' => $this->request->getVar('k_s_nisn')
 				]);
 
@@ -113,7 +121,7 @@ class Kehadiran extends BaseController
 		if($this->request->isAJAX()){
 
 			$valid = $this->validate([
-				'u_kh_kelas' => [
+				'u_id_kelas' => [
 					'label' => "Nama kehadiran",
 					'rules' => 'required',
 					'errors' => [
@@ -134,7 +142,7 @@ class Kehadiran extends BaseController
 				$validation = \Config\Services::validation();
 				$msg = [
 					'error' => [
-						'u_kh_kelas' => $validation->getError('u_kh_kelas'),
+						'u_id_kelas' => $validation->getError('u_id_kelas'),
 						'u_kh_semester' => $validation->getError('u_kh_semester')
 					]
 				];
@@ -143,13 +151,11 @@ class Kehadiran extends BaseController
 				
 				$this->kehadiranModel->save([
 					'id_kehadiran' => $this->request->getVar('u_id_kehadiran'),
-					'kh_kelas' => $this->request->getVar('u_kh_kelas'),
+					'id_kelas' => $this->request->getVar('u_id_kelas'),
 					'kh_semester' => $this->request->getVar('u_kh_semester'),
-					'kh_jmlhadir' => $this->request->getVar('u_kh_jmlhadir'),
 					'kh_sakit' => $this->request->getVar('u_kh_sakit'),
 					'kh_izin' => $this->request->getVar('u_kh_izin'),
 					'kh_alpa' => $this->request->getVar('u_kh_alfa'),
-					'kh_jmlbelajar' => $this->request->getVar('u_kh_jmlbelajar'),
 					's_NISN' => $this->request->getVar('u_k_s_nisn')
 				]);
 
@@ -159,6 +165,70 @@ class Kehadiran extends BaseController
 					]
 				];
 			}
+
+			echo json_encode($msg);
+        }
+	}
+	
+	public function addKehadiran()
+	{
+		if($this->request->isAJAX()){
+			
+            $daftarSiswaKelas = $this->daftarSiswaKelasModel->where('id_kelas', $this->request->getVar('id_kelas'))->findAll();
+            
+            foreach($daftarSiswaKelas as $dsk){
+                    
+				$dKehadiran = $this->kehadiranModel
+				->where('kh_semester', $this->request->getVar('kh_semester'))
+				->where('s_NISN', $dsk['s_NISN'])
+				->where('id_kelas', $this->request->getVar('id_kelas'))
+				->findAll();
+
+				if($dKehadiran == null){
+					$this->kehadiranModel->save([
+						'id_kelas' => $this->request->getVar('id_kelas'),
+						'kh_semester' => $this->request->getVar('kh_semester'),
+						'kh_sakit' => 0,
+						'kh_izin' => 0,
+						'kh_alpa' => 0,
+						's_NISN' => $dsk['s_NISN'],
+					]);
+				}
+            }
+
+            $msg = [
+                'berhasil' => [
+                    'succes' => "Berhasil"
+                ]
+            ];
+
+			echo json_encode($msg);
+        }
+	}
+
+	public function updateKehadiranFull()
+	{
+		if($this->request->isAJAX()){
+			
+            $kehadiran = $this->kehadiranModel->where('id_kehadiran', $this->request->getVar('id_kehadiran'))->where('kh_semester', $this->request->getVar('kh_semester'))
+            ->findAll();
+
+            foreach($kehadiran as $n) {
+                $this->kehadiranModel->save([
+                    'id_kehadiran' => $this->request->getVar('id_kehadiran'),
+                    'id_kelas' => $this->request->getVar('id_kelas'),
+                    'kh_semester' => $this->request->getVar('kh_semester'),
+                    'kh_sakit' => $this->request->getVar('kh_sakit'. $n['id_kehadiran']),
+                    'kh_izin' => $this->request->getVar('kh_izin'. $n['id_kehadiran']),
+                    'kh_alpa' => $this->request->getVar('kh_alpa'. $n['id_kehadiran'])
+                ]);
+            }
+
+            $msg = [
+                'berhasil' => [
+                    'succes' => "Berhasil"
+                ]
+            ];
 
 			echo json_encode($msg);
         }

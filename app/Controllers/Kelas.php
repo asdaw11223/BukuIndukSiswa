@@ -30,10 +30,16 @@ class Kelas extends BaseController
 
     public function index()
     {
-        $kelas = $this->kelasModel->getKelas();
+        $kelas = $this->kelasModel
+		->join('tb_tahunajaran', 'tb_tahunajaran.id_tahunajaran = tb_kelas.id_tahunajaran')
+		->join('tb_jurusan', 'tb_jurusan.id_jurusan = tb_kelas.id_jurusan')
+		->join('tb_tingkat', 'tb_tingkat.id_tingkat = tb_kelas.id_tingkat')
+		->get()->getResultArray();	
+
         $jurusan = $this->jurusanModel->findAll();
         $tahunAjaran = $this->tahunAjaranModel->findAll();
         $tingkat = $this->tingkatModel->findAll();
+
         $siswa = $this->siswaModel
         ->join('tb_tahunajaran', 'tb_tahunajaran.id_tahunajaran = tb_siswa.id_tahunajaran')
         ->join('tb_jurusan', 'tb_jurusan.id_jurusan = tb_siswa.id_jurusan')
@@ -117,6 +123,37 @@ class Kelas extends BaseController
 				->where('id_tahunajaran', $tahunmasuk)
 				->get()->getResultArray();
 			}
+			
+			$filter = ' ';
+			if($siswa != null){
+				foreach($siswa as $s){
+					$filter .= '<tr><td><input class="form-check-input" type="checkbox" name="siswa[]" id="'.$s['s_NISN'].'" value="'.$s['s_NISN'].'"></td><td>'.$s['s_NISN'].'</td><td>'.$s['s_namalengkap'].'</td></tr>';
+				};
+			}else{
+				$filter .= '<tr><td colspan="3" class="text-center"> Tidak Ada Siswa</td></tr>';
+				
+			}
+
+			$data = [
+				'title' => 'Kelas',
+				'filter' => $filter,
+				'berhasil' => [
+					'succes' => "Data berhasil dihapus",
+				]
+			];
+
+			echo json_encode($data);
+		}
+    }
+	
+    public function search()
+    {
+		if($this->request->isAJAX()){
+
+			$keyword = $this->request->getVar('id');
+
+			$siswa = $this->siswaModel->like('s_namalengkap', $keyword)->orLike('s_NISN', $keyword)
+			->get()->getResultArray();
 			
 			$filter = ' ';
 			if($siswa != null){
@@ -418,18 +455,20 @@ class Kelas extends BaseController
 		if($this->request->isAJAX()){
 
 			$siswa = $_POST['siswa'];
+			$dsiswa = [];
 
 			for ($i=0; $i < count($siswa); $i++) {
+								
+				$dsiswa = $this->daftarSiswaKelasModel->where('s_NISN', $siswa[$i])->where('tb_kelas.id_kelas', $this->request->getVar('id_kelas'))->where('tb_kelas.id_tahunajaran', $this->request->getVar('id_tahunajaran'))
+				->join('tb_kelas', 'tb_kelas.id_kelas = tb_daftarsiswakelas.id_kelas')
+				->findAll();
 				
-				$dsiswa = $this->daftarSiswaKelasModel->where('s_NISN', $siswa[$i])->findAll();
-
 				if($dsiswa == null){
 					$this->daftarSiswaKelasModel->save([
 						'id_kelas' => $this->request->getVar('id_kelas'),
 						's_NISN' => $siswa[$i]
 					]);
 				}
-
 			}
 
 			$msg = [

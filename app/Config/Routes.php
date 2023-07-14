@@ -55,7 +55,10 @@ $routes->get('/catatan', 'Catatan::index');
 
 $routes->get('/nilai', 'Nilai::index');
 $routes->get('/nilai/(:segment)/(:segment)', 'Nilai::nilai/$1/$2');
+$routes->get('/template/(:segment)/(:segment)', 'Nilai::template/$1/$2');
+
 $routes->get('/rapor', 'Rapor::index');
+$routes->get('/rapor/(:segment)', 'Rapor::rapor/$1');
 
 $routes->get('/laporan', 'Laporan::index');
 

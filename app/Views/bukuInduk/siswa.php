@@ -35,6 +35,8 @@
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach ($siswa as $s) : ?>
+                                    <?php if($s['s_NISN'] == '0000000000') : ?>
+                                        <?php else : ?>
                                     <tr>
                                         <td class="w-23"><?= $no++; ?></td>
                                         <td class="w-120 text-center">
@@ -65,7 +67,7 @@
                                             <?php endforeach; ?>
                                         </td>
                                     </tr>
-                                    <?php endforeach; ?>
+                                    <?php endif; endforeach; ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -126,7 +128,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="s_NISN" class="form-label">NISN</label>
-                                <input type="text" class="form-control" placeholder="NISN" name="s_NISN" id="s_NISN">
+                                <input type="text" class="form-control" placeholder="NISN" name="s_NISN" id="s_NISN" maxlength="10" minlength="10">
                                 <div class="invalid-feedback errorAddNISN"></div>
                             </div>
                         </div>
@@ -246,6 +248,11 @@
                 <div class="modal-body">
                     <?php echo form_open_multipart('Siswa/import'); ?> 
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <a href="assets/file/template_siswa.xlsx" class="btn green w-100" download>Download Template</a>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="id_tahunajaran" class="form-label">Tahun Ajaran</label>

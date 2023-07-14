@@ -4,9 +4,7 @@
             <tr>
                 <th rowspan="2">Kelas</th>
                 <th rowspan="2">Semester</th>
-                <th rowspan="2">Jumlah Hadir</th>
                 <th colspan="3" class="text-center">Tidak Hadir</th>
-                <th rowspan="2">Jumlah Belajar Efektif</th>
                 <th rowspan="2" class="text-center">Aksi</th>
             </tr>
             <tr>
@@ -18,16 +16,14 @@
         <tbody>
             <?php foreach($kehadiran as $k) : ?>
             <tr>
-                <td><?= $k['kh_kelas'] ?></td>
+                <td><?= $k['nama_kelas'] ?></td>
                 <td><?= $k['kh_semester'] ?></td>
-                <td><?= $k['kh_jmlhadir'] ?></td>
                 <td><?= $k['kh_sakit'] ?></td>
                 <td><?= $k['kh_izin'] ?></td>
                 <td><?= $k['kh_alpa'] ?></td>
-                <td><?= $k['kh_jmlbelajar'] ?></td>
                 <td class="w-120 text-center">
-                    <button type="button" class="btn-edit btn-update-kehadiran" data-id="<?= $k['id_kehadiran']; ?>" data-kelas="<?= $k['kh_kelas']; ?>" data-semester="<?= $k['kh_semester']; ?>" data-jmlhadir="<?= $k['kh_jmlhadir']; ?>" data-sakit="<?= $k['kh_sakit']; ?>" data-izin="<?= $k['kh_izin']; ?>"  data-alfa="<?= $k['kh_alpa']; ?>"  data-jmlbelajar="<?= $k['kh_jmlbelajar']; ?>" data-nisn="<?= $k['s_NISN']; ?>" data-bs-toggle="modal" title="Edit"><span class="material-symbols-outlined">edit</span></button>
-                    <button type="button" class="btn-delete btn-delete-kehadiran"  data-id="<?= $k['id_kehadiran']; ?>" data-kelas="<?= $k['kh_kelas']; ?>" data-semester="<?= $k['kh_semester'] ?>" data-bs-toggle="modal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
+                    <button type="button" class="btn-edit btn-update-kehadiran" data-id="<?= $k['id_kehadiran']; ?>" data-kelas="<?= $k['id_kelas']; ?>" data-semester="<?= $k['kh_semester']; ?>" data-sakit="<?= $k['kh_sakit']; ?>" data-izin="<?= $k['kh_izin']; ?>"  data-alfa="<?= $k['kh_alpa']; ?>"  data-nisn="<?= $k['s_NISN']; ?>" data-bs-toggle="modal" title="Edit"><span class="material-symbols-outlined">edit</span></button>
+                    <button type="button" class="btn-delete btn-delete-kehadiran"  data-id="<?= $k['id_kehadiran']; ?>" data-kelas="<?= $k['id_kelas']; ?>" data-semester="<?= $k['kh_semester'] ?>" data-bs-toggle="modal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -36,11 +32,9 @@
             <tr>
                 <th>Kelas</th>
                 <th>Semester</th>
-                <th>Jumlah Hadir</th>
                 <th>Sakit</th>
                 <th>Izin</th>
                 <th>Alfa</th>
-                <th>Jumlah Belajar Efektif</th>
                 <th class="text-center">Aksi</th>
             </tr>
         </tfoot>
@@ -56,7 +50,7 @@
                 <div class="modal-body text-center mb-3">
                     <span class="material-symbols-outlined">close</span>
                     <div class="m-text mb-4">
-                        <p>Apakah anda yakin akan menghapus Kehadiran Semester <span class="d_kh_semester"></span> Kelas <span class="d_kh_kelas"></span>? proses ini tidak dapat di kembalikan</p>
+                        <p>Apakah anda yakin akan menghapus Kehadiran Semester <span class="d_kh_semester"></span> Kelas <span class="d_idwd_kelas"></span>? proses ini tidak dapat di kembalikan</p>
                     </div>
                     <input type="hidden" class="form-control" id="d_id_Kehadiran" name="d_id_Kehadiran">
                     <div class="m-footer d-flex">
@@ -83,38 +77,39 @@
                     <div class="mt-3">
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="u_kh_kelas" class="form-label for-header">Kelas</label>
+                                <label for="u_id_kelas" class="form-label for-header">Kelas</label>
                             </div>
                             
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <input type="hidden" class="form-control" id="u_id_kehadiran" name="u_id_kehadiran">
-                                    <input type="text" class="form-control" id="u_kh_kelas" name="u_kh_kelas">
+                                    <select class="form-select" aria-label="Default select example" name="u_id_kelas" id="u_id_kelas">
+                                        
+                                        <option selected>Pilih Kelas</option>
+                                        <?php foreach($search_kelas as $sk) : ?>
+                                            <option value="<?= $sk['id_kelas']; ?>"><?= $sk['nama_kelas']; ?></option>
+                                        <?php endforeach ?>
+                                    
+                                    </select>
                                     <input type="hidden" class="form-control" id="u_k_s_nisn" name="u_k_s_nisn">
-                                    <div class="invalid-feedback erroru_kh_kelas"></div>
+                                    <div class="invalid-feedback erroru_id_kelas"></div>
                                 </div>
                             </div>
                             
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="u_kh_semester" class="form-label for-header">Semester</label>
-                                    <input type="number" class="form-control" id="u_kh_semester" name="u_kh_semester">
+                                    <select class="form-select" aria-label="Default select example" name="u_kh_semester" id="u_kh_semester">
+                                        
+                                        <option selected>Pilih Semester</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    
+                                    </select>
                                     <div class="invalid-feedback erroru_kh_semester"></div>
                                 </div>
                             </div>
-
-                            <div class="col-md-12">
-                                <label for="u_kh_jmlhadir" class="form-label for-header">Hadir</label>
-                            </div>
                             
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="u_kh_jmlhadir" class="form-label">Jumlah Pertemuan</label>
-                                    <input type="number" class="form-control" id="u_kh_jmlhadir" name="u_kh_jmlhadir">
-                                    <div class="invalid-feedback erroru_kh_jmlhadir"></div>
-                                </div>
-                            </div>
-
                             <div class="col-md-12">
                                 <label for="u_kh_sakit" class="form-label for-header">Tidak Hadir</label>
                             </div>
@@ -138,14 +133,7 @@
                                     <input type="number" class="form-control" id="u_kh_alfa" name="u_kh_alfa">
                                     <div class="invalid-feedback erroru_kh_alfa"></div>
                                 </div>
-                            </div>                            
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="u_kh_jmlbelajar" class="form-label for-header">Jumlah Siswa Belajar Efektif</label>
-                                    <input type="number" class="form-control" id="u_kh_jmlbelajar" name="u_kh_jmlbelajar">
-                                    <div class="invalid-feedback erroru_kh_jmlbelajar"></div>
-                                </div>
-                            </div>
+                            </div>     
 
                         </div>
                     </div>
@@ -172,12 +160,12 @@
                 
                 if(response.error){
                     //SISWA
-                    if(response.error.u_kh_kelas){
-                        $('#u_kh_kelas').addClass('is-invalid');
-                        $('.erroru_kh_kelas').html(response.error.u_kh_kelas);
+                    if(response.error.u_idwd_kelas){
+                        $('#u_idwd_kelas').addClass('is-invalid');
+                        $('.erroru_idwd_kelas').html(response.error.u_idwd_kelas);
                         return false;
                     }else{
-                        $('#u_kh_kelas').removeClass('is-invalid');
+                        $('#u_idwd_kelas').removeClass('is-invalid');
                     }
                     
                     if(response.error.u_kh_semester){
@@ -223,21 +211,17 @@
         var id = $(this).data('id');
         var kelas = $(this).data('kelas');
         var semester = $(this).data('semester');
-        var jmlhadir = $(this).data('jmlhadir');
         var sakit = $(this).data('sakit');
         var izin = $(this).data('izin');
         var alfa = $(this).data('alfa');
-        var jmlbelajar = $(this).data('jmlbelajar');
         var nisn = $(this).data('nisn');
 
         $('#u_id_kehadiran').val(id);
-        $('#u_kh_kelas').val(kelas);
+        $('#u_id_kelas').val(kelas);
         $('#u_kh_semester').val(semester);
-        $('#u_kh_jmlhadir').val(jmlhadir);
         $('#u_kh_sakit').val(sakit);
         $('#u_kh_izin').val(izin);
         $('#u_kh_alfa').val(alfa);
-        $('#u_kh_jmlbelajar').val(jmlbelajar);
         $('#u_k_s_nisn').val(nisn);
 
 
@@ -247,7 +231,7 @@
     $('.btn-delete-kehadiran').on('click',function(){
             
         var dataNama = $(this).data('kelas');
-        $('.d_kh_kelas').text(dataNama);
+        $('.d_idwd_kelas').text(dataNama);
 
         var semester = $(this).data('semester');
         $('.d_kh_semester').text(semester);
