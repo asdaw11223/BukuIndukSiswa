@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2023 at 06:57 AM
+-- Generation Time: Jul 21, 2023 at 01:20 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -54,6 +54,14 @@ CREATE TABLE `auth_groups` (
   `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `auth_groups`
+--
+
+INSERT INTO `auth_groups` (`id`, `name`, `description`) VALUES
+(1, 'admin', 'Site Administrator'),
+(2, 'guru', 'Reqular User');
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +83,17 @@ CREATE TABLE `auth_groups_users` (
   `group_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
   `user_id` int(11) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `auth_groups_users`
+--
+
+INSERT INTO `auth_groups_users` (`group_id`, `user_id`) VALUES
+(1, 1),
+(1, 7),
+(2, 2),
+(2, 4),
+(2, 5);
 
 -- --------------------------------------------------------
 
@@ -118,7 +137,70 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (20, '::1', 'akbareskhart@gmail.com', 7, '2023-06-14 17:45:34', 1),
 (21, '::1', 'akbareskhart@gmail.com', 7, '2023-06-14 23:45:12', 1),
 (22, '::1', 'akbareskhart@gmail.com', 7, '2023-06-15 05:48:36', 1),
-(23, '::1', 'akbareskhart@gmail.com', 7, '2023-06-15 21:58:32', 1);
+(23, '::1', 'akbareskhart@gmail.com', 7, '2023-06-15 21:58:32', 1),
+(24, '::1', 'akbareskhart@gmail.com', 7, '2023-06-20 09:48:42', 1),
+(25, '::1', 'akbareskhart@gmail.com', 7, '2023-06-20 15:44:45', 1),
+(26, '::1', 'akbareskhart@gmail.com', 7, '2023-06-22 02:11:16', 1),
+(27, '::1', 'akbareskhart@gmail.com', 7, '2023-06-23 00:24:59', 1),
+(28, '::1', 'akbareskhart@gmail.com', 7, '2023-06-23 02:55:32', 1),
+(29, '::1', 'akbareskhart@gmail.com', 7, '2023-06-25 08:56:03', 1),
+(30, '::1', 'akbareskhart@gmail.com', 7, '2023-06-27 01:28:24', 1),
+(31, '::1', 'akbareskhart@gmail.com', 7, '2023-06-27 23:53:00', 1),
+(32, '::1', 'akbareskhart@gmail.com', 7, '2023-06-29 05:18:19', 1),
+(33, '::1', 'akbareskhart@gmail.com', 7, '2023-06-30 04:12:21', 1),
+(34, '::1', 'akbareskhart@gmail.com', 7, '2023-06-30 07:05:49', 1),
+(35, '::1', 'akbareskhart@gmail.com', 7, '2023-06-30 07:08:53', 1),
+(36, '::1', 'akbareskhart@gmail.com', 7, '2023-07-02 00:18:01', 1),
+(37, '::1', 'akbareskhart@gmail.com', 7, '2023-07-02 03:18:55', 1),
+(38, '::1', 'akbareskhart@gmail.com', 7, '2023-07-03 21:19:11', 1),
+(39, '::1', 'akbareskhart@gmail.com', 7, '2023-07-04 00:45:44', 1),
+(40, '::1', 'akbareskhart@gmail.com', 7, '2023-07-04 04:51:02', 1),
+(41, '::1', 'akbareskhart@gmail.com', 7, '2023-07-04 21:30:35', 1),
+(42, '::1', 'akbareskhart@gmail.com', 7, '2023-07-05 00:27:08', 1),
+(43, '::1', 'akbareskhart@gmail.com', 7, '2023-07-05 04:59:51', 1),
+(44, '::1', 'akbareskhart@gmail.com', 7, '2023-07-05 11:00:45', 1),
+(45, '::1', 'akbareskhart@gmail.com', 7, '2023-07-06 01:50:25', 1),
+(46, '::1', 'akbareskhart@gmail.com', 7, '2023-07-07 01:18:11', 1),
+(47, '::1', 'akbareskhart@gmail.com', 7, '2023-07-07 11:32:49', 1),
+(48, '::1', 'akbareskhart@gmail.com', 7, '2023-07-08 04:16:13', 1),
+(49, '::1', 'akbareskhart@gmail.com', 7, '2023-07-12 06:19:47', 1),
+(50, '::1', 'akbareskhart@gmail.com', 7, '2023-07-14 06:01:35', 1),
+(51, '::1', 'akbareskhart@gmail.com', 7, '2023-07-14 12:55:23', 1),
+(52, '::1', 'akbareskhart@gmail.com', 7, '2023-07-16 06:52:33', 1),
+(53, '::1', 'akbareskhart@gmail.com', 7, '2023-07-17 05:07:46', 1),
+(54, '::1', 'akbareskhart@gmail.com', 7, '2023-07-17 12:42:18', 1),
+(55, '::1', 'akbareskhart@gmail.com', 7, '2023-07-18 05:06:59', 1),
+(56, '::1', 'akbareskhart@gmail.com', 7, '2023-07-18 15:04:24', 1),
+(57, '::1', 'akbareskhart@gmail.com', 7, '2023-07-18 21:23:17', 1),
+(58, '::1', 'akbareskhart@gmail.com', 7, '2023-07-19 03:18:24', 1),
+(59, '::1', 'akbareskhart@gmail.com', 7, '2023-07-19 08:36:54', 1),
+(60, '::1', 'akbareskhart@gmail.com', 7, '2023-07-19 12:08:56', 1),
+(61, '::1', 'akbareskhart@gmail.com', 7, '2023-07-20 06:02:38', 1),
+(62, '::1', 'akbareskhart@gmail.com', 7, '2023-07-21 05:54:48', 1),
+(63, '::1', 'akbareskhart@gmail.com', 7, '2023-07-21 06:11:17', 1),
+(64, '::1', 'guru001', 12, '2023-07-21 06:38:01', 0),
+(65, '::1', 'guru001', 12, '2023-07-21 06:41:18', 0),
+(66, '::1', 'guru002@gmail.com', 14, '2023-07-21 06:43:21', 1),
+(67, '::1', 'guru002@gmail.com', 14, '2023-07-21 06:48:03', 1),
+(68, '::1', 'guru001@gmail.com', 15, '2023-07-21 07:36:51', 1),
+(69, '::1', 'dikifauzi', NULL, '2023-07-21 07:36:57', 0),
+(70, '::1', 'akbareskhart@gmail.com', 7, '2023-07-21 07:37:01', 1),
+(71, '::1', 'guru001@gmail.com', 15, '2023-07-21 07:37:10', 1),
+(72, '::1', 'akbareskhart@gmail.com', 7, '2023-07-21 08:35:18', 1),
+(73, '::1', 'guru001@gmail.com', 17, '2023-07-21 10:32:16', 1),
+(74, '::1', 'akbareskhart@gmail.com', 7, '2023-07-21 10:32:24', 1),
+(75, '::1', 'smkpasundanrancaekek@gmail.com', 18, '2023-07-21 10:36:16', 1),
+(76, '::1', 'guru002@gmail.com', 5, '2023-07-21 10:39:14', 1),
+(77, '::1', 'smkpasundanrancaekek@gmail.com', 1, '2023-07-21 10:39:22', 1),
+(78, '::1', 'akbareskhart369@gmail.com', 6, '2023-07-21 10:42:07', 1),
+(79, '::1', 'smkpasundanrancaekek@gmail.com', 1, '2023-07-21 10:42:21', 1),
+(80, '::1', 'pasundan', NULL, '2023-07-21 10:42:27', 0),
+(81, '::1', 'smkpasundanrancaekek@gmail.com', 7, '2023-07-21 10:42:57', 1),
+(82, '::1', 'pasundan', NULL, '2023-07-21 10:43:14', 0),
+(83, '::1', 'smkpasundanrancaekek@gmail.com', 1, '2023-07-21 10:43:28', 1),
+(84, '::1', 'guru001@gmail.com', 2, '2023-07-21 10:45:18', 1),
+(85, '::1', 'smkpasundanrancaekek@gmail.com', 1, '2023-07-21 10:45:29', 1),
+(86, '::1', 'guru001@gmail.com', 2, '2023-07-21 10:48:21', 1);
 
 -- --------------------------------------------------------
 
@@ -131,6 +213,14 @@ CREATE TABLE `auth_permissions` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `auth_permissions`
+--
+
+INSERT INTO `auth_permissions` (`id`, `name`, `description`) VALUES
+(1, 'manage-siswa', 'Manage All Siswa'),
+(2, 'manage-nilai', 'Manage All Nilai');
 
 -- --------------------------------------------------------
 
@@ -89082,22 +89172,11 @@ CREATE TABLE `tb_alamat` (
 --
 
 INSERT INTO `tb_alamat` (`id_alamat`, `s_alamat`, `s_rt`, `s_rw`, `subdis_id`, `dis_id`, `city_id`, `prov_id`, `s_telprumah`, `s_tinggal`, `s_jaraksekolah`, `s_kendaraan`, `s_NISN`) VALUES
-(108, '10', '10', '10', 0, 0, 0, 0, '10', '10', '10', '10', '10'),
-(109, '11', '11', '11', 0, 0, 0, 0, '11', '11', '11', '11', '11'),
-(110, '12', '12', '12', 0, 0, 0, 0, '12', '12', '12', '12', '12'),
-(111, '1', '1', '1', 0, 0, 0, 0, '1', '1', '1', '1', '13'),
-(113, 'Jln. Bunga', '13', '01', 71458, 6028, 406, 29, '', '', '', '', '14'),
-(114, 'asadasdasd', '3', '3', 13313, 851, 60, 3, '', '', '', '', '123123123'),
-(115, 'asdasd', '2', '4', 37792, 2569, 180, 13, '', '', '', '', '3131'),
-(116, 'asd', '3', '3', 12331, 363, 37, 2, '', '', '', '', '090909'),
-(117, 'asd', '3', '3', 5485, 45, 4, 1, '', '', '', '', '0902909'),
-(118, 'asd', '3', '3', 7652, 472, 26, 2, '', '', '', '', '09029093'),
-(119, 'asdasd', '3', '3', 47609, 3278, 217, 15, '', '', '', '', '124124124'),
-(120, 'asdasd', '3', '3', 2981, 184, 11, 1, '', '', '', '', '1241241224'),
-(121, 'asdasdad', '1', '2', 42265, 3318, 216, 15, '', '', '', '', '030699'),
-(122, 'asdasd', '3', '3', 39926, 3172, 212, 14, '', '', '', '', '111110090'),
-(123, 'asdasd', '2', '2', 4657, 54, 4, 1, '', '', '', '', '908070'),
-(124, 'gfgfg', '5', '6', 4405, 83, 4, 1, '', '', '', '', '5656');
+(2, 'dump', '0', '0', 26940, 2345, 163, 12, '', '', '', '', '0000000000'),
+(3, 'Cikiray', '1', '9', 26940, 2345, 163, 12, '', '', '', '', '1730401381'),
+(4, 'Gedebage', '11', '2', 29572, 2446, 161, 12, '', '', '', '', '1730401382'),
+(5, 'Landeuh', '1', '23', 25833, 2079, 161, 12, '', '', '', '', '1730401383'),
+(6, 'Padalarang', '12', '4', 13254, 776, 71, 3, '', '', '', '', '1730401384');
 
 -- --------------------------------------------------------
 
@@ -89118,18 +89197,7 @@ CREATE TABLE `tb_beasiswa` (
 --
 
 INSERT INTO `tb_beasiswa` (`id_beasiswa`, `s_namabeasiswa`, `s_tahunbeasiswa`, `s_beasiswadari`, `s_NISN`) VALUES
-(183, '10', '10', '10', '10'),
-(184, '10', '10', '10', '10'),
-(185, '10', '10', '10', '10'),
-(186, '11', '11', '11', '11'),
-(187, '11', '11', '11', '11'),
-(188, '11', '11', '11', '11'),
-(189, '12', '12', '12', '12'),
-(190, '12', '12', '12', '12'),
-(191, '12', '12', '12', '12'),
-(192, '1', '1', ' ', '13'),
-(193, ' ', ' ', ' ', '13'),
-(194, ' ', ' ', ' ', '13');
+(1, 'asd', 'asd', 'asd', '1730401381');
 
 -- --------------------------------------------------------
 
@@ -89148,10 +89216,9 @@ CREATE TABLE `tb_catatanpenting` (
 --
 
 INSERT INTO `tb_catatanpenting` (`id_catatanpenting`, `s_catatanpenting`, `s_NISN`) VALUES
-(66, '10', '10'),
-(67, '11', '11'),
-(68, '12', '12'),
-(69, ' ', '13');
+(1, '', '1730401381'),
+(2, '', '1730401382'),
+(3, '', '1730401383');
 
 -- --------------------------------------------------------
 
@@ -89161,6 +89228,10 @@ INSERT INTO `tb_catatanpenting` (`id_catatanpenting`, `s_catatanpenting`, `s_NIS
 
 CREATE TABLE `tb_daftarsiswakelas` (
   `id_daftarsiswakelas` int(11) NOT NULL,
+  `dsk_naikkelas` tinyint(1) NOT NULL,
+  `dsk_tglnaikkelas` date NOT NULL,
+  `dsk_lulus` tinyint(1) NOT NULL,
+  `dsk_tgllulus` date NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `s_NISN` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -89169,12 +89240,33 @@ CREATE TABLE `tb_daftarsiswakelas` (
 -- Dumping data for table `tb_daftarsiswakelas`
 --
 
-INSERT INTO `tb_daftarsiswakelas` (`id_daftarsiswakelas`, `id_kelas`, `s_NISN`) VALUES
-(22, 14, '10'),
-(24, 14, '11'),
-(25, 14, '12'),
-(26, 14, '13'),
-(27, 14, '14');
+INSERT INTO `tb_daftarsiswakelas` (`id_daftarsiswakelas`, `dsk_naikkelas`, `dsk_tglnaikkelas`, `dsk_lulus`, `dsk_tgllulus`, `id_kelas`, `s_NISN`) VALUES
+(1, 0, '0000-00-00', 0, '0000-00-00', 1, '1730401381'),
+(2, 0, '0000-00-00', 0, '0000-00-00', 1, '1730401382'),
+(3, 0, '0000-00-00', 0, '0000-00-00', 1, '1730401383'),
+(4, 0, '0000-00-00', 0, '0000-00-00', 1, '1730401384'),
+(5, 2, '3333-02-13', 2, '2333-02-13', 3, '1730401381');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_eskul`
+--
+
+CREATE TABLE `tb_eskul` (
+  `id_eskul` int(11) NOT NULL,
+  `eskul_kegiatan` varchar(255) NOT NULL,
+  `eskul_keterangan` varchar(255) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `s_NISN` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_eskul`
+--
+
+INSERT INTO `tb_eskul` (`id_eskul`, `eskul_kegiatan`, `eskul_keterangan`, `id_kelas`, `s_NISN`) VALUES
+(1, 'Pramuka', 'Semakin Rajin Lagi', 1, '1730401381');
 
 -- --------------------------------------------------------
 
@@ -89211,8 +89303,8 @@ CREATE TABLE `tb_jurusan` (
 --
 
 INSERT INTO `tb_jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
-(1, 'Bisnis Daring dan Pemasaran'),
-(2, 'Teknik Komputer dan Jaringan');
+(11, 'Bisnis Daring dan Pemasaran'),
+(12, 'Teknik Komputer dan Jaringan');
 
 -- --------------------------------------------------------
 
@@ -89222,15 +89314,29 @@ INSERT INTO `tb_jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
 
 CREATE TABLE `tb_kehadiran` (
   `id_kehadiran` int(11) NOT NULL,
-  `kh_kelas` varchar(255) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
   `kh_semester` int(11) NOT NULL,
-  `kh_jmlhadir` int(11) NOT NULL,
   `kh_sakit` int(11) NOT NULL,
   `kh_izin` int(11) NOT NULL,
   `kh_alpa` int(11) NOT NULL,
-  `kh_jmlbelajar` int(11) NOT NULL,
   `s_NISN` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_kehadiran`
+--
+
+INSERT INTO `tb_kehadiran` (`id_kehadiran`, `id_kelas`, `kh_semester`, `kh_sakit`, `kh_izin`, `kh_alpa`, `s_NISN`) VALUES
+(1, 1, 1, 1, 2, 3, '1730401381'),
+(2, 1, 1, 4, 5, 6, '1730401382'),
+(3, 1, 1, 7, 8, 9, '1730401383'),
+(4, 1, 1, 10, 11, 12, '1730401384'),
+(5, 1, 2, 11, 223, 33, '1730401381'),
+(6, 1, 2, 44, 55, 66, '1730401382'),
+(7, 1, 2, 777, 88, 99, '1730401383'),
+(8, 1, 2, 111, 222, 333, '1730401384'),
+(9, 3, 1, 0, 0, 0, '1730401381'),
+(10, 3, 2, 0, 0, 0, '1730401381');
 
 -- --------------------------------------------------------
 
@@ -89251,10 +89357,9 @@ CREATE TABLE `tb_kelas` (
 --
 
 INSERT INTO `tb_kelas` (`id_kelas`, `nama_kelas`, `id_tahunajaran`, `id_jurusan`, `id_tingkat`) VALUES
-(10, 'BDP 1', 5, 1, 4),
-(14, 'BDP 2', 6, 1, 4),
-(15, 'BDP 3', 7, 1, 4),
-(24, 'TKJ 1', 5, 2, 1);
+(1, 'TKJ 1', 1, 12, 4),
+(2, 'BDP 1', 1, 11, 1),
+(3, 'TKJ 1', 2, 12, 5);
 
 -- --------------------------------------------------------
 
@@ -89280,10 +89385,9 @@ CREATE TABLE `tb_kepribadian` (
 --
 
 INSERT INTO `tb_kepribadian` (`id_kepribadian`, `s_intelegensi`, `s_tgltestiq`, `sk_disiplin`, `sk_kreativitas`, `sk_tanggungjawab`, `sk_penyesuaiandiri`, `sk_kemantapanemosi`, `sk_kerjasama`, `s_NISN`) VALUES
-(68, '10', '0000-00-00', '10', '10', '10', '10', '10', '10', '10'),
-(69, '11', '2039-12-22', '11', '11', '11', '11', '11', '11', '11'),
-(70, '12', '0000-00-00', '12', '12', '12', '12', '12', '12', '12'),
-(71, '1', '2040-01-01', '1', '1', '1', '1', '1', '1', '13');
+(1, '101', '2022-05-22', 'Baik', 'Cukup', 'Cukup', 'Baik', 'Cukup', 'Kurang', '1730401381'),
+(2, '90', '2022-12-31', 'Cukup', 'Cukup', 'Baik', 'Kurang', 'Baik', 'Cukup', '1730401382'),
+(3, '', '0000-00-00', NULL, NULL, NULL, NULL, NULL, NULL, '1730401383');
 
 -- --------------------------------------------------------
 
@@ -89307,22 +89411,11 @@ CREATE TABLE `tb_kesehatan` (
 --
 
 INSERT INTO `tb_kesehatan` (`id_kesehatan`, `s_bbterima`, `s_tbterima`, `s_bbkeluar`, `s_tbkeluar`, `s_golongandarah`, `s_kelainan`, `s_NISN`) VALUES
-(99, 10, 10, 10, 10, '10', '10', '10'),
-(100, 11, 11, 11, 11, '11', '11', '11'),
-(101, 12, 12, 12, 12, '12', '12', '12'),
-(102, 1, 1, 1, 1, '1', '1', '13'),
-(104, NULL, NULL, NULL, NULL, '', '', '14'),
-(105, NULL, NULL, NULL, NULL, '', '', '123123123'),
-(106, NULL, NULL, NULL, NULL, '', '', '3131'),
-(107, NULL, NULL, NULL, NULL, '', '', '090909'),
-(108, NULL, NULL, NULL, NULL, '', '', '0902909'),
-(109, NULL, NULL, NULL, NULL, '', '', '09029093'),
-(110, NULL, NULL, NULL, NULL, '', '', '124124124'),
-(111, NULL, NULL, NULL, NULL, '', '', '1241241224'),
-(112, NULL, NULL, NULL, NULL, '', '', '030699'),
-(113, NULL, NULL, NULL, NULL, '', '', '111110090'),
-(114, NULL, NULL, NULL, NULL, '', '', '908070'),
-(115, NULL, NULL, NULL, NULL, '', '', '5656');
+(2, NULL, NULL, NULL, NULL, '', '', '0000000000'),
+(3, 0, 0, 0, 0, '', '', '1730401381'),
+(4, 0, 0, 0, 0, '', '', '1730401382'),
+(5, 0, 0, 0, 0, '', '', '1730401383'),
+(6, NULL, NULL, NULL, NULL, '', '', '1730401384');
 
 -- --------------------------------------------------------
 
@@ -89350,14 +89443,12 @@ CREATE TABLE `tb_masuk` (
 --
 
 INSERT INTO `tb_masuk` (`id_masuk`, `sp_diterimatgl`, `sp_asalsekolah`, `sp_tglnoijasah`, `sp_tglijasah`, `sp_thnskhun`, `sp_thnnoskhun`, `sp_dikelas`, `sp_drsekolah`, `sp_alasanpindah`, `sp_jenis`, `s_NISN`) VALUES
-(245, '0000-00-00', '10', '10', '0000-00-00', '10', '10', '', '', '', 'Baru', '10'),
-(246, '0000-00-00', '10', '10', '0000-00-00', '10', '10', '10', '10', '10', 'Pindahan', '10'),
-(247, '2039-12-22', '11', '11', '2039-12-22', '11', '11', '', '', '', 'Baru', '11'),
-(248, '2039-12-22', '11', '11', '2039-12-22', '11', '11', '11', '11', '11', 'Pindahan', '11'),
-(249, '0000-00-00', '12', '12', '0000-00-00', '12', '12', '', '', '', 'Baru', '12'),
-(250, '0000-00-00', '12', '12', '0000-00-00', '12', '12', '12', '12', '12', 'Pindahan', '12'),
-(251, '2040-01-01', '1', '1', '2040-01-01', '1', '1', '', '', '', 'Baru', '13'),
-(252, '2040-01-01', '1', '1', '2040-01-01', '1', '1', '1', '1', '1', 'Pindahan', '13');
+(1, '2018-02-05', 'SMPN 2 Darmaraja', '101213151416', '2017-06-05', '2017', '101201054041', '', '', '', 'Baru', '1730401381'),
+(2, '0000-00-00', 'SMPN 2 Darmaraja', '101213151416', '2017-06-05', '2017', '101201054041', '', '', '', 'Pindahan', '1730401381'),
+(3, '2018-05-25', 'SMPN 1 Darmaraja', '1234125457', '2017-05-06', '2017', '1231756123', '', '', '', 'Baru', '1730401382'),
+(4, '0000-00-00', 'SMPN 1 Darmaraja', '1234125457', '2017-05-06', '2017', '1231756123', '', '', '', 'Pindahan', '1730401382'),
+(5, '0000-00-00', 'SMPN 3 Darmaraja', '12541235124', '2017-12-31', '2017', '123124155123', '', '', '', 'Baru', '1730401383'),
+(6, '2018-12-31', 'SMPN 3 Darmaraja', '12541235124', '2017-12-31', '2017', '123124155123', '1', 'SMK 3 Rancaekek', 'Pindah rumah', 'Pindahan', '1730401383');
 
 -- --------------------------------------------------------
 
@@ -89376,15 +89467,15 @@ CREATE TABLE `tb_matapelajaran` (
 --
 
 INSERT INTO `tb_matapelajaran` (`id_matapelajaran`, `nama_matapelajaran`, `nama_kelompok`) VALUES
-(1, 'Matematika', 'Kelompok A'),
-(11, 'Pendidikan Agama dan Budi Pekerti', 'Kelompok A'),
-(13, 'Bahasa Indonesia', 'Kelompok A'),
-(14, 'Sejarah Indonesia', 'Kelompok A'),
-(15, 'Bahasa Inggris', 'Kelompok A'),
-(16, 'Seni Budaya', 'Kelompok B'),
-(17, 'Prakarya dan Kewirausahaan', 'Kelompok B'),
-(18, 'Penjasorkes', 'Kelompok B'),
-(21, 'PPKn', 'Kelompok A');
+(1, 'Pendidikan Agama dan Budi Pekerti', 'Kelompok A'),
+(2, 'PPKn', 'Kelompok A'),
+(3, 'Bahasa Indonesia', 'Kelompok A'),
+(4, 'Matematika', 'Kelompok A'),
+(5, 'Sejarah Indonesia', 'Kelompok A'),
+(6, 'Bahasa Inggris', 'Kelompok A'),
+(7, 'Seni Budaya', 'Kelompok B'),
+(8, 'Prakarya dan Kewirausahaan', 'Kelompok B'),
+(9, 'Penjasorkes', 'Kelompok B');
 
 -- --------------------------------------------------------
 
@@ -89413,71 +89504,16 @@ CREATE TABLE `tb_nilai` (
 --
 
 INSERT INTO `tb_nilai` (`id_nilai`, `np_kb`, `np_angka`, `np_predikat`, `np_deskripsi`, `nk_kb`, `nk_angka`, `nk_predikat`, `nk_deskripsi`, `semester`, `id_matapelajaran`, `s_NISN`, `id_kelas`) VALUES
-(21, 1, 2, 'A', 'B', 3, 4, 'C', 'D', 1, 1, '10', 14),
-(22, 1, 2, 'A', 'B', 3, 4, 'C', 'D', 1, 1, '11', 14),
-(23, 2, 3, 'D', 'E', 4, 5, 'F', 'G', 1, 1, '12', 14),
-(24, 0, 0, '', '', 0, 0, '', '', 1, 1, '13', 14),
-(25, 0, 0, '', '', 0, 0, '', '', 1, 1, '14', 14),
-(26, 0, 0, '', '', 0, 0, '', '', 2, 16, '10', 14),
-(27, 0, 0, '', '', 0, 0, '', '', 2, 16, '11', 14),
-(28, 0, 0, '', '', 0, 0, '', '', 2, 16, '12', 14),
-(29, 0, 0, '', '', 0, 0, '', '', 2, 16, '13', 14),
-(30, 0, 0, '', '', 0, 0, '', '', 2, 16, '14', 14),
-(31, 0, 0, '', '', 0, 0, '', '', 2, 11, '10', 14),
-(32, 0, 0, '', '', 0, 0, '', '', 2, 11, '11', 14),
-(33, 0, 0, '', '', 0, 0, '', '', 2, 11, '12', 14),
-(34, 0, 0, '', '', 0, 0, '', '', 2, 11, '13', 14),
-(35, 0, 0, '', '', 0, 0, '', '', 2, 11, '14', 14),
-(36, 1, 2, 'E', 'A', 3, 4, 'W', 'Q', 2, 15, '10', 14),
-(37, 0, 0, '', '', 0, 0, '', '', 2, 15, '11', 14),
-(38, 0, 0, '', '', 0, 0, '', '', 2, 15, '12', 14),
-(39, 0, 0, '', '', 0, 0, '', '', 2, 15, '13', 14),
-(40, 0, 0, '', '', 0, 0, '', '', 2, 15, '14', 14),
-(41, 0, 0, '', '', 0, 0, '', '', 2, 16, '10', 14),
-(42, 0, 0, '', '', 0, 0, '', '', 2, 16, '11', 14),
-(43, 0, 0, '', '', 0, 0, '', '', 2, 16, '12', 14),
-(44, 0, 0, '', '', 0, 0, '', '', 2, 16, '13', 14),
-(45, 0, 0, '', '', 0, 0, '', '', 2, 16, '14', 14),
-(46, 2, 3, 'A', 'E', 4, 5, 'A', 'D', 1, 18, '10', 14),
-(47, 5, 6, 'E', 'F', 7, 8, 'G', 'H', 1, 18, '11', 14),
-(48, 6, 7, 'R', 'T', 8, 9, 'I', 'O', 1, 18, '12', 14),
-(49, 0, 0, '', '', 0, 0, '', '', 1, 18, '13', 14),
-(50, 0, 0, '', '', 0, 0, '', '', 1, 18, '14', 14),
-(51, 0, 0, '', '', 0, 0, '', '', 1, 11, '10', 14),
-(52, 0, 0, '', '', 0, 0, '', '', 1, 11, '11', 14),
-(53, 0, 0, '', '', 0, 0, '', '', 1, 11, '12', 14),
-(54, 0, 0, '', '', 0, 0, '', '', 1, 11, '13', 14),
-(55, 0, 0, '', '', 0, 0, '', '', 1, 11, '14', 14),
-(56, 0, 0, '', '', 0, 0, '', '', 2, 21, '10', 14),
-(57, 0, 0, '', '', 0, 0, '', '', 2, 21, '11', 14),
-(58, 0, 0, '', '', 0, 0, '', '', 2, 21, '12', 14),
-(59, 0, 0, '', '', 0, 0, '', '', 2, 21, '13', 14),
-(60, 0, 0, '', '', 0, 0, '', '', 2, 21, '14', 14),
-(61, 0, 0, '', '', 0, 0, '', '', 1, 16, '10', 14),
-(62, 0, 0, '', '', 0, 0, '', '', 1, 16, '11', 14),
-(63, 0, 0, '', '', 0, 0, '', '', 1, 16, '12', 14),
-(64, 0, 0, '', '', 0, 0, '', '', 1, 16, '13', 14),
-(65, 0, 0, '', '', 0, 0, '', '', 1, 16, '14', 14),
-(66, 0, 0, '', '', 0, 0, '', '', 1, 21, '10', 14),
-(67, 0, 0, '', '', 0, 0, '', '', 1, 21, '11', 14),
-(68, 0, 0, '', '', 0, 0, '', '', 1, 21, '12', 14),
-(69, 0, 0, '', '', 0, 0, '', '', 1, 21, '13', 14),
-(70, 0, 0, '', '', 0, 0, '', '', 1, 21, '14', 14),
-(91, 0, 0, '', '', 0, 0, '', '', 1, 15, '10', 14),
-(92, 0, 0, '', '', 0, 0, '', '', 1, 15, '11', 14),
-(93, 0, 0, '', '', 0, 0, '', '', 1, 15, '12', 14),
-(94, 0, 0, '', '', 0, 0, '', '', 1, 15, '13', 14),
-(95, 0, 0, '', '', 0, 0, '', '', 1, 15, '14', 14),
-(96, 0, 0, '', '', 0, 0, '', '', 1, 14, '10', 14),
-(97, 0, 0, '', '', 0, 0, '', '', 1, 15, '10', 14),
-(98, 0, 0, '', '', 0, 0, '', '', 1, 14, '11', 14),
-(99, 0, 0, '', '', 0, 0, '', '', 1, 15, '11', 14),
-(100, 0, 0, '', '', 0, 0, '', '', 1, 14, '12', 14),
-(101, 0, 0, '', '', 0, 0, '', '', 1, 15, '12', 14),
-(102, 0, 0, '', '', 0, 0, '', '', 1, 14, '13', 14),
-(103, 0, 0, '', '', 0, 0, '', '', 1, 15, '13', 14),
-(104, 0, 0, '', '', 0, 0, '', '', 1, 14, '14', 14),
-(105, 0, 0, '', '', 0, 0, '', '', 1, 15, '14', 14);
+(5, 1, 2, '3', '4', 5, 6, '7', '8', 1, 7, '1730401381', 1),
+(6, 17, 18, '19', '20', 21, 22, '23', '24', 1, 7, '1730401382', 1),
+(7, 33, 34, '35', '36', 37, 38, '39', '40', 1, 7, '1730401383', 1),
+(8, 49, 50, '51', '52', 53, 54, '55', '56', 1, 7, '1730401384', 1),
+(9, 0, 0, '', '', 0, 0, '', '', 1, 5, '1730401381', 3),
+(10, 0, 0, '', '', 0, 0, '', '', 1, 6, '1730401381', 3),
+(11, 9, 10, '11', '12', 13, 14, '15', '16', 1, 1, '1730401381', 1),
+(12, 25, 26, '27', '28', 29, 30, '31', '32', 1, 1, '1730401382', 1),
+(13, 41, 42, '43', '44', 45, 46, '47', '48', 1, 1, '1730401383', 1),
+(14, 57, 58, '59', '60', 61, 62, '63', '64', 1, 1, '1730401384', 1);
 
 -- --------------------------------------------------------
 
@@ -89504,14 +89540,12 @@ CREATE TABLE `tb_orangtua` (
 --
 
 INSERT INTO `tb_orangtua` (`id_orangtua`, `id_jeniskelamin`, `sa_nama`, `sa_tempatlahir`, `sa_tgllahir`, `sa_kewanegaraan`, `sa_ptertinggi`, `sa_pekerjaan`, `sa_penghasilan`, `sa_alamat`, `s_NISN`) VALUES
-(157, 1, '10', '10', '0000-00-00', '10', '10', '10', 10, '10', '10'),
-(158, 2, '10', '10', '0000-00-00', '10', '10', '10', 10, '10', '10'),
-(159, 1, '11', '11', '2039-12-22', '11', '11', '11', 11, '11', '11'),
-(160, 2, '11', '11', '2039-12-22', '11', '11', '11', 11, '11', '11'),
-(161, 1, '12', '12', '0000-00-00', '12', '12', '12', 12, '12', '12'),
-(162, 2, '12', '12', '0000-00-00', '12', '12', '12', 12, '12', '12'),
-(163, 1, '1', '1', '2040-01-01', '1', '1', '1', 1, '1', '13'),
-(164, 2, '1', '1', '2040-01-01', '1', '1', '1', 1, '1', '13');
+(1, 1, 'Yudhiuz Eskhart', 'Bandung', '1989-09-05', 'Indonesia', 'SLTA', 'Wiraswasta', 45000000, 'Darmaraja Sumedang', '1730401381'),
+(2, 2, 'Ani Widiarti', 'Sumedang', '1989-05-20', 'Indonesia', 'SLTA', 'Wiraswasta', 2000000, 'Darmaraja Sumedang', '1730401381'),
+(3, 1, '', '', '0000-00-00', '', '', '', 0, '', '1730401382'),
+(4, 2, '', '', '0000-00-00', '', '', '', 0, '', '1730401382'),
+(5, 1, '', '', '0000-00-00', '', '', '', 0, '', '1730401383'),
+(6, 2, '', '', '0000-00-00', '', '', '', 0, '', '1730401383');
 
 -- --------------------------------------------------------
 
@@ -89535,22 +89569,11 @@ CREATE TABLE `tb_pendidikan` (
 --
 
 INSERT INTO `tb_pendidikan` (`id_pendidikan`, `s_tgltamat`, `s_noijasah`, `s_melanjutkansekolah`, `s_alamat`, `s_tglputus`, `s_alasaputus`, `s_NISN`) VALUES
-(108, '0000-00-00', '10', '10', '10', '0000-00-00', '10', '10'),
-(109, '2039-12-22', '11', '11', '11', '2039-12-22', '11', '11'),
-(110, '0000-00-00', '12', '12', '12', '0000-00-00', '12', '12'),
-(111, '2040-01-01', '1', '1', '1', '2040-01-01', '1', '13'),
-(113, '0000-00-00', '', '', '', '0000-00-00', '', '14'),
-(114, '0000-00-00', '', '', '', '0000-00-00', '', '123123123'),
-(115, '0000-00-00', '', '', '', '0000-00-00', '', '3131'),
-(116, '0000-00-00', '', '', '', '0000-00-00', '', '090909'),
-(117, '0000-00-00', '', '', '', '0000-00-00', '', '0902909'),
-(118, '0000-00-00', '', '', '', '0000-00-00', '', '09029093'),
-(119, '0000-00-00', '', '', '', '0000-00-00', '', '124124124'),
-(120, '0000-00-00', '', '', '', '0000-00-00', '', '1241241224'),
-(121, '0000-00-00', '', '', '', '0000-00-00', '', '030699'),
-(122, '0000-00-00', '', '', '', '0000-00-00', '', '111110090'),
-(123, '0000-00-00', '', '', '', '0000-00-00', '', '908070'),
-(124, '0000-00-00', '', '', '', '0000-00-00', '', '5656');
+(2, '0000-00-00', '', '', '', '0000-00-00', '', '0000000000'),
+(3, '2020-12-31', '123123123', 'UNIVERSITAS PASUNDAN', 'Bandung', '0000-00-00', '', '1730401381'),
+(4, '0000-00-00', '', '', '', '0000-00-00', '', '1730401382'),
+(5, '0000-00-00', '', '', '', '2019-02-13', 'Sakit ', '1730401383'),
+(6, '0000-00-00', '', '', '', '0000-00-00', '', '1730401384');
 
 -- --------------------------------------------------------
 
@@ -89589,10 +89612,31 @@ CREATE TABLE `tb_pindah` (
 --
 
 INSERT INTO `tb_pindah` (`id_pindah`, `pp_kesekolah`, `pp_tglpindah`, `pp_drkelas`, `pp_alamatsekolah`, `pp_alasanpindah`, `s_NISN`) VALUES
-(115, '10', '0000-00-00', '10', '10', '10', '10'),
-(116, '11', '2039-12-22', '11', '11', '11', '11'),
-(117, '12', '0000-00-00', '12', '12', '12', '12'),
-(118, '1', '2040-01-01', '1', '1', '1', '13');
+(1, '', '0000-00-00', '', '', '', '1730401381'),
+(2, 'SMK 3 Rancaekek', '2019-12-31', '1', 'Rancaekek Kulon', 'Pindah Rumah', '1730401382'),
+(3, '', '0000-00-00', '', '', '', '1730401383');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_pkl`
+--
+
+CREATE TABLE `tb_pkl` (
+  `id_pkl` int(11) NOT NULL,
+  `pkl_namainstansi` varchar(255) NOT NULL,
+  `pkl_lokasi` varchar(255) NOT NULL,
+  `pkl_lama` int(11) NOT NULL,
+  `pkl_keterangan` varchar(255) NOT NULL,
+  `s_NISN` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_pkl`
+--
+
+INSERT INTO `tb_pkl` (`id_pkl`, `pkl_namainstansi`, `pkl_lokasi`, `pkl_lama`, `pkl_keterangan`, `s_NISN`) VALUES
+(1, 'Unpas', 'Setiabudhi', 3, 'Rajin', '1730401381');
 
 -- --------------------------------------------------------
 
@@ -89612,18 +89656,9 @@ CREATE TABLE `tb_prestasi` (
 --
 
 INSERT INTO `tb_prestasi` (`id_prestasi`, `pre_jenisprestasi`, `pre_keterangan`, `s_NISN`) VALUES
-(185, '10', '10', '10'),
-(186, '10', '10', '10'),
-(187, '10', '10', '10'),
-(188, '11', '11', '11'),
-(189, '11', '11', '11'),
-(190, '11', '11', '11'),
-(191, '12', '12', '12'),
-(192, '12', '12', '12'),
-(193, '12', '12', '12'),
-(194, '1', '1', '13'),
-(195, '1', '1', '13'),
-(196, '1', '1', '13');
+(1, 'Lari', 'Juara 1', '1730401382'),
+(2, 'Maraton', 'Juara 1', '1730401381'),
+(3, 'Lari', 'Juara 2', '1730401381');
 
 -- --------------------------------------------------------
 
@@ -89677,22 +89712,11 @@ CREATE TABLE `tb_siswa` (
 --
 
 INSERT INTO `tb_siswa` (`id_siswa`, `s_NISN`, `s_namalengkap`, `s_namapanggilan`, `id_jeniskelamin`, `s_tempatlahir`, `s_tanggallahir`, `s_photo`, `s_agama`, `s_kewanegaraan`, `s_anakke`, `s_anakyp`, `s_bahasaharian`, `s_kandung`, `s_tiri`, `s_angkat`, `id_tahunajaran`, `id_jurusan`, `created_at`, `updated_at`) VALUES
-(158, '10', '10', '10', 2, '10', '0000-00-00', '10', '10', '11', '10', '10', '10', 10, 10, 10, 5, 2, '2023-04-24 07:16:44', '2023-04-24 07:16:44'),
-(159, '11', '11', '11', 2, '11', '2039-12-22', '2039-12-22', '11', '11', '11', '11', '11', 11, 11, 11, 7, 1, '2023-05-14 03:14:41', '2023-05-14 03:14:41'),
-(160, '12', '12', '12', 2, '12', '0000-00-00', '12', '12', '12', '12', '12', '12', 12, 12, 12, 7, 1, '2023-05-23 06:38:13', '2023-05-23 06:38:13'),
-(161, '13', 'Diki', '1', 2, '1', '2040-01-01', '2040-01-01', '1', '1', '1', '1', '1', 1, 1, 1, 7, 1, '2023-05-23 06:40:15', '2023-05-23 06:40:15'),
-(163, '14', 'Rizki', '', 1, 'Sumedang', '1999-05-06', '', '', '', '', '', '', 0, 0, 0, 7, 1, '2023-05-23 06:43:47', '2023-05-23 06:43:47'),
-(164, '123123123', 'Asdasd', '', 1, 'asdad', '3333-12-31', '', '', '', '', '', '', 0, 0, 0, 7, 2, '2023-06-13 22:10:02', '2023-06-13 22:10:02'),
-(165, '3131', 'asdad', '', 1, 'asd', '2233-12-31', '', '', '', '', '', '', 0, 0, 0, 7, 2, '2023-06-13 22:16:11', '2023-06-13 22:16:11'),
-(166, '090909', 'asdasfgg', '', 2, '123das', '3333-03-12', '', '', '', '', '', '', 0, 0, 0, 7, 1, '2023-06-13 22:18:31', '2023-06-13 22:18:31'),
-(167, '0902909', 'asdasfgg', '', 2, '123das', '3333-03-12', '', '', '', '', '', '', 0, 0, 0, 7, 1, '2023-06-13 22:19:14', '2023-06-13 22:19:14'),
-(168, '09029093', 'asdasfgg', '', 2, '123das', '3333-03-12', '', '', '', '', '', '', 0, 0, 0, 7, 1, '2023-06-13 22:21:19', '2023-06-13 22:21:19'),
-(169, '124124124', 'asdasdfqf', '', 1, 'qweqwe', '3332-12-12', '', '', '', '', '', '', 0, 0, 0, 6, 2, '2023-06-13 22:22:59', '2023-06-13 22:22:59'),
-(170, '1241241224', 'asdasdfqf', '', 1, 'qweqwe', '3332-12-12', '', '', '', '', '', '', 0, 0, 0, 6, 2, '2023-06-13 22:25:45', '2023-06-13 22:25:45'),
-(171, '030699', 'asdasdfqf', '', 2, '123das', '1999-06-03', '', '', '', '', '', '', 0, 0, 0, 7, 1, '2023-06-13 22:27:13', '2023-06-13 22:27:13'),
-(172, '111110090', 'dasd', '', 2, 'adasd', '1999-03-06', '', '', '', '', '', '', 0, 0, 0, 6, 2, '2023-06-13 22:31:31', '2023-06-13 22:31:31'),
-(173, '908070', 'asdasdfqf', '', 2, 'qweqwe', '1999-03-03', '', '', '', '', '', '', 0, 0, 0, 7, 2, '2023-06-13 22:33:05', '2023-06-13 22:33:05'),
-(174, '5656', 'dasd', '', 1, '123das', '1998-09-07', '', '', '', '', '', '', 0, 0, 0, 5, 1, '2023-06-13 22:34:17', '2023-06-13 22:34:17');
+(2, '0000000000', 'dump', '', 1, 'dump', '0001-01-01', '', '', '', '', '', '', 0, 0, 0, 1, 12, '2023-07-20 07:21:26', '2023-07-20 07:21:26'),
+(3, '1730401381', 'Diki Fauzi', '', 1, 'Sumedang', '1999-06-03', '', '', '', '', '', '', 0, 0, 0, 1, 12, '2023-07-20 07:22:33', '2023-07-20 09:27:46'),
+(4, '1730401382', 'Rizki Eskhart', '', 1, 'Bandung', '1999-02-12', '', '', '', '', '', '', 0, 0, 0, 1, 12, '2023-07-20 07:25:46', '2023-07-20 09:27:21'),
+(5, '1730401383', 'Rian', '', 1, 'Bandung', '1999-05-16', '', '', '', '', '', '', 0, 0, 0, 1, 12, '2023-07-20 07:28:16', '2023-07-20 09:26:46'),
+(6, '1730401384', 'Jessea', '', 2, 'Sumedang', '1999-02-13', '', '', '', '', '', '', 0, 0, 0, 1, 12, '2023-07-20 09:31:03', '2023-07-20 09:31:03');
 
 -- --------------------------------------------------------
 
@@ -89710,9 +89734,10 @@ CREATE TABLE `tb_tahunajaran` (
 --
 
 INSERT INTO `tb_tahunajaran` (`id_tahunajaran`, `nama_tahunajaran`) VALUES
-(5, '2021/2022'),
-(6, '2022/2023'),
-(7, '2022/2024');
+(1, '2020/2021'),
+(2, '2021/2022'),
+(3, '2022/2023'),
+(4, '2023/2024');
 
 -- --------------------------------------------------------
 
@@ -89731,12 +89756,12 @@ CREATE TABLE `tb_tingkat` (
 --
 
 INSERT INTO `tb_tingkat` (`id_tingkat`, `nama_tingkat`, `id_jurusan`) VALUES
-(1, 'Kelas X', 2),
-(2, 'Kelas XI', 2),
-(3, 'Kelas XII', 2),
-(4, 'Kelas X', 1),
-(5, 'Kelas XI', 1),
-(6, 'Kelas XII', 1);
+(1, 'Kelas X', 11),
+(2, 'Kelas XI', 11),
+(3, 'Kelas XII', 11),
+(4, 'Kelas X', 12),
+(5, 'Kelas XI', 12),
+(6, 'Kelas XII', 12);
 
 -- --------------------------------------------------------
 
@@ -89763,10 +89788,9 @@ CREATE TABLE `tb_wali` (
 --
 
 INSERT INTO `tb_wali` (`id_wali`, `sw_nama`, `sw_tempatlahir`, `sw_tgllahir`, `sw_kewanegaraan`, `sw_ptertinggi`, `sw_pekerjaan`, `sw_penghasilan`, `sw_alamat`, `sw_hubunganpeserta`, `s_NISN`) VALUES
-(67, '10', '10', '0000-00-00', '10', '10', '10', 10, '10', '10', '10'),
-(68, '11', '11', '2039-12-22', '11', '11', '11', 11, '11', '11', '11'),
-(69, '12', '12', '0000-00-00', '12', '12', '12', 12, '12', '12', '12'),
-(70, '1', '1', '2040-01-01', '1', '1', '1', 1, '1', '1', '13');
+(1, '', '', '0000-00-00', '', '', '', 0, '', '', '1730401381'),
+(2, 'Luke', 'Bandung', '1949-05-05', 'Indonesia', 'SLTA', 'Wirasuasta', 4500000, 'Buah Batu', 'Paman', '1730401382'),
+(3, '', '', '0000-00-00', '', '', '', 0, '', '', '1730401383');
 
 -- --------------------------------------------------------
 
@@ -89797,7 +89821,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(7, 'akbareskhart@gmail.com', 'dikifauzi', '$2y$10$S1p1en.noOSy64jlOXkTu.AhgcQRiImOUFksmCkx/OwcRM8GCcWti', NULL, '2023-06-13 21:50:14', NULL, NULL, NULL, NULL, 1, 0, '2023-06-08 16:30:01', '2023-06-13 21:50:14', NULL);
+(1, 'smkpasundanrancaekek@gmail.com', 'pasundan', '$2y$10$BTWKzPDU8Yz.TACB8zo6du.UkivSdN.lKgNxyjMC/Sto.3UZETUW.', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-07-21 10:43:23', '2023-07-21 10:43:23', NULL),
+(2, 'guru001@gmail.com', 'guru001', '$2y$10$0L5RL3nVl0G5FNdKylf8reqdRuKu0Yt2pLi4siUp5xH8z0gNpiBCK', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-07-21 10:44:29', '2023-07-21 10:44:29', NULL);
 
 --
 -- Indexes for dumped tables
@@ -89931,6 +89956,14 @@ ALTER TABLE `tb_daftarsiswakelas`
   ADD KEY `tb_daftarsiswakelas_ibfk_2` (`s_NISN`);
 
 --
+-- Indexes for table `tb_eskul`
+--
+ALTER TABLE `tb_eskul`
+  ADD PRIMARY KEY (`id_eskul`),
+  ADD KEY `s_NISN` (`s_NISN`),
+  ADD KEY `id_kelas` (`id_kelas`);
+
+--
 -- Indexes for table `tb_jeniskelamin`
 --
 ALTER TABLE `tb_jeniskelamin`
@@ -89947,7 +89980,8 @@ ALTER TABLE `tb_jurusan`
 --
 ALTER TABLE `tb_kehadiran`
   ADD PRIMARY KEY (`id_kehadiran`),
-  ADD KEY `s_NISN` (`s_NISN`);
+  ADD KEY `s_NISN` (`s_NISN`),
+  ADD KEY `id_kelas` (`id_kelas`);
 
 --
 -- Indexes for table `tb_kelas`
@@ -90024,6 +90058,13 @@ ALTER TABLE `tb_pindah`
   ADD KEY `s_NISN` (`s_NISN`);
 
 --
+-- Indexes for table `tb_pkl`
+--
+ALTER TABLE `tb_pkl`
+  ADD PRIMARY KEY (`id_pkl`),
+  ADD KEY `s_NISN` (`s_NISN`);
+
+--
 -- Indexes for table `tb_prestasi`
 --
 ALTER TABLE `tb_prestasi`
@@ -90088,19 +90129,19 @@ ALTER TABLE `auth_activation_attempts`
 -- AUTO_INCREMENT for table `auth_groups`
 --
 ALTER TABLE `auth_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
 --
 ALTER TABLE `auth_permissions`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `auth_reset_attempts`
@@ -90148,25 +90189,31 @@ ALTER TABLE `subdistricts`
 -- AUTO_INCREMENT for table `tb_alamat`
 --
 ALTER TABLE `tb_alamat`
-  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_beasiswa`
 --
 ALTER TABLE `tb_beasiswa`
-  MODIFY `id_beasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
+  MODIFY `id_beasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_catatanpenting`
 --
 ALTER TABLE `tb_catatanpenting`
-  MODIFY `id_catatanpenting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id_catatanpenting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_daftarsiswakelas`
 --
 ALTER TABLE `tb_daftarsiswakelas`
-  MODIFY `id_daftarsiswakelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_daftarsiswakelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tb_eskul`
+--
+ALTER TABLE `tb_eskul`
+  MODIFY `id_eskul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_jeniskelamin`
@@ -90178,79 +90225,85 @@ ALTER TABLE `tb_jeniskelamin`
 -- AUTO_INCREMENT for table `tb_jurusan`
 --
 ALTER TABLE `tb_jurusan`
-  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tb_kehadiran`
 --
 ALTER TABLE `tb_kehadiran`
-  MODIFY `id_kehadiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_kehadiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_kepribadian`
 --
 ALTER TABLE `tb_kepribadian`
-  MODIFY `id_kepribadian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id_kepribadian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_kesehatan`
 --
 ALTER TABLE `tb_kesehatan`
-  MODIFY `id_kesehatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id_kesehatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_masuk`
 --
 ALTER TABLE `tb_masuk`
-  MODIFY `id_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
+  MODIFY `id_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_matapelajaran`
 --
 ALTER TABLE `tb_matapelajaran`
-  MODIFY `id_matapelajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_matapelajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tb_nilai`
 --
 ALTER TABLE `tb_nilai`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tb_orangtua`
 --
 ALTER TABLE `tb_orangtua`
-  MODIFY `id_orangtua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id_orangtua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_pendidikan`
 --
 ALTER TABLE `tb_pendidikan`
-  MODIFY `id_pendidikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id_pendidikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_penyakitkhusus`
 --
 ALTER TABLE `tb_penyakitkhusus`
-  MODIFY `id_penyakit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_penyakit` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_pindah`
 --
 ALTER TABLE `tb_pindah`
-  MODIFY `id_pindah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id_pindah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tb_pkl`
+--
+ALTER TABLE `tb_pkl`
+  MODIFY `id_pkl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_prestasi`
 --
 ALTER TABLE `tb_prestasi`
-  MODIFY `id_prestasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
+  MODIFY `id_prestasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_profile`
@@ -90262,31 +90315,31 @@ ALTER TABLE `tb_profile`
 -- AUTO_INCREMENT for table `tb_siswa`
 --
 ALTER TABLE `tb_siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_tahunajaran`
 --
 ALTER TABLE `tb_tahunajaran`
-  MODIFY `id_tahunajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_tahunajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_tingkat`
 --
 ALTER TABLE `tb_tingkat`
-  MODIFY `id_tingkat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_tingkat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_wali`
 --
 ALTER TABLE `tb_wali`
-  MODIFY `id_wali` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id_wali` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -90367,10 +90420,18 @@ ALTER TABLE `tb_daftarsiswakelas`
   ADD CONSTRAINT `tb_daftarsiswakelas_ibfk_2` FOREIGN KEY (`s_NISN`) REFERENCES `tb_siswa` (`s_NISN`);
 
 --
+-- Constraints for table `tb_eskul`
+--
+ALTER TABLE `tb_eskul`
+  ADD CONSTRAINT `tb_eskul_ibfk_1` FOREIGN KEY (`s_NISN`) REFERENCES `tb_siswa` (`s_NISN`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tb_eskul_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `tb_kelas` (`id_kelas`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `tb_kehadiran`
 --
 ALTER TABLE `tb_kehadiran`
-  ADD CONSTRAINT `tb_kehadiran_ibfk_1` FOREIGN KEY (`s_NISN`) REFERENCES `tb_siswa` (`s_NISN`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tb_kehadiran_ibfk_1` FOREIGN KEY (`s_NISN`) REFERENCES `tb_siswa` (`s_NISN`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_kehadiran_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `tb_kelas` (`id_kelas`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tb_kelas`
@@ -90430,6 +90491,12 @@ ALTER TABLE `tb_penyakitkhusus`
 --
 ALTER TABLE `tb_pindah`
   ADD CONSTRAINT `tb_pindah_ibfk_1` FOREIGN KEY (`s_NISN`) REFERENCES `tb_siswa` (`s_NISN`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_pkl`
+--
+ALTER TABLE `tb_pkl`
+  ADD CONSTRAINT `tb_pkl_ibfk_1` FOREIGN KEY (`s_NISN`) REFERENCES `tb_siswa` (`s_NISN`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tb_prestasi`
