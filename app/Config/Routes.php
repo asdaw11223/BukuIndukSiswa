@@ -30,42 +30,44 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::index', ['filter' => 'role:admin,guru']);
 
-$routes->get('/tahun-ajaran', 'TahunAjaran::index');
+$routes->get('/admin', 'Admin::index', ['filter' => 'role:admin']);
+$routes->get('/admin/(:segment)', 'Admin::index/$1', ['filter' => 'role:admin']);
 
-$routes->get('/pilihan', 'Pilihan::index');
+$routes->get('/tahun-ajaran', 'TahunAjaran::index', ['filter' => 'role:admin']);
 
-$routes->get('/matapelajaran', 'Matapelajaran::index');
+$routes->get('/pilihan', 'Pilihan::index', ['filter' => 'role:admin']);
 
-$routes->get('/kelas', 'Kelas::index');
-$routes->get('/daftar-siswa/(:segment)', 'Kelas::daftarSiswaKelas/$1');
+$routes->get('/matapelajaran', 'Matapelajaran::index', ['filter' => 'role:admin']);
 
-$routes->get('/jurusan', 'Jurusan::index');
+$routes->get('/kelas', 'Kelas::index', ['filter' => 'role:admin']);
+$routes->get('/daftar-siswa/(:segment)', 'Kelas::daftarSiswaKelas/$1', ['filter' => 'role:admin']);
 
-$routes->get('/siswa', 'Siswa::index');
-$routes->get('/siswa/edit/(:segment)', 'Siswa::edit/$1');
-$routes->get('/siswa/edit/penyakit/(:segment)', 'Penyakit::index/$1');
-$routes->get('/siswa/edit/prestasi/(:segment)', 'Prestasi::index/$1');
-$routes->get('/siswa/edit/beasiswa/(:segment)', 'Beasiswa::index/$1');
-$routes->get('/siswa/edit/kehadiran/(:segment)', 'Kehadiran::index/$1');
-// $routes->get('/siswa/tambah-siswa', 'Siswa::create');
+$routes->get('/jurusan', 'Jurusan::index', ['filter' => 'role:admin']);
 
-$routes->get('/catatan', 'Catatan::index');
+$routes->get('/siswa', 'Siswa::index', ['filter' => 'role:admin']);
+$routes->get('/siswa/edit/(:segment)', 'Siswa::edit/$1', ['filter' => 'role:admin']);
+$routes->get('/siswa/edit/penyakit/(:segment)', 'Penyakit::index/$1', ['filter' => 'role:admin']);
+$routes->get('/siswa/edit/prestasi/(:segment)', 'Prestasi::index/$1', ['filter' => 'role:admin']);
+$routes->get('/siswa/edit/beasiswa/(:segment)', 'Beasiswa::index/$1', ['filter' => 'role:admin']);
+$routes->get('/siswa/edit/kehadiran/(:segment)', 'Kehadiran::index/$1', ['filter' => 'role:admin']);
 
-$routes->get('/nilai', 'Nilai::index');
-$routes->get('/nilai/(:segment)/(:segment)', 'Nilai::nilai/$1/$2');
-$routes->get('/template/(:segment)/(:segment)', 'Nilai::template/$1/$2');
+$routes->get('/catatan', 'Catatan::index', ['filter' => 'role:admin']);
 
-$routes->get('/rapor', 'Rapor::index');
-$routes->get('/rapor/(:segment)', 'Rapor::rapor/$1');
-$routes->get('/rapor/nilai/(:segment)', 'Rapor::nilai/$1');
+$routes->get('/nilai', 'Nilai::index', ['filter' => 'role:admin,guru']);
+$routes->get('/nilai/(:segment)/(:segment)', 'Nilai::nilai/$1/$2', ['filter' => 'role:admin,guru']);
+$routes->get('/template/(:segment)/(:segment)', 'Nilai::template/$1/$2', ['filter' => 'role:admin,guru']);
 
-$routes->get('/laporan', 'Laporan::index');
-$routes->get('/laporan/siswa-details/(:segment)', 'Laporan::siswaDetails/$1');
-$routes->get('/laporan/daftar-siswa-sekolah', 'Laporan::daftarSiswaSekolah');
+$routes->get('/rapor', 'Rapor::index', ['filter' => 'role:admin']);
+$routes->get('/rapor/(:segment)', 'Rapor::rapor/$1', ['filter' => 'role:admin']);
+$routes->get('/rapor/nilai/(:segment)', 'Rapor::nilai/$1', ['filter' => 'role:admin']);
 
-$routes->get('/profile-sekolah', 'Profile::index');
+$routes->get('/laporan', 'Laporan::index', ['filter' => 'role:admin']);
+$routes->get('/laporan/siswa-details/(:segment)', 'Laporan::siswaDetails/$1', ['filter' => 'role:admin']);
+$routes->get('/laporan/daftar-siswa-sekolah', 'Laporan::daftarSiswaSekolah', ['filter' => 'role:admin']);
+
+$routes->get('/profile-sekolah', 'Profile::index', ['filter' => 'role:admin']);
 
 /*
  * --------------------------------------------------------------------

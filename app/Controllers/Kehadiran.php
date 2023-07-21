@@ -211,16 +211,16 @@ class Kehadiran extends BaseController
 	{
 		if($this->request->isAJAX()){
 			
-            $kehadiran = $this->kehadiranModel->where('id_kehadiran', $this->request->getVar('id_kehadiran'))->where('kh_semester', $this->request->getVar('kh_semester'))
+            $kehadiran = $this->kehadiranModel->where('id_kelas',  $this->request->getVar('id_kelas'))->where('kh_semester', $this->request->getVar('kh_semester'))
             ->findAll();
 
 			$siswa = $this->daftarSiswaKelasModel->where('id_kelas',  $this->request->getVar('id_kelas'))->findAll();
 
             foreach($kehadiran as $n) {
                 $this->kehadiranModel->save([
-                    'id_kehadiran' => $this->request->getVar('id_kehadiran'),
-                    'id_kelas' => $this->request->getVar('id_kelas'),
-                    'kh_semester' => $this->request->getVar('kh_semester'),
+                    'id_kehadiran' => $n['id_kehadiran'],
+                    'id_kelas' => $n['id_kelas'],
+                    'kh_semester' => $n['kh_semester'],
                     'kh_sakit' => $this->request->getVar('kh_sakit'. $n['id_kehadiran']),
                     'kh_izin' => $this->request->getVar('kh_izin'. $n['id_kehadiran']),
                     'kh_alpa' => $this->request->getVar('kh_alpa'. $n['id_kehadiran'])

@@ -19,10 +19,16 @@
                         <h4 class="mb-0"><?= count($siswa)-1 ?></h4>
                     </div>
                 </div>
+                <?php if(in_groups('admin')) : ?>
                 <a href="/siswa" class="link card-footer p-3">
                     <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
+                <?php else : ?>
+                <a href="#" class="link card-footer p-3">
+                    &nbsp;
+                </a>
+                <?php endif; ?>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
@@ -36,10 +42,16 @@
                         <h4 class="mb-0"><?= count($siswa) ?></h4>
                     </div>
                 </div>
+                <?php if(in_groups('admin')) : ?>
                 <a href="/kelas" class="link card-footer p-3">
                     <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
+                <?php else : ?>
+                <a href="#" class="link card-footer p-3">
+                    &nbsp;
+                </a>
+                <?php endif; ?>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
@@ -53,10 +65,16 @@
                         <h4 class="mb-0"><?= count($matapelajaran) ?></h4>
                     </div>
                 </div>
+                <?php if(in_groups('admin')) : ?>
                 <a href="/jurusan" class="link card-footer p-3">
                     <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
+                <?php else : ?>
+                <a href="#" class="link card-footer p-3">
+                    &nbsp;
+                </a>
+                <?php endif; ?>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
@@ -70,10 +88,16 @@
                         <h4 class="mb-0"><?= count($tahunajaran) ?></h4>
                     </div>
                 </div>
+                <?php if(in_groups('admin')) : ?>
                 <a href="/matapelajaran" class="link card-footer p-3">
                     <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
+                <?php else : ?>
+                <a href="#" class="link card-footer p-3">
+                    &nbsp;
+                </a>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -94,7 +118,9 @@
                                         <th>Nama Peserta Didik</th>
                                         <th>L/P</th>
                                         <th>Angkatan</th>
+                                        <?php if(in_groups('admin')) : ?>
                                         <th>Aksi</th>
+                                        <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -119,20 +145,24 @@
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
                                         </td>
+                                        <?php if(in_groups('admin')) : ?>
                                         <td class="w-120 text-center">
-                                            <button type="button" class="btn-edit btn-update-jurusan" data-bs-toggle="modal" title="Edit"><span class="material-symbols-outlined">edit</span></button>
-                                            <button type="button" class="btn-delete btn-delete-jurusan"  data-bs-toggle="modal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
+                                            <a href="/rapor/<?= $s['s_NISN'] ?>" class="btn-edit btn-update-jurusan" title="Edit"><span class="material-symbols-outlined">demography</span></a>  
                                         </td>
+                                        <?php endif; ?>
                                     </tr>
                                     <?php endif; endforeach; ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>No.</th>
+                                        <th>NISN</th>
                                         <th>Nama Peserta Didik</th>
                                         <th>L/P</th>
                                         <th>Angkatan</th>
-                                        <th>Keterangan</th>
+                                        <?php if(in_groups('admin')) : ?>
+                                        <th>Aksi</th>
+                                        <?php endif; ?>
                                     </tr>
                                 </tfoot>
                             </table>

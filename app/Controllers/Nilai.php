@@ -461,7 +461,7 @@ class Nilai extends BaseController
 
             foreach($daftarSiswaKelas as $dsk){
 
-                $nilai = $this->nilaiModel->where('s_NISN', $dsk['s_NISN'])->where('semester', $this->request->getVar('semester'))->findAll();
+                $nilai = $this->nilaiModel->where('s_NISN', $dsk['s_NISN'])->where('semester', $this->request->getVar('semester'))->where('id_kelas', $this->request->getVar('id_kelas'))->findAll();
                 $cell = 3;
                 foreach($nilai as $n){
                     if($excel['1'] == $n['s_NISN']){

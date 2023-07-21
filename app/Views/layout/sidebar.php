@@ -9,6 +9,7 @@
                 <li class="mt-3 nav-item">
                     <h6 class="text-xs ps-1 opacity-6 ms-2 nav-item-header"> Buku Induk </h6>
                 </li>
+                <?php if(in_groups('admin')) : ?>
                 <li class="nav-item">
                     <a href="/siswa" class="nav-link" aria-current="page">
                         <span class="material-symbols-outlined">person</span>
@@ -61,6 +62,16 @@
                         <span class="nav-link-text ms-1">Tahun Ajaran</span>
                     </a>
                 </li>
+
+                <?php elseif( in_groups('guru')) : ?>
+                
+                <li class="nav-item">
+                    <a href="/nilai" class="nav-link" aria-current="page">
+                        <span class="material-symbols-outlined">inbox</span>
+                        <span class="nav-link-text ms-1">Rapor</span>
+                    </a>
+                </li>
+                <?php endif; ?>
             </ul>
         </div>
 </header>

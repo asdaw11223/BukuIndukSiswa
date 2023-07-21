@@ -5,23 +5,27 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/laporan">Laporan</a>
-        </li>
+        <?php if(in_groups('admin')) :?>
+            <li class="nav-item">
+            <a class="nav-link" href="/laporan">Laporan</a>
+            </li>
+        <?php endif ?>
       </ul>
         <div class="dropdown">
             <div class="dropdown-toggle btn-profile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-sm-none d-lg-inline-block">Hi, Admin</div>
+                <div class="d-sm-none d-lg-inline-block">Hi, <?php if(in_groups('guru')){ echo('Guru');}else{ echo('Admin');} ?></div>
                 <img alt="image" src="/assets/img/avatar/avatar-default.png" class="rounded-circle mr-1">
                 </div>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 </li>
-                <!-- <li>
-                    <a class="dropdown-item" href="#">
+        <?php if(in_groups('admin')) :?>
+                <li>
+                    <a class="dropdown-item" href="/admin">
                         <span class="material-symbols-sharp">key</span>
-                        <span class="text">Ganti Password</span>
+                        <span class="text">Admin</span>
                     </a>
-                </li> -->
+                </li>
+        <?php endif ?>
                 <li>
                     <a class="dropdown-item" href="/logout" style="color: red;">
                         <span class="material-symbols-sharp">logout</span>
