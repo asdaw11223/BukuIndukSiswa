@@ -16,7 +16,7 @@
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">Siswa</p>
-                        <h4 class="mb-0">281</h4>
+                        <h4 class="mb-0"><?= count($siswa)-1 ?></h4>
                     </div>
                 </div>
                 <a href="/siswa" class="link card-footer p-3">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">Guru</p>
-                        <h4 class="mb-0">10</h4>
+                        <h4 class="mb-0"><?= count($siswa) ?></h4>
                     </div>
                 </div>
                 <a href="/kelas" class="link card-footer p-3">
@@ -50,7 +50,7 @@
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">Matapelajaran</p>
-                        <h4 class="mb-0">5</h4>
+                        <h4 class="mb-0"><?= count($matapelajaran) ?></h4>
                     </div>
                 </div>
                 <a href="/jurusan" class="link card-footer p-3">
@@ -67,7 +67,7 @@
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">Tahun Ajaran</p>
-                        <h4 class="mb-0">50</h4>
+                        <h4 class="mb-0"><?= count($tahunajaran) ?></h4>
                     </div>
                 </div>
                 <a href="/matapelajaran" class="link card-footer p-3">
@@ -99,6 +99,8 @@
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach ($siswa as $s) : ?>
+                                    <?php if($s['s_NISN'] == '0000000000') : ?>
+                                    <?php else : ?> 
                                     <tr>
                                         <td class="w-23"><?= $no++; ?></td>
                                         <td><?= $s['s_NISN'] ?></td>
@@ -122,7 +124,7 @@
                                             <button type="button" class="btn-delete btn-delete-jurusan"  data-bs-toggle="modal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
                                         </td>
                                     </tr>
-                                    <?php endforeach; ?>
+                                    <?php endif; endforeach; ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>

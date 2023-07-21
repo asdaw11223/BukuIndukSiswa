@@ -94,18 +94,19 @@ class Kelas extends BaseController
 			header("Location: " . $_SERVER["HTTP_REFERER"]);
 		}
 	
-		// return redirect()->to('/kelas');
 	}
 
     public function filter()
     {
 		if($this->request->isAJAX()){
 
+			$id_jurusan = $this->request->getVar('id_jurusan');
 			$jurusan = $this->request->getVar('jurusan');
 			$tahunmasuk = $this->request->getVar('tahunmasuk');
 
 			if($jurusan == null && $tahunmasuk == null){
 				$siswa = $this->siswaModel
+				->where('id_jurusan', $id_jurusan)
 				->get()->getResultArray();
 				
 			}else if($jurusan != null && $tahunmasuk == null){
@@ -115,6 +116,7 @@ class Kelas extends BaseController
 
 			}else if($jurusan == null && $tahunmasuk != null){
 				$siswa = $this->siswaModel
+				->where('id_jurusan', $id_jurusan)
 				->where('id_tahunajaran', $tahunmasuk)
 				->get()->getResultArray();
 			}else{
@@ -127,7 +129,11 @@ class Kelas extends BaseController
 			$filter = ' ';
 			if($siswa != null){
 				foreach($siswa as $s){
-					$filter .= '<tr><td><input class="form-check-input" type="checkbox" name="siswa[]" id="'.$s['s_NISN'].'" value="'.$s['s_NISN'].'"></td><td>'.$s['s_NISN'].'</td><td>'.$s['s_namalengkap'].'</td></tr>';
+					
+					if($s['s_NISN'] == '0000000000'){
+					}else{
+						$filter .= '<tr><td><input class="form-check-input" type="checkbox" name="siswa[]" id="'.$s['s_NISN'].'" value="'.$s['s_NISN'].'"></td><td>'.$s['s_NISN'].'</td><td>'.$s['s_namalengkap'].'</td></tr>';
+					}
 				};
 			}else{
 				$filter .= '<tr><td colspan="3" class="text-center"> Tidak Ada Siswa</td></tr>';
@@ -395,48 +401,6 @@ class Kelas extends BaseController
 					'nama_kelas' => $this->request->getVar('u_nama_kelas'),
 					'id_jurusan' => $this->request->getVar('u_jurusan'),
 					'id_tahunajaran' => $this->request->getVar('u_tahunajaran')
-				]);
-
-				$msg = [
-					'berhasil' => [
-						'succes' => "Berhasil",
-					]
-				];
-			}
-
-			echo json_encode($msg);
-        }
-	}
-
-	public function pindah()
-	{
-		if($this->request->isAJAX()){
-
-			$valid = $this->validate([
-				'u_kelas' => [
-					'label' => "Kelas",
-					'rules' => 'required',
-					'errors' => [
-						'required' => 'Pilih {field} terlebih dahulu.',
-					]
-				]
-			]);
-
-			if(!$valid){
-				
-				$validation = \Config\Services::validation();
-				$msg = [
-					'error' => [
-						'u_kelas' => $validation->getError('u_kelas')
-					]
-				];
-
-			}else{ 
-				
-				$this->daftarSiswaKelasModel->save([
-					'id_daftarsiswakelas' => $this->request->getVar('u_daftar'),
-					'id_kelas' => $this->request->getVar('u_kelas'),
-					's_NISN' => $this->request->getVar('u_NISN')
 				]);
 
 				$msg = [

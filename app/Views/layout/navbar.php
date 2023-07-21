@@ -16,12 +16,12 @@
                 </div>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 </li>
-                <li>
+                <!-- <li>
                     <a class="dropdown-item" href="#">
                         <span class="material-symbols-sharp">key</span>
                         <span class="text">Ganti Password</span>
                     </a>
-                </li>
+                </li> -->
                 <li>
                     <a class="dropdown-item" href="/logout" style="color: red;">
                         <span class="material-symbols-sharp">logout</span>

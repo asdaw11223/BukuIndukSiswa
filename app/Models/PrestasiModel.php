@@ -13,6 +13,11 @@ class PrestasiModel extends Model
     {
         return $this->where(['s_NISN' => $s_NISN])->findAll();
     }
+    
+    public function getPrestasiDetail($s_NISN)
+    {
+        return $this->where(['s_NISN' => $s_NISN])->findAll();
+    }
 
     public function deletePrestasi($id)
     {

@@ -594,7 +594,7 @@
                                                 <div class="invalid-feedback errorsa_pekerjaan_ayah"></div>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="sa_penghasilan_ayah" class="form-label">Penghasilan/bulan/tahun Ayah <span class="fz-12">(rupiah)</span></label>
+                                                <label for="sa_penghasilan_ayah" class="form-label">Penghasilan Ayah <span class="fz-12">(rupiah)</span></label>
                                                 <input type="number" class="form-control" id="sa_penghasilan_ayah" name="sa_penghasilan_ayah" value="<?php if($ayah != null){ echo $ayah['sa_penghasilan']; } ?>">
                                                 <div class="invalid-feedback errorsa_penghasilan_ayah"></div>
                                             </div>
@@ -642,7 +642,7 @@
                                                 <div class="invalid-feedback errorsa_pekerjaan_ibu"></div>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="sa_penghasilan_ibu" class="form-label">Penghasilan/bulan/tahun Ibu <span class="fz-12">(rupiah)</span></label>
+                                                <label for="sa_penghasilan_ibu" class="form-label">Penghasilan Ibu <span class="fz-12">(rupiah)</span></label>
                                                 <input type="number" class="form-control" id="sa_penghasilan_ibu" name="sa_penghasilan_ibu" value="<?php if($ibu != null){ echo $ibu['sa_penghasilan']; } ?>">
                                                 <div class="invalid-feedback errorsa_penghasilan_ibu"></div>
                                             </div>
@@ -713,7 +713,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="sw_penghasilan" class="form-label">Penghasilan/bulan/tahun <span class="fz-12">(rupiah)</span></label>
+                                                <label for="sw_penghasilan" class="form-label">Penghasilan <span class="fz-12">(rupiah)</span></label>
                                                 <input type="number" class="form-control" id="sw_penghasilan" name="sw_penghasilan" value="<?php if($wali != null){ echo $wali['sw_penghasilan'] ;}  ?>">
                                                 <div class="invalid-feedback errorsw_penghasilan"></div>
                                             </div>

@@ -67,7 +67,8 @@ class Prestasi extends BaseController
 				$msg = [
 					'berhasil' => [
 						'succes' => "Berhasil",
-					]
+					],
+					'nisn_siswa' => $this->request->getVar('pre_s_nisn'),
 				];
 			}
 

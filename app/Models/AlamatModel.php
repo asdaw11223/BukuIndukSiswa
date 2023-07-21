@@ -36,6 +36,30 @@ class AlamatModel extends Model
         ->where('dis_id', $dis)
         ->get()->getResultArray();
     }
+    
+    public function getOneProv($prov){
+        return $this->db->table('provinces')
+        ->where('prov_id', $prov)
+        ->get()->getResultArray();
+    }
+
+    public function getOneCity($city){
+        return $this->db->table('cities')
+        ->where('city_id', $city)
+        ->get()->getResultArray();
+    }
+
+    public function getOneDis($dis){
+        return $this->db->table('districts')
+        ->where('dis_id', $dis)
+        ->get()->getResultArray();
+    }
+
+    public function getOneSubdis($subdis){
+        return $this->db->table('subdistricts')
+        ->where('subdis_id', $subdis)
+        ->get()->getResultArray();
+    }
 
     public function deleteAlamat($id)
     {

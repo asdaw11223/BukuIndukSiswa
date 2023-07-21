@@ -20,6 +20,7 @@ class Kehadiran extends BaseController
     {
 		$kehadiran = $this->kehadiranModel->where('s_nisn', $s_nisn)
         ->join('tb_kelas', 'tb_kelas.id_kelas = tb_kehadiran.id_kelas')
+        ->join('tb_tahunajaran', 'tb_tahunajaran.id_tahunajaran = tb_kelas.id_tahunajaran')
         ->findAll();
         
         $search_kelas = $this->daftarSiswaKelasModel->where('s_nisn', $s_nisn)
@@ -213,6 +214,8 @@ class Kehadiran extends BaseController
             $kehadiran = $this->kehadiranModel->where('id_kehadiran', $this->request->getVar('id_kehadiran'))->where('kh_semester', $this->request->getVar('kh_semester'))
             ->findAll();
 
+			$siswa = $this->daftarSiswaKelasModel->where('id_kelas',  $this->request->getVar('id_kelas'))->findAll();
+
             foreach($kehadiran as $n) {
                 $this->kehadiranModel->save([
                     'id_kehadiran' => $this->request->getVar('id_kehadiran'),
@@ -223,6 +226,17 @@ class Kehadiran extends BaseController
                     'kh_alpa' => $this->request->getVar('kh_alpa'. $n['id_kehadiran'])
                 ]);
             }
+
+			foreach($siswa as $s){
+                $this->daftarSiswaKelasModel->save([
+                    'id_daftarsiswakelas' => $s['id_daftarsiswakelas'],
+                    'dsk_naikkelas' => $this->request->getVar('dsk_naikkelas'. $s['s_NISN']),
+                    'dsk_tglnaikkelas' => $this->request->getVar('dsk_tglnaikkelas'. $s['s_NISN']),
+                    'dsk_lulus' => $this->request->getVar('dsk_lulus'. $s['s_NISN']),
+                    'dsk_tgllulus' => $this->request->getVar('dsk_tgllulus'. $s['s_NISN']),
+                ]);
+
+			}
 
             $msg = [
                 'berhasil' => [

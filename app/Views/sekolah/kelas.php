@@ -23,6 +23,7 @@
                                         <th>No.</th>
                                         <th class=" text-center">Aksi</th>
                                         <th>Nama Kelas</th>
+                                        <th>Tingkat</th>
                                         <th>Tahun Ajaran</th>
                                         <th>Jurusan</th>
                                     </tr>
@@ -38,6 +39,7 @@
                                                 <button type="button" class="btn-delete btn-delete-kelas"  data-id="<?= $k['id_kelas']; ?>" data-nama="<?= $k['nama_kelas']; ?>" data-bs-toggle="modal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
                                             </td>
                                             <td><?= $k['nama_kelas'] ?></td>
+                                            <td><?= $k['nama_tingkat'] ?></td>
                                             <td><?= $k['nama_tahunajaran'] ?></td>
                                             <td><?= $k['nama_jurusan'] ?></td>
                                         </tr>
@@ -48,6 +50,7 @@
                                         <th>No.</th>
                                         <th class=" text-center">Aksi</th>
                                         <th>Nama Kelas</th>
+                                        <th>Tingkat</th>
                                         <th>Tahun Ajaran</th>
                                         <th>Jurusan</th>
                                     </tr>

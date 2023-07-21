@@ -42,8 +42,8 @@
                             </div>
                             <div class="btn-container">
                                 <a href="/siswa/edit/<?= $siswa['s_NISN']; ?>" class="btn-edit"title="Edit"><span class="material-symbols-outlined">edit</span></a>
-                                <button type="button" class="btn-view" data-bs-toggle="modal" title="Nilai"><span class="material-symbols-outlined">inbox</span></button>
-                                <button type="button" class="btn-delete btn-update-kelas" data-bs-toggle="modal" title="Print"><span class="material-symbols-outlined">print</span></button>
+                                <a href="/rapor/nilai/<?= $siswa['s_NISN']; ?>" class="btn-view" title="Nilai"><span class="material-symbols-outlined">inbox</span></a>
+                                <a href="/laporan/siswa-details/<?= $siswa['s_NISN']; ?>" class="btn-delete btn-update-kelas" title="Print"><span class="material-symbols-outlined">print</span></a>
                             </div>
                         </div>
                         <hr class="line mb-3">
@@ -377,49 +377,69 @@
                                     <tbody>
                                         <tr>
                                             <td style=" max-width: 400px;"><label for="sp_asalsekolah" class="form-label">Asal SMP/MTs</label></td>
-                                            <td><?= $masuk['sp_asalsekolah']; ?></td>
+                                            <td><?php  if($masuk == null){
+                                                echo('');
+                                                }else{ echo($masuk['sp_asalsekolah']); } ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="sp_tglijasah" class="form-label">Tanggal Ijasah</label></td>
-                                            <td><?= $masuk['sp_tglijasah']; ?></td>
+                                            <td><?php  if($masuk == null){
+                                                echo('');
+                                                }else{ echo($masuk['sp_tglijasah']); } ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="sp_thnskhun" class="form-label">Tahun SKHUN</label></td>
-                                            <td><?= $masuk['sp_thnskhun']; ?></td>
+                                            <td><?php  if($masuk == null){
+                                                echo('');
+                                                }else{ echo($masuk['sp_thnskhun']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="sp_tglnoijasah" class="form-label">Nomor Ijasah</label></td>
-                                            <td><?= $masuk['sp_tglnoijasah']; ?></td>
+                                            <td><?php  if($masuk == null){
+                                                echo('');
+                                                }else{ echo($masuk['sp_tglnoijasah']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="sp_thnnoskhun" class="form-label">Nomor SKHUN</label></td>
-                                            <td><?= $masuk['sp_thnnoskhun']; ?></td>
+                                            <td><?php  if($masuk == null){
+                                                echo('');
+                                                }else{ echo($masuk['sp_thnnoskhun']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2"><label for="" class="form-label for-header pt-3"><b>Sebagai Siswa Baru</b></label></td>
                                         </tr>
                                         <tr>
                                             <td><label for="sp_diterimatgl" class="form-label">Tanggal Diterima</label></td>
-                                            <td><?= $masuk['sp_diterimatgl']; ?></td>
+                                            <td><?php  if($masuk == null){
+                                                echo('');
+                                                }else{ echo($masuk['sp_diterimatgl']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2"><label for="" class="form-label for-header pt-3"><b>Sebagai Siswa pindahan</b></label></td>
                                         </tr>
                                         <tr>
                                             <td><label for="sp_diterimatgl_p" class="form-label">Tanggal Diterima</label></td>
-                                            <td><?= $masuk['sp_diterimatgl']; ?></td>
+                                            <td><?php  if($masuk == null){
+                                                echo('');
+                                                }else{ echo( $masuk['sp_diterimatgl']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="sp_drsekolah" class="form-label">Dari SMA/MA/SMK</label></td>
-                                            <td><?= $masuk['sp_drsekolah']; ?></td>
+                                            <td><?php  if($masuk == null){
+                                                echo('');
+                                                }else{ echo($masuk['sp_drsekolah']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="sp_dikelas" class="form-label">Di Kelas</label></td>
-                                            <td><?= $masuk['sp_dikelas']; ?></td>
+                                            <td><?php  if($masuk == null){
+                                                echo('');
+                                                }else{ echo($masuk['sp_dikelas']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="sp_alasanpindah" class="form-label">Alasan Pindah Ke Sekolah Ini</label></td>
-                                            <td><?= $masuk['sp_alasanpindah']; ?></td>
+                                            <td><?php  if($masuk == null){
+                                                echo('');
+                                                }else{ echo($masuk['sp_alasanpindah']);} ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -465,23 +485,33 @@
                                     <tbody>
                                         <tr>
                                             <td><label for="pp_kesekolah" class="form-label">Pindah Sekolah ke</label></td>
-                                            <td><?= $pindah['pp_kesekolah']; ?></td>
+                                            <td><?php  if($pindah == null){
+                                                echo('');
+                                                }else{ echo($pindah['pp_kesekolah']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="pp_tglpindah" class="form-label">Tanggal Pindah</label></td>
-                                            <td><?= $pindah['pp_tglpindah']; ?></td>
+                                            <td><?php  if($pindah == null){
+                                                echo('');
+                                                }else{ echo($pindah['pp_tglpindah']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="pp_alamatsekolah" class="form-label">Alamat Sekolah </label></td>
-                                            <td><?= $pindah['pp_alamatsekolah']; ?></td>
+                                            <td><?php  if($pindah == null){
+                                                echo('');
+                                                }else{ echo($pindah['pp_alamatsekolah']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="pp_drkelas" class="form-label">Dari Kelas</label></td>
-                                            <td><?= $pindah['pp_drkelas']; ?></td>
+                                            <td><?php  if($pindah == null){
+                                                echo('');
+                                                }else{ echo($pindah['pp_drkelas']);} ?></td>
                                         </tr>
                                         <tr>
                                             <td><label for="pp_alasanpindah" class="form-label">Alasan Pindah</label></td>
-                                            <td><?= $pindah['pp_alasanpindah']; ?></td>
+                                            <td><?php  if($pindah == null){
+                                                echo('');
+                                                }else{ echo($pindah['pp_alasanpindah']);} ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -546,7 +576,7 @@
                                                 <td><?php if($ayah != null){ echo $ayah['sa_pekerjaan']; } ?></td>
                                             </tr>
                                             <tr>
-                                                <td><label for="sa_penghasilan_ayah" class="form-label">Penghasilan/bulan/tahun Ayah <span class="fz-12">(rupiah)</span></label></td>
+                                                <td><label for="sa_penghasilan_ayah" class="form-label">Penghasilan Ayah <span class="fz-12">(rupiah)</span></label></td>
                                                 <td><?php if($ayah != null){ echo $ayah['sa_penghasilan']; } ?></td>
                                             </tr>
                                             <tr>
@@ -583,7 +613,7 @@
                                                 <td><?php if($ibu != null){ echo $ibu['sa_pekerjaan']; } ?></td>
                                             </tr>
                                             <tr>
-                                                <td><label for="sa_penghasilan_ibu" class="form-label">Penghasilan/bulan/tahun Ibu <span class="fz-12">(rupiah)</span></label></td>
+                                                <td><label for="sa_penghasilan_ibu" class="form-label">Penghasilan Ibu <span class="fz-12">(rupiah)</span></label></td>
                                                 <td><?php if($ibu != null){ echo $ibu['sa_penghasilan']; } ?></td>
                                             </tr>
                                             <tr>
@@ -631,7 +661,7 @@
                                         <td><?php if($wali != null){ echo $wali['sw_pekerjaan'] ;}  ?></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="sw_penghasilan" class="form-label">Penghasilan/bulan/tahun <span class="fz-12">(rupiah)</span></label></td>
+                                        <td><label for="sw_penghasilan" class="form-label">Penghasilan <span class="fz-12">(rupiah)</span></label></td>
                                         <td><?php if($wali != null){ echo $wali['sw_penghasilan'] ;}  ?></td>
                                     </tr>
                                     <tr>
@@ -795,16 +825,36 @@
                 <div class="card mb-3">
                     <div class="card-header for-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <span class="">Keterangan Kehadiran</span>
-                        <div class="wrapper-btn d-flex">
-                            <button type="button" class="btn btn-add-kehadiran mb-2 m-2" data-bs-toggle="modal" data-id="<?= $siswa['s_NISN'] ?>">Tambah Data</button>
-                            <button type="button" id="refresh-btn" class="btn mb-2 m-2">Refresh Table</button>
-                        </div>
                     </div>
                     <div class="content">
                         <div class="card-block">
-                            <div id="table_kehadiran">
-                                                    
-                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td rowspan="2">Tahun Ajaran</td>
+                                        <td rowspan="2">Kelas</td>
+                                        <td rowspan="2">Semester</td>
+                                        <td colspan="3" class="text-center">Tidak Hadir</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sakit</td>
+                                        <td>Izin</td>
+                                        <td>Alfa</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($kehadiran as $k) : ?>
+                                    <tr>
+                                        <td><?= $k['nama_tahunajaran'] ?></td>
+                                        <td><?= $k['nama_kelas'] ?></td>
+                                        <td><?= $k['kh_semester'] ?></td>
+                                        <td><?= $k['kh_sakit'] ?></td>
+                                        <td><?= $k['kh_izin'] ?></td>
+                                        <td><?= $k['kh_alpa'] ?></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -819,7 +869,10 @@
                         <div class="card-block">
                             <div class="mb-3">
                                 <label for="s_catatanpenting" class="form-label">Catatan Penting Selama Siswa Belajar Di Sekolah</label></br>
-                                <?= $catatan['s_catatanpenting']; ?>
+                                <?php  if($catatan == null){
+                                        echo('');
+                                        }else{ echo($catatan['s_catatanpenting']);} 
+                                ?>
                             </div>
                         </div>
                     </div>

@@ -114,6 +114,8 @@ class Nilai extends BaseController
                 $array[] = $nm['nama_matapelajaran'];
             }
         }
+
+        $siswa_detail = '';
         
         $nama_mapel = [];
         $id_mapel = [];
@@ -128,6 +130,7 @@ class Nilai extends BaseController
             'title' => 'Nilai',
             'kelas' => $kelas,
             'siswa' => $siswa,
+            'siswa_detail' => $siswa_detail,
             'tingkat' => $tingkat,
             'array' => $array,
             'kehadiran' => $kehadiran,

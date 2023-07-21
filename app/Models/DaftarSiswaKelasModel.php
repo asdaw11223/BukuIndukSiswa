@@ -7,7 +7,7 @@ class DaftarSiswaKelasModel extends Model
 {
     protected $table = 'tb_daftarsiswakelas';
     protected $primaryKey = 'id_daftarsiswakelas';
-    protected $allowedFields = ['id_daftarsiswakelas', 'id_kelas', 's_NISN'];
+    protected $allowedFields = ['id_daftarsiswakelas', 'dsk_naikkelas', 'dsk_tglnaikkelas', 'dsk_lulus', 'dsk_tgllulus', 'id_kelas', 's_NISN'];
 
     public function getSK(){
         return $this->db->table('tb_daftarsiswakelas')

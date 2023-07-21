@@ -39,7 +39,6 @@
                                         <td><?= $s['nama_tahunajaran'] ?></td>
                                         <td><?= $s['nama_jurusan'] ?></td>
                                         <td class="text-center">
-                                            <button type="button" class="btn-view btn-pindah-siswaKelas"  data-daftar="<?= $s['id_daftarsiswakelas'] ?>" data-id="<?= $s['s_NISN'] ?>" data-bs-toggle="modal" title="Delete"><span class="material-symbols-outlined">move_up</span></button>
                                             <button type="button" class="btn-delete btn-delete-siswaKelas"  data-id="<?= $s['id_daftarsiswakelas'] ?>" data-nama="<?= $s['s_namalengkap'] ?>" data-bs-toggle="modal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
                                         </td>
                                     </tr>
@@ -64,46 +63,6 @@
     </div>
 </section>
 
-<!-- PINDAH -->
-<form action="javascript:void(0)" method="post" name="formPindah" id="formPindah" onsubmit="return validateFormPindah()">
-<?= csrf_field(); ?>
-    <div class="modal fade" id="modalFormPindah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Pindah Kelas</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="u_tahunajaran" class="form-label">Tahun Ajaran</label>
-                        <select class="form-select" aria-label="Default select example" name="u_tahunajaran" id="u_tahunajaran">
-                            <option value="" selected>Pilih Tahun Ajaran</option>
-                            <?php $no=1; foreach ($tahunAjaran as $t) : ?>
-                            <option value="<?= $t['id_tahunajaran']?>"><?= $t['nama_tahunajaran']?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <div class="invalid-feedback errorUpdateNama"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="u_kelas" class="form-label">Ke Kelas</label>
-                        <select class="form-select" aria-label="Default select example" name="u_kelas" id="u_kelas">
-                            <option value="" selected>Pilih Kelas</option>
-                        </select>
-                        <input type="hidden" class="form-control" id="u_NISN" name="u_NISN">
-                        <input type="hidden" class="form-control" id="u_daftar" name="u_daftar">
-                        <div class="invalid-feedback errorUpdateNama"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn">Pindah</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
 <!-- Modal ADD Siswa -->
 <div class="modal fade" id="modalFormAddSiswa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -121,6 +80,7 @@
 
                     <div class="col-md-6">
                         <div class="mb-3">
+                            <input type="hidden" name="id_jurusan" id="id_jurusan" value="<?= $kelas['id_jurusan'] ?>">
                             <label for="jurusan" class="form-label">Jurusan</label>
                             <select class="form-select" aria-label="Default select example" name="jurusan" id="jurusan">
                                 <option value="" selected>Pilih Jurusan</option>
@@ -231,51 +191,6 @@
 <script>
     
     var idKelas;
-    // var keyword = document.getElementById('keyword');
-    // var tombolCari = document.getElementById('tombol-cari');
-    // var container = document.getElementById('addSiswaFilter');
-
-    // keyword.addEventListener('keyup', function(){
-        
-    //     var xhr = new XMLHttpRequest();
-
-    //     // cek kesiapan ajax
-    //     xhr.onreadystatechange = function() {
-    //         if( xhr.readyState == 4 && xhr.status == 200 ) {
-    //             container.innerHTML = xhr.responseText;
-    //         }
-    //     }
-
-    //     // eksekusi ajax
-    //     xhr.open('GET', 'ajax/mahasiswa.php?keyword=' + keyword.value, true);
-    //     xhr.send();
-    // });
-
-    function validateFormPindah() {
-        $.ajax({
-            url: "<?= site_url('Kelas/pindah') ?>",
-            method: "post",
-            data: $("#formPindah").serialize(),
-            dataType: "json",
-            success: function(response) {
-
-                if (response.error) {
-
-                    if (response.error.jurusan) {
-                        $('#jurusan').addClass('is-invalid');
-                        $('.errorAddSJurusan').html(response.error.jurusan);
-                        return false;
-                    } else {
-                        $('#jurusan').removeClass('is-invalid');
-                    }
-
-                } else if (response.berhasil) {
-                    alert("Data berhasil disimpan");
-                    window.location.reload();
-                }
-            }
-        });
-    };
 
     function validateFormAddSiswa() {
         $.ajax({
@@ -382,22 +297,6 @@
             });
         });
 
-        $('#u_tahunajaran').change(function() {
-            var id = $(this).val();
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('Kelas/getKelas') ?>",
-                data: {
-                    id: id
-                },
-                dataType: "JSON",
-                success: function(response) {
-                    $('#u_kelas').html(response.data);
-                }
-
-            });
-        });
-
         $('.btn-pindah-siswaKelas').on('click',function(){
             
             const daftar = $(this).data('daftar');
@@ -410,7 +309,6 @@
         });
 
         $('.btn-add-siswa').on('click',function(){
-            
             $("#modalFormAddSiswa").modal('show');
         });
 

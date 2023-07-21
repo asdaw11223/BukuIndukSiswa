@@ -310,7 +310,7 @@
                                         
                     </div>
                     <div class="m-footer d-flex" style="flex-direction: column-reverse;">
-                        <a href="/siswa" class="fly">Nanti</a>
+                        <a href="/siswa" class="fly" style="color: #333!important; text-decoration: none!important;">Nanti</a>
                         <button type="submit" class="btn" data-id="" style="margin-bottom: 15px; width:200px; background-image: linear-gradient(310deg,#2ebd2e,#2ebd2e);">Lanjut Isi Data Siswa</button>
                     </div>
                 </div>

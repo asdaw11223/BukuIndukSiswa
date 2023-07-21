@@ -2,6 +2,7 @@
     <table id="simpletable" class="table table-striped table-bordered nowrap">
         <thead>
             <tr>
+                <th rowspan="2">Tahun Ajaran</th>
                 <th rowspan="2">Kelas</th>
                 <th rowspan="2">Semester</th>
                 <th colspan="3" class="text-center">Tidak Hadir</th>
@@ -16,6 +17,7 @@
         <tbody>
             <?php foreach($kehadiran as $k) : ?>
             <tr>
+                <td><?= $k['nama_tahunajaran'] ?></td>
                 <td><?= $k['nama_kelas'] ?></td>
                 <td><?= $k['kh_semester'] ?></td>
                 <td><?= $k['kh_sakit'] ?></td>

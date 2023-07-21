@@ -74,24 +74,27 @@
                                         <th class="text-center">Aksi</th>
                                         <th>NISN</th>
                                         <th>Nama Peserta Didik</th>
-                                        <th>Naik/Tidak Naik</th>
-                                        <th>Status</th>
+                                        <th>Jurusan</th>
+                                        <th>Tahun Ajaran Masuk</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach ($siswa as $s) : ?>
+                                    <?php if($s['s_NISN'] == '0000000000') : ?>
+                                    <?php else : ?>
                                     <tr>
                                         <td class="w-23"><?= $no++; ?></td>
                                             <td class="w-120 text-center">
                                                 <a href="rapor/<?= $s['s_NISN'] ?>" class="btn-view btn-view-kelas"title="View"><span class="material-symbols-outlined">demography</span></a>
-                                                <button type="button" class="btn-edit btn-update-kelas" data-bs-toggle="modal" title="Edit"><span class="material-symbols-outlined">print</span></button>
+                                                <a href="rapor/nilai/<?= $s['s_NISN'] ?>" class="btn-view btn-view-kelas"title="View"><span class="material-symbols-outlined">inbox</span></a>
+                                                <a href="/laporan/raporSiswaDetails/<?= $s['s_NISN'] ?>" class="btn-edit btn-update-kelas" title="Print"><span class="material-symbols-outlined">print</span></a>
                                             </td>
                                         <td><?= $s['s_NISN'] ?></td>
                                         <td><?= $s['s_namalengkap'] ?></td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td><?= $s['nama_jurusan'] ?></td>
+                                        <td><?= $s['nama_tahunajaran'] ?></td>
                                     </tr>
-                                    <?php endforeach; ?>
+                                    <?php endif; endforeach; ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -99,8 +102,8 @@
                                         <th class="text-center">Nilai Semester</th>
                                         <th>NISN</th>
                                         <th>Nama Peserta Didik</th>
-                                        <th>Naik/Tidak Naik</th>
-                                        <th>Lulus/Tidak Lulus</th>
+                                        <th>Jurusan</th>
+                                        <th>Tahun Ajaran Masuk</th>
                                     </tr>
                                 </tfoot>
                             </table>

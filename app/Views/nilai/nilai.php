@@ -125,7 +125,7 @@
                                             <tr>
                                                 <td class="w-23"><?= $no++; ?></td>
                                                 <td class="text-center">
-                                                    <button type="button" class="btn-view btn-view-catatan" data-id="<?= $s['s_NISN']; ?>" data-bs-toggle="modal" title="View"><span class="material-symbols-outlined">demography</span></button>
+                                                    <button type="button" class="btn-view btn-view-catatan" data-id="<?= $s['s_NISN']; ?>" data-kelas="<?= $kelas['id_kelas']; ?>" data-bs-toggle="modal" title="View"><span class="material-symbols-outlined">demography</span></button>
                                                 </td>
                                                 <td><?= $s['s_NISN'] ?></td>
                                                 <td><?= $s['s_namalengkap'] ?></td>
@@ -231,6 +231,13 @@
                                         <button type="submit" class="btn btn-add-nilai" style="margin: 0px 5px;">Simpan</button>
                                     </div>
                                 </div>
+                                
+                                <div class="col-md-12">
+                                    <div class="alert alert-warning" role="alert">
+                                        Jika form tidak muncul klik tambah form terlebih dahulu!!!
+                                    </div>
+                                </div>
+
                                 <div class="dt-responsive table-responsive">
                                     <table id="simpletable" class="table table-striped table-bordered nowrap">
                                         <thead>
@@ -239,6 +246,10 @@
                                                 <th rowspan="2">NISN</th>
                                                 <th rowspan="2">Nama Siswa</th>
                                                 <th colspan="3" class="text-center">Tidak Hadir</th>
+                                                <?php if($semester == 2) : ?>
+                                                    <th rowspan="2" class="text-center">Naik/ Tidak Naik</th>
+                                                    <th rowspan="2" class="text-center">Lulus/ Tidak Lulus</th>
+                                                <?php endif; ?>
                                             </tr>
                                             <tr>
                                                 <th class="text-center">Sakit</th>
@@ -269,6 +280,37 @@
                                                         </td>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
+                                                    
+                                                <?php if($semester == 2) : ?>    
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <select class="form-select" aria-label="Default select example" name="dsk_naikkelas<?= $s['s_NISN']?>" id="dsk_naikkelas<?= $s['s_NISN']?>">
+                                                                <option value="0"  <?php if($s['dsk_naikkelas'] == 0) { echo('selected'); } ?> >Pilih Aksi</option>
+                                                                <option value="2" <?php if($s['dsk_naikkelas'] == 2) { echo('selected'); } ?> >Naik</option>
+                                                                <option value="1" <?php if($s['dsk_naikkelas'] == 1) { echo('selected'); } ?> >Tidak Naik</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input onClick="this.select();" type="date" class="form-control" id="dsk_tglnaikkelas<?= $s['s_NISN'] ?>" name="dsk_tglnaikkelas<?= $s['s_NISN'] ?>" value="<?= $s['dsk_tglnaikkelas'] ?>">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <select class="form-select" aria-label="Default select example" name="dsk_lulus<?= $s['s_NISN']?>" id="dsk_lulus<?= $s['s_NISN']?>">
+                                                                <option value="0" <?php if($s['dsk_lulus'] == 0) { echo('selected'); } ?> >Pilih Aksi</option>
+                                                                <option value="2" <?php if($s['dsk_lulus'] == 2) { echo('selected'); } ?> >Lulus</option>
+                                                                <option value="1" <?php if($s['dsk_lulus'] == 1) { echo('selected'); } ?> >Tidak Lulus</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input onClick="this.select();" type="date" class="form-control" id="dsk_tgllulus<?= $s['s_NISN']?>" name="dsk_tgllulus<?= $s['s_NISN']?>" value="<?= $s['dsk_tgllulus'] ?>">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <?php endif ?>
 
                                             </tr>
                                             <?php endforeach ?>
@@ -281,6 +323,10 @@
                                                 <th class="text-center">Sakit</th>
                                                 <th class="text-center">Izin</th>
                                                 <th class="text-center">Alfa</th>
+                                                <?php if($semester == 2) : ?>
+                                                <th rowspan="2" class="text-center">Naik/ Tidak Naik</th>
+                                                <th rowspan="2" class="text-center">Lulus/ Tidak Lulus</th>
+                                                <?php endif ?>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -408,27 +454,186 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Siswa [nama_siswa]</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Siswa <span id="nama_siswa"></span> [ <span id="nisn_siswa"></span> ]</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="table_pkl" class="mb-3">
 
-                        </div>
-                        <div id="table_extrakulikuler" class="mb-3">
+                        <div class="table_pkl mb-3">
+                            <button type="button" class="btn green btn-add-pkl mb-3" style="margin: 0px 5px; width: auto;" data-bs-toggle="modal">Tambah PKL</button>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td class="table-active bold">No.</td>
+                                        <td class="table-active bold">Nama DU/DI atau Instansi Relevan</td>
+                                        <td class="table-active bold">Lokasi</td>
+                                        <td class="table-active bold">Lamanya (bulan)</td>
+                                        <td class="table-active bold">Keterangan</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="table_pkl">
 
+                                </tbody>
+                            </table>
                         </div>
-                        <div id="table_prestasi" class="mb-3">
 
-                        </div>
-                        <div id="table_kehadiran" class="mb-3">
+                        <div class="mb-3 table_ekstrakurikuler">
+                            <button type="button" class="btn green btn-add-eskul mb-3" style="margin: 0px 5px; width: auto;" data-bs-toggle="modal">Tambah Ekstrakurikuler</button>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td class="table-active bold">No.</td>
+                                        <td class="table-active bold">Kegiatan Ekstrakurikuler</td>
+                                        <td class="table-active bold">Kelas</td>
+                                        <td class="table-active bold">Keterangan</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="table_ekstrakurikuler">
 
+                                </tbody>
+                            </table>
                         </div>
+
+                        <div class="table_prestasi mb-3">
+                            <button type="button" class="btn green btn-add-prestasi mb-3" style="margin: 0px 5px; width: auto;" data-bs-toggle="modal">Tambah Prestasi</button>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td class="table-active bold">No.</td>
+                                        <td class="table-active bold">Jenis Prestasi</td>
+                                        <td class="table-active bold">Keterangan</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="table_prestasi">
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD PKL -->
+<div class="modal fade" id="modalAddPKL" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Data PKL</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="javascript:void(0)" method="post" name="formAddPKL" id="formAddPKL" onsubmit="return validateformAddPKL()">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" name="s_nisn" class="s_nisn">
+                        <div class="mb-3">
+                            <label for="pkl_namainstansi" class="form-label">Nama DU/DI atau Instansi Relevan</label>
+                            <input type="text" class="form-control" name="pkl_namainstansi" id="pkl_namainstansi">
+                            <div class="invalid-feedback errorAddpkl_namainstansi"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pkl_lokasi" class="form-label">Lokasi</label>
+                            <input type="text" class="form-control" name="pkl_lokasi" id="pkl_lokasi">
+                            <div class="invalid-feedback errorAddpkl_lokasi"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pkl_lama" class="form-label">Lamanya (bulan)</label>
+                            <input type="number" class="form-control"  name="pkl_lama" id="pkl_lama">
+                            <div class="invalid-feedback errorAddpkl_lama"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pkl_keterangan" class="form-label">Keterangan</label>
+                            <input type="text" class="form-control" name="pkl_keterangan" id="pkl_keterangan">
+                            <div class="invalid-feedback errorAddpkl_keterangan"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-bs-dismiss="modal">Batal</button>
+                <button class="btn " type="submit">Simpan</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ADD Eskul -->
+<div class="modal fade" id="modalAddEskul" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Data Eskul</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="javascript:void(0)" method="post" name="formAddEskul" id="formAddEskul" onsubmit="return validateformAddEskul()">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" name="s_nisn" class="s_nisn">
+                        <input type="hidden" name="id_kelas" class="id_kelas">
+                        <div class="mb-3">
+                            <label for="eskul_kegiatan" class="form-label">Kegiatan Ekstrakurikuler</label>
+                            <input type="text" class="form-control" name="eskul_kegiatan" id="eskul_kegiatan">
+                            <div class="invalid-feedback errorAddeskul_kegiatan"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eskul_keterangan" class="form-label">Keterangan</label>
+                            <input type="text" class="form-control" name="eskul_keterangan" id="eskul_keterangan">
+                            <div class="invalid-feedback errorAddeskul_keterangan"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-bs-dismiss="modal">Batal</button>
+                <button class="btn " type="submit">Simpan</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ADD Prestasi -->
+<div class="modal fade" id="modalAddPrestasi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Data Prestasi</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="javascript:void(0)" method="post" name="formAddPrestasi" id="formAddPrestasi" onsubmit="return validateformAddPrestasi()">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label for="pre_jenisprestasi" class="form-label">Jenis Prestasi</label>
+                            <input type="hidden" class="form-control s_nisn" id="pre_s_nisn" name="pre_s_nisn">
+                            <input type="text" class="form-control" id="pre_jenisprestasi" name="pre_jenisprestasi">
+                            <div class="invalid-feedback errorpre_jenisprestasi"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pre_keterangan" class="form-label">Keterangan</label>
+                            <textarea class="form-control" id="pre_keterangan" name="pre_keterangan" rows="3"></textarea>
+                            <div class="invalid-feedback errorAddpre_keterangan"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-bs-dismiss="modal">Batal</button>
+                <button class="btn " type="submit">Simpan</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -491,34 +696,6 @@
         </div>
     </div>
 </div>
-
-<!-- Modal Export -->
-<div class="modal fade" id="modalFormAddExport" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Export Data Siswa</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <?php echo form_open_multipart('Nilai/Export'); ?> 
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 class="text-center">Download Template Nilai</h3>
-                    </div>
-                    <input type="hidden" name="id_kelas" value="<?= $kelas['id_kelas'] ?>">
-                    <input type="hidden" name="semester" value="<?= $semester ?>">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn" data-bs-dismiss="modal">Batal</button>
-                <button class="btn " type="submit">Simpan</button>
-            </div>
-            <?php echo form_close(); ?>
-        </div>
-    </div>
-</div>
-
 
 <script>
     
@@ -605,36 +782,196 @@
         });
     };
     
+    function validateformAddPKL() {
+        $.ajax({
+            url: "<?= site_url('PKL/save') ?>",
+            method: "post",
+            data: $("#formAddPKL").serialize(),
+            dataType: "json",
+            success:function (response) {
+                
+                if(response.error){
+                    //SISWA
+                    if(response.error.pkl_namainstansi){
+                        $('#pkl_namainstansi').addClass('is-invalid');
+                        $('.errorAddpkl_namainstansi').html(response.error.pkl_namainstansi);
+                        return false;
+                    }else{
+                        $('#pkl_namainstansi').removeClass('is-invalid');
+                    }
+                    
+                    if(response.error.pkl_lokasi){
+                        $('#pkl_lokasi').addClass('is-invalid');
+                        $('.errorAddpkl_lokasi').html(response.error.pkl_lokasi);
+                        return false;
+                    }else{
+                        $('#pkl_lokasi').removeClass('is-invalid');
+                    }
+                    
+                    if(response.error.pkl_lama){
+                        $('#pkl_lama').addClass('is-invalid');
+                        $('.errorAddpkl_lama').html(response.error.pkl_lama);
+                        return false;
+                    }else{
+                        $('#pkl_lama').removeClass('is-invalid');
+                    }
+                    
+                    if(response.error.pkl_keterangan){
+                        $('#pkl_keterangan').addClass('is-invalid');
+                        $('.errorAddpkl_keterangan').html(response.error.pkl_keterangan);
+                        return false;
+                    }else{
+                        $('#pkl_keterangan').removeClass('is-invalid');
+                    }
+
+                }else if(response.berhasil){
+                    alert("Data berhasil disimpan");
+                    $("#modalAddPKL").modal('hide');
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('Rapor/catatan') ?>",
+                        data: {
+                            id: response.nisn_siswa
+                        },
+                        dataType: "JSON",
+                        success: function(response) {
+                            $('#table_pkl').html(response.pkl);
+                            $('#table_ekstrakurikuler').html(response.eskul);
+                            $('#table_prestasi').html(response.prestasi);
+                            $('#nama_siswa').html(response.nama_siswa);
+                            $('#nisn_siswa').html(response.nisn_siswa);
+                            $('.s_nisn').val(response.nisn_siswa);
+                        }
+                    });
+
+                    $("#modalAddCatatan").modal('show');
+                }
+            }
+        });
+    };
+    
+    function validateformAddEskul() {
+        $.ajax({
+            url: "<?= site_url('Eskul/save') ?>",
+            method: "post",
+            data: $("#formAddEskul").serialize(),
+            dataType: "json",
+            success:function (response) {
+                
+                if(response.error){
+                    //SISWA
+                    if(response.error.eskul_kegiatan){
+                        $('#eskul_kegiatan').addClass('is-invalid');
+                        $('.erroreskul_kegiatan').html(response.error.eskul_kegiatan);
+                        return false;
+                    }else{
+                        $('#eskul_kegiatan').removeClass('is-invalid');
+                    }
+                    
+                    if(response.error.eskul_keterangan){
+                        $('#eskul_keterangan').addClass('is-invalid');
+                        $('.errorAddeskul_keterangan').html(response.error.eskul_keterangan);
+                        return false;
+                    }else{
+                        $('#eskul_keterangan').removeClass('is-invalid');
+                    }
+
+                }else if(response.berhasil){
+                    alert("Data berhasil disimpan");
+                    $("#modalAddEskul").modal('hide');
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('Rapor/catatan') ?>",
+                        data: {
+                            id: response.nisn_siswa
+                        },
+                        dataType: "JSON",
+                        success: function(response) {
+                            $('#table_pkl').html(response.pkl);
+                            $('#table_ekstrakurikuler').html(response.eskul);
+                            $('#table_prestasi').html(response.prestasi);
+                            $('#nama_siswa').html(response.nama_siswa);
+                            $('#nisn_siswa').html(response.nisn_siswa);
+                            $('.s_nisn').val(response.nisn_siswa);
+                        }
+                    });
+
+                    $("#modalAddCatatan").modal('show');
+                }
+            }
+        });
+    };
+    
+    function validateformAddPrestasi() {
+        $.ajax({
+            url: "<?= site_url('Prestasi/save') ?>",
+            method: "post",
+            data: $("#formAddPrestasi").serialize(),
+            dataType: "json",
+            success:function (response) {
+                
+                if(response.error){
+                    //SISWA
+                    if(response.error.pre_jenisprestasi){
+                        $('#pre_jenisprestasi').addClass('is-invalid');
+                        $('.errorpre_jenisprestasi').html(response.error.pre_jenisprestasi);
+                        return false;
+                    }else{
+                        $('#pre_jenisprestasi').removeClass('is-invalid');
+                    }
+                    
+                    if(response.error.pre_keterangan){
+                        $('#pre_keterangan').addClass('is-invalid');
+                        $('.errorAddpre_keterangan').html(response.error.pre_keterangan);
+                        return false;
+                    }else{
+                        $('#pre_keterangan').removeClass('is-invalid');
+                    }
+
+                }else if(response.berhasil){
+                    alert("Data berhasil disimpan");
+                    $("#modalAddPrestasi").modal('hide');
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('Rapor/catatan') ?>",
+                        data: {
+                            id: response.nisn_siswa
+                        },
+                        dataType: "JSON",
+                        success: function(response) {
+                            $('#table_pkl').html(response.pkl);
+                            $('#table_ekstrakurikuler').html(response.eskul);
+                            $('#table_prestasi').html(response.prestasi);
+                            $('#nama_siswa').html(response.nama_siswa);
+                            $('#nisn_siswa').html(response.nisn_siswa);
+                            $('.s_nisn').val(response.nisn_siswa);
+                        }
+                    });
+
+                    $("#modalAddCatatan").modal('show');
+                }
+            }
+        });
+    };
+    
     
     $(document).ready(function(){
 
-        // $( "#table_pkl" ).load( '/', function( response, status, xhr ) {
-        //     if ( status == "error" ) {
-        //         var msg = "Sorry but there was an error: ";
-        //         $( "#table_pkl" ).html( msg + xhr.status + " " + xhr.statusText );
-        //     }
-        // });
-        
-        // function RefreshTable() {
-        //     $( "#table_pkl" ).load( '/', function( response, status, xhr ) {
-        //         if ( status == "error" ) {
-        //             var msg = "Sorry but there was an error: ";
-        //             $( "#table_pkl" ).html( msg + xhr.status + " " + xhr.statusText );
-        //         }
-        //     });
-        // }
-        
-        // $("#refresh-btn").on("click", RefreshTable);
-
         //modal
+        $('.btn-add-pkl').on('click',function(){
+            $("#modalAddPKL").modal('show');
+        });
+        $('.btn-add-eskul').on('click',function(){
+            $("#modalAddEskul").modal('show');
+        });
+        $('.btn-add-prestasi').on('click',function(){
+            $("#modalAddPrestasi").modal('show');
+        });
+
+
         $('.btn-add-import').on('click',function(){
 
             $("#modalFormAddImport").modal('show');
-        });
-
-        $('.btn-add-export').on('click',function(){
-
-            $("#modalFormAddExport").modal('show');
         });
         $('.btn-add-matapelajaran').on('click',function(){
 
@@ -645,6 +982,27 @@
             $("#modalUpdateKehadiran").modal('show');
         });
         $('.btn-view-catatan').on('click',function(){
+            var id = $(this).data('id');
+            var kelas = $(this).data('kelas');
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('Rapor/catatan') ?>",
+                data: {
+                    id: id,
+                    kelas: kelas
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    $('#table_pkl').html(response.pkl);
+                    $('#table_ekstrakurikuler').html(response.eskul);
+                    $('#table_prestasi').html(response.prestasi);
+                    $('#nama_siswa').html(response.nama_siswa);
+                    $('#nisn_siswa').html(response.nisn_siswa);
+                    $('.s_nisn').val(response.nisn_siswa);
+                    $('.id_kelas').val(response.id_kelas);
+                }
+
+            });
 
             $("#modalAddCatatan").modal('show');
         });

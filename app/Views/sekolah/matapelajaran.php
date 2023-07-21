@@ -212,10 +212,7 @@
 
                 }else if(response.berhasil){
                     alert("Data berhasil disimpan");
-                    RefreshTable();
-                    document.getElementById("formAddMapel").reset();
-                    $("#modalAddMapel").modal('hide');
-                    $("#modalDaftarMapel").modal('show');
+                    window.location.reload();
 
                 }
             }

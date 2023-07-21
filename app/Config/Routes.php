@@ -59,8 +59,11 @@ $routes->get('/template/(:segment)/(:segment)', 'Nilai::template/$1/$2');
 
 $routes->get('/rapor', 'Rapor::index');
 $routes->get('/rapor/(:segment)', 'Rapor::rapor/$1');
+$routes->get('/rapor/nilai/(:segment)', 'Rapor::nilai/$1');
 
 $routes->get('/laporan', 'Laporan::index');
+$routes->get('/laporan/siswa-details/(:segment)', 'Laporan::siswaDetails/$1');
+$routes->get('/laporan/daftar-siswa-sekolah', 'Laporan::daftarSiswaSekolah');
 
 $routes->get('/profile-sekolah', 'Profile::index');
 
