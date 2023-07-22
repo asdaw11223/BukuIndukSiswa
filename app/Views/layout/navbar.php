@@ -5,11 +5,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
-        <?php if(in_groups('admin')) :?>
             <li class="nav-item">
             <a class="nav-link" href="/laporan">Laporan</a>
             </li>
-        <?php endif ?>
       </ul>
         <div class="dropdown">
             <div class="dropdown-toggle btn-profile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

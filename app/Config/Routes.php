@@ -63,7 +63,7 @@ $routes->get('/rapor', 'Rapor::index', ['filter' => 'role:admin']);
 $routes->get('/rapor/(:segment)', 'Rapor::rapor/$1', ['filter' => 'role:admin']);
 $routes->get('/rapor/nilai/(:segment)', 'Rapor::nilai/$1', ['filter' => 'role:admin']);
 
-$routes->get('/laporan', 'Laporan::index', ['filter' => 'role:admin']);
+$routes->get('/laporan', 'Laporan::index', ['filter' => 'role:admin,guru']);
 $routes->get('/laporan/siswa-details/(:segment)', 'Laporan::siswaDetails/$1', ['filter' => 'role:admin']);
 $routes->get('/laporan/daftar-siswa-sekolah', 'Laporan::daftarSiswaSekolah', ['filter' => 'role:admin']);
 

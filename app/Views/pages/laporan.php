@@ -11,6 +11,7 @@
 
         <div class="col-lg-12">
             <ul class="nav nav-tabs mb-3 card siswa" id="addSiswa" role="tablist">
+            <?php if(in_groups('admin')) :?>
                 <li class="nav-item" style="width: calc(100% / 3);" role="daftar">
                     <button class="nav-link active" id="siswa-tab" data-bs-toggle="tab" data-bs-target="#daftar" type="button" role="tab" aria-controls="daftar" aria-selected="true">Siswa</button>
                     <div class="slide" style="width: calc(100% / 3);" ></div>
@@ -23,11 +24,13 @@
                     <button class="nav-link" id="catatan-tab" data-bs-toggle="tab" data-bs-target="#catatan" type="button" role="tab" aria-controls="catatan" aria-selected="false">Nilai Siswa</button>
                     <div class="slide" style="width: calc(100% / 3);" ></div>
                 </li>
+            <?php endif ?>
             </ul>
         </div>
         <div class="col-md-12">
             <div class="tab-content">
 
+            <?php if(in_groups('admin')) :?>
                 <div class="tab-pane active" id="daftar" role="tabpanel" aria-labelledby="daftar-tab">
                     <div class="card mb-2">
                         <div class="content">
@@ -154,8 +157,9 @@
                         </div>
                     </div>
                 </div>
+            <?php endif ?>
 
-                <div class="tab-pane" id="catatan" role="tabpanel" aria-labelledby="catatan-tab">
+                <div class="tab-pane <?php if(in_groups('guru')){ echo('active'); }?>" id="catatan" role="tabpanel" aria-labelledby="catatan-tab">
                     <div class="card mb-2">
                         <div class="content">
                             <div class="card-block">
