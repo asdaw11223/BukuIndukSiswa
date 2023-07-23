@@ -19,13 +19,13 @@
                 <li class="nav-item">
                     <a href="/nilai" class="nav-link" aria-current="page">
                         <span class="material-symbols-outlined">inbox</span>
-                        <span class="nav-link-text ms-1">Rapor</span>
+                        <span class="nav-link-text ms-1">Nilai</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/rapor" class="nav-link" aria-current="page">
                         <span class="material-symbols-outlined">book</span>
-                        <span class="nav-link-text ms-1">Buku Induk</span>
+                        <span class="nav-link-text ms-1">Rapor</span>
                     </a>
                 </li>
 
