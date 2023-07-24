@@ -92,116 +92,6 @@ class Siswa extends BaseController
         return view('BukuInduk/siswa', $data);
     }
 
-    public function penyakit()
-    {
-        $penyakitKhusus = $this->penyakitKhususModel->findAll();
-
-        $data = [
-            'penyakit' => $penyakitKhusus,
-        ];
-
-        return view('BukuInduk/penyakit', $data);
-    }
-	
-    public function siswaTA($id_tahunajaran)
-	{
-        $siswaTA = $this->siswaModel->getSiswaTA($id_tahunajaran);
-        
-        $data = [
-            'title' => 'Daftar Siswa Tahun Ajaran',
-			'daftar' => $siswaTA
-		];
-
-		return view('BukuInduk/siswa', $data);
-	}
-
-    public function getCity()
-	{
-		if($this->request->isAJAX()){
-			$prov = $this->request->getVar('id');
-			$cityId = $this->request->getVar('city');
-
-			$isidata = '<option value=""> Pilih Kabupaten </option>';
-			
-			foreach($this->siswaModel->getCity($prov) as $row ) :
-				if($cityId){
-					if($cityId == $row['city_id']){
-						$isidata .= '<option value="' . $row['city_id'] . '" selected>' . $row['city_name'] . '</option>';
-					}else{
-						$isidata .= '<option value="' . $row['city_id'] . '">' . $row['city_name'] . '</option>';
-					}
-				}else{
-					$isidata .= '<option value="' . $row['city_id'] . '">' . $row['city_name'] . '</option>';
-				}
-			endforeach;
-
-			$msg = [
-				'data' => $isidata
-			];
-
-			echo json_encode($msg);
-				
-		}
-	}
-
-    public function getDis()
-	{
-		if($this->request->isAJAX()){
-			$city = $this->request->getVar('id');
-			$cityId = $this->request->getVar('dis');
-
-			$isidata = '<option value=""> Pilih Kecamatan </option>';
-			
-			foreach($this->siswaModel->getDis($city) as $row ) :
-				if($cityId){
-					if($cityId == $row['dis_id']){
-						$isidata .= '<option value="' . $row['dis_id'] . '" selected>' . $row['dis_name'] . '</option>';
-					}else{
-						$isidata .= '<option value="' . $row['dis_id'] . '">' . $row['dis_name'] . '</option>';
-					}
-				}else{
-					$isidata .= '<option value="' . $row['dis_id'] . '">' . $row['dis_name'] . '</option>';
-				}
-			endforeach;
-
-			$msg = [
-				'data' => $isidata
-			];
-
-			echo json_encode($msg);
-				
-		}
-	}
-
-    public function getSubdis()
-	{
-		if($this->request->isAJAX()){
-			$dis = $this->request->getVar('id');
-			$cityId = $this->request->getVar('subdis');
-
-			$isidata = '<option value=""> Pilih Kelurahan </option>';
-			
-			foreach($this->siswaModel->getSubdis($dis) as $row ) :
-				if($cityId){
-					if($cityId == $row['subdis_id']){
-						$isidata .= '<option value="' . $row['subdis_id'] . '" selected>' . $row['subdis_name'] . '</option>';
-					}else{
-						$isidata .= '<option value="' . $row['subdis_id'] . '">' . $row['subdis_name'] . '</option>';
-					}
-				}else{
-					$isidata .= '<option value="' . $row['subdis_id'] . '">' . $row['subdis_name'] . '</option>';
-				}
-			endforeach;
-
-			$msg = [
-				'data' => $isidata
-			];
-
-			echo json_encode($msg);
-				
-		}
-	}
-
 	public function save()
 	{
 		if($this->request->isAJAX()){
@@ -522,7 +412,7 @@ class Siswa extends BaseController
             'prestasi' => $prestasi,
             'beasiswa' => $beasiswa,
             'kehadiran' => $kehadiran,
-			'search_kelas' => $search_kelas
+			'search_kelas' => $search_kelas,
         ];
 		
 
@@ -598,15 +488,6 @@ class Siswa extends BaseController
 						'required' => '{field} harus diisi.'
 					]
 				],
-				// 'siswa_foto' => [
-				// 	'rules' => 'uploaded[siswa_foto]|max_size[siswa_foto,1024]|is_image[siswa_foto]|mime_in[siswa_foto,image/jpg,image/jpeg,image/png]',
-				// 	'errors' => [
-				// 		'uploaded' => 'Pilih foto siswa terlebih dahulu.',
-				// 		'max_size' => 'Ukuran gambar terlalu besar.',
-				// 		'is_image' => 'Yang anda pilih bukan gambar.',
-				// 		'mime_in' => 'Yang anda pilih bukan gambar.'
-				// 	]
-				// ],
 
 				//ALAMAT
 				'siswaAddAlamat' => [
@@ -687,7 +568,6 @@ class Siswa extends BaseController
 						'siswa_nl' => $validation->getError('siswa_nl'),
 						'siswa_jk' => $validation->getError('siswa_jk'),
 						'siswa_tempatlahir' => $validation->getError('siswa_tempatlahir'),
-						// 'siswa_foto' => $validation->getError('siswa_foto'),
 						'siswa_tgllahir' => $validation->getError('siswa_tgllahir'),
 						
 						//ALAMAT
@@ -833,7 +713,6 @@ class Siswa extends BaseController
 						'id_jeniskelamin' => $this->request->getVar('siswa_jk'),
 						's_tempatlahir' => $this->request->getVar('siswa_tempatlahir'),
 						's_tanggallahir' => $this->request->getVar('siswa_tgllahir'),
-						's_photo' => $this->request->getVar('siswa_foto'),
 						's_agama' => $this->request->getVar('siswa_agama'),
 						's_kewanegaraan' => $this->request->getVar('siswa_kewanegaraan'),
 						's_anakke' => $this->request->getVar('siswa_anakke'),
@@ -1165,6 +1044,29 @@ class Siswa extends BaseController
 			echo json_encode($msg);
         }
 	}
+	
+	public function profile()
+	{
+		$nisn = $this->siswaModel->where('s_NISN', $this->request->getVar('profile_s_nisn'))->first();
+		
+		$fileProfile = $this->request->getFile('s_photo');
+
+		if($fileProfile->getError() == 4){
+			$namaProfile = 'default.png';
+		}else{
+			$namaProfile = $fileProfile->getRandomName();
+			$fileProfile->move('assets/img/photo', $namaProfile);
+		}
+
+		$this->siswaModel->save([
+			'id_siswa' => $nisn['id_siswa'],
+			's_NISN' => $nisn['s_NISN'],
+			's_photo' => $namaProfile
+		]);
+
+		return redirect()->to('/siswa/edit/'. $nisn['s_NISN']);
+
+	}
 
 	public function import(){
 		$file = $this->request->getFile('file_siswa');
@@ -1427,6 +1329,117 @@ class Siswa extends BaseController
 
 		}
 		return redirect()->to(base_url('siswa'));
+	}	
+	
+    public function getCity()
+	{
+		if($this->request->isAJAX()){
+			$prov = $this->request->getVar('id');
+			$cityId = $this->request->getVar('city');
+
+			$isidata = '<option value=""> Pilih Kabupaten </option>';
+			
+			foreach($this->siswaModel->getCity($prov) as $row ) :
+				if($cityId){
+					if($cityId == $row['city_id']){
+						$isidata .= '<option value="' . $row['city_id'] . '" selected>' . $row['city_name'] . '</option>';
+					}else{
+						$isidata .= '<option value="' . $row['city_id'] . '">' . $row['city_name'] . '</option>';
+					}
+				}else{
+					$isidata .= '<option value="' . $row['city_id'] . '">' . $row['city_name'] . '</option>';
+				}
+			endforeach;
+
+			$msg = [
+				'data' => $isidata
+			];
+
+			echo json_encode($msg);
+				
+		}
+	}
+
+    public function getDis()
+	{
+		if($this->request->isAJAX()){
+			$city = $this->request->getVar('id');
+			$cityId = $this->request->getVar('dis');
+
+			$isidata = '<option value=""> Pilih Kecamatan </option>';
+			
+			foreach($this->siswaModel->getDis($city) as $row ) :
+				if($cityId){
+					if($cityId == $row['dis_id']){
+						$isidata .= '<option value="' . $row['dis_id'] . '" selected>' . $row['dis_name'] . '</option>';
+					}else{
+						$isidata .= '<option value="' . $row['dis_id'] . '">' . $row['dis_name'] . '</option>';
+					}
+				}else{
+					$isidata .= '<option value="' . $row['dis_id'] . '">' . $row['dis_name'] . '</option>';
+				}
+			endforeach;
+
+			$msg = [
+				'data' => $isidata
+			];
+
+			echo json_encode($msg);
+				
+		}
+	}
+
+    public function getSubdis()
+	{
+		if($this->request->isAJAX()){
+			$dis = $this->request->getVar('id');
+			$cityId = $this->request->getVar('subdis');
+
+			$isidata = '<option value=""> Pilih Kelurahan </option>';
+			
+			foreach($this->siswaModel->getSubdis($dis) as $row ) :
+				if($cityId){
+					if($cityId == $row['subdis_id']){
+						$isidata .= '<option value="' . $row['subdis_id'] . '" selected>' . $row['subdis_name'] . '</option>';
+					}else{
+						$isidata .= '<option value="' . $row['subdis_id'] . '">' . $row['subdis_name'] . '</option>';
+					}
+				}else{
+					$isidata .= '<option value="' . $row['subdis_id'] . '">' . $row['subdis_name'] . '</option>';
+				}
+			endforeach;
+
+			$msg = [
+				'data' => $isidata
+			];
+
+			echo json_encode($msg);
+				
+		}
 	}
     
+    public function penyakit()
+    {
+        $penyakitKhusus = $this->penyakitKhususModel->findAll();
+
+        $data = [
+            'penyakit' => $penyakitKhusus,
+        ];
+
+        return view('BukuInduk/penyakit', $data);
+    }
+	
+    // public function siswaTA($id_tahunajaran)
+	// {
+    //     $siswaTA = $this->siswaModel->getSiswaTA($id_tahunajaran);
+        
+    //     $data = [
+    //         'title' => 'Daftar Siswa Tahun Ajaran',
+	// 		'daftar' => $siswaTA
+	// 	];
+
+	// 	return view('BukuInduk/siswa', $data);
+	// }
+
+
 }

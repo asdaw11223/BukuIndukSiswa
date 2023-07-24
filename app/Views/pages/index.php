@@ -38,12 +38,12 @@
                         <span class="material-symbols-outlined">door_front</span>
                     </div>
                     <div class="text-end pt-1">
-                        <p class="text-sm mb-0 text-capitalize">Guru</p>
+                        <p class="text-sm mb-0 text-capitalize">Jurusan</p>
                         <h4 class="mb-0"><?= count($siswa) ?></h4>
                     </div>
                 </div>
                 <?php if(in_groups('admin')) : ?>
-                <a href="/kelas" class="link card-footer p-3">
+                <a href="/jurusan" class="link card-footer p-3">
                     <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <?php if(in_groups('admin')) : ?>
-                <a href="/jurusan" class="link card-footer p-3">
+                <a href="/matapelajaran" class="link card-footer p-3">
                     <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <?php if(in_groups('admin')) : ?>
-                <a href="/matapelajaran" class="link card-footer p-3">
+                <a href="/tahunajaran" class="link card-footer p-3">
                     <p class="mb-0">Selengkapnya</p>
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>

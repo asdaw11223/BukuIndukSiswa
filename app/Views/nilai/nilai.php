@@ -667,7 +667,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Import Data Siswa</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Import Nilai Siswa</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <?php echo form_open_multipart('Nilai/import'); ?> 

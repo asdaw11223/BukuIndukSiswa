@@ -34,7 +34,7 @@
                     <div class="card-block">
                         <div class="header auto-center  mt-3 mb-3">
                             <div class="card mb-3"  style="width: 170px;" >
-                                <img src="/assets/img/avatar/avatar-default.png" class="card-img-top"> 
+                                <img src="/assets/img/photo/<?= $siswa['s_photo'] ?>" class="card-img-top"> 
                             </div>
                             <div class="auto-center">
                                 <h4><?= $siswa['s_namalengkap'] ?></h4>

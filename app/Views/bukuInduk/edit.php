@@ -150,8 +150,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="siswa_foto" class="form-label">Foto</label>
-                                                <input type="file" class="form-control" id="siswa_foto" name="siswa_foto"  value="<?= $siswa['s_photo'] ?>">
-                                                <div class="invalid-feedback errorSiswaFoto"></div>
+                                                <button type="button" class="btn btn-add-profile w-100 mb-2" data-bs-toggle="modal" data-id="<?= $siswa['s_NISN'] ?>">Tambah Profile</button>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="siswa_agama" class="form-label">Agama</label>
@@ -1061,6 +1060,35 @@
     </div>
 </form>
 
+<!-- MODAL ADD Profile -->
+<form action="/Siswa/profile" method="post" enctype="multipart/form-data">
+<?= csrf_field() ?>
+    <div class="modal fade" id="modalFormAddProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Profile</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3" style="display: flex; justify-content: center;" >
+                        <img src="/assets/img/photo/<?= $siswa['s_photo']; ?>" class="card-img-top img-preview"  style="width: 170px;"> 
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type="hidden" id="profile_s_nisn" name="profile_s_nisn">
+                        <label for="s_photo" class="form-label form-label-foto">Foto</label>
+                        <input class="form-control" type="file" id="s_photo" name="s_photo" onchange="priviewImg()">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">Batal</button>
+                    <button class="btn " type="submit">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 <!-- MODAL ADD PRESTASI -->
 <form action="javascript:void(0)" method="post" name="formAddPrestasi" id="formAddPrestasi" onsubmit="return validateFormAddPrestasi()">
 <?= csrf_field(); ?>
@@ -1816,6 +1844,14 @@ var sub;
     $(document).ready(function(){
         //modal
         
+        $('.btn-add-profile').on('click',function(){
+
+            const id = $(this).data('id');
+            $('#profile_s_nisn').val(id);
+
+            $("#modalFormAddProfile").modal('show');
+        });
+
         $('.btn-add-penyakit').on('click',function(){
 
             const id = $(this).data('id');
@@ -1860,6 +1896,20 @@ var sub;
         });
 
     });
+
+    function priviewImg(){
+        const sampul = document.querySelector('#s_photo');
+        const imgPreview = document.querySelector('.img-preview');
+
+        const fileSampul = new FileReader();
+        fileSampul.readAsDataURL(sampul.files[0]);
+
+        fileSampul.onload = function(e){
+            imgPreview.src = e.target.result;
+        }
+
+    }
+
 </script>
 
 <?= $this->endSection(); ?>
