@@ -27,7 +27,7 @@ class Jurusan extends BaseController
         ];
 
 
-        return view('Sekolah/jurusan', $data);
+        return view('sekolah/jurusan', $data);
     }
 
     public function save()

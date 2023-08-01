@@ -21,7 +21,7 @@ class Beasiswa extends BaseController
 			'beasiswa' => $beasiswa
 		];
 
-		return view('BukuInduk/beasiswa', $data);
+		return view('bukuInduk/beasiswa', $data);
     }
 
 	public function save()

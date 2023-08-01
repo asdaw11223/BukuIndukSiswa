@@ -24,7 +24,7 @@ class Profile extends BaseController
         ];
 
 
-        return view('Sekolah/profile', $data);
+        return view('sekolah/profile', $data);
     }
 	
 	public function update()

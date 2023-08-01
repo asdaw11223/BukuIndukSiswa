@@ -40,6 +40,6 @@ class Home extends BaseController
             'matapelajaran' => $matapelajaran,
         ];
 
-        return view('Pages/index', $data);
+        return view('pages/index', $data);
     }
 }

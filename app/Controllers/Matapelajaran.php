@@ -22,7 +22,7 @@ class Matapelajaran extends BaseController
 			'matapelajaran' => $matapelajaran
         ];
 
-        return view('Sekolah/matapelajaran', $data);
+        return view('sekolah/matapelajaran', $data);
     }
 
 	//MAPEL

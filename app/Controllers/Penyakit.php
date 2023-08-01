@@ -21,7 +21,7 @@ class Penyakit extends BaseController
 			'penyakit' => $penyakitKhusus,
 		];
 
-		return view('BukuInduk/penyakit', $data);
+		return view('bukuInduk/penyakit', $data);
     }
 
 	public function save()

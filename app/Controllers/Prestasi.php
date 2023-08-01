@@ -21,7 +21,7 @@ class Prestasi extends BaseController
 			'prestasi' => $prestasi
 		];
 
-		return view('BukuInduk/prestasi', $data);
+		return view('bukuInduk/prestasi', $data);
     }
 
 	public function save()

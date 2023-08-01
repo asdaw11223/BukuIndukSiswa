@@ -45,7 +45,7 @@ class Jadwal extends BaseController
             'tahunAjaran' => $tahunAjaran
         ];
 
-        return view('Sekolah/jadwal', $data);
+        return view('sekolah/jadwal', $data);
     }
 
 }

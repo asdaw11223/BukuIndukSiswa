@@ -89,7 +89,7 @@ class Siswa extends BaseController
             'prov' => $prov
         ];
 
-        return view('BukuInduk/siswa', $data);
+        return view('bukuInduk/siswa', $data);
     }
 
 	public function save()
@@ -435,7 +435,7 @@ class Siswa extends BaseController
 			$data['ayah'] = $ayah;
 		};
 
-        return view('BukuInduk/edit', $data);
+        return view('bukuInduk/edit', $data);
     }
 
 	public function update()
@@ -1426,7 +1426,7 @@ class Siswa extends BaseController
             'penyakit' => $penyakitKhusus,
         ];
 
-        return view('BukuInduk/penyakit', $data);
+        return view('bukuInduk/penyakit', $data);
     }
 	
     // public function siswaTA($id_tahunajaran)

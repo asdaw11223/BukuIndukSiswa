@@ -19,28 +19,28 @@ class PKL extends BaseController
 			
 			$valid = $this->validate([
 				'pkl_namainstansi' => [
-					'label' => "Jenis pkl",
+					'label' => "Nama Instansi",
 					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} harus diisi.'
 					]
 				],
 				'pkl_lokasi' => [
-					'label' => "Jenis pkl",
+					'label' => "Lokasi PKL",
 					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} harus diisi.'
 					]
 				],
 				'pkl_lama' => [
-					'label' => "Jenis pkl",
+					'label' => "Lama PKL",
 					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} harus diisi.'
 					]
 				],
 				'pkl_keterangan' => [
-					'label' => "Jenis pkl",
+					'label' => "Keterangan",
 					'rules' => 'required',
 					'errors' => [
 						'required' => '{field} harus diisi.'

@@ -11,7 +11,7 @@
       </ul>
         <div class="dropdown">
             <div class="dropdown-toggle btn-profile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-sm-none d-lg-inline-block">Hi, <?php if(in_groups('guru')){ echo('Guru');}else{ echo('Admin');} ?></div>
+                <div class="d-sm-none d-lg-inline-block">Hi, <?php if(in_groups('guru')){ echo('Guru');}else{ echo('Staf Tata Usaha');} ?></div>
                 <img alt="image" src="/assets/img/avatar/avatar-default.png" class="rounded-circle mr-1">
                 </div>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">

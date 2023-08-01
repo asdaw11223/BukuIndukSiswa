@@ -55,7 +55,7 @@ class Kelas extends BaseController
             'tingkat' => $tingkat
         ];
 
-        return view('Sekolah/kelas', $data);
+        return view('sekolah/kelas', $data);
     }
 
 	public function daftarSiswaKelas($id_kelas)
@@ -83,7 +83,7 @@ class Kelas extends BaseController
 			'daftar' => $daftarSiswaKelas
 		];
 
-		return view('Sekolah/daftarsk', $data);
+		return view('sekolah/daftarsk', $data);
 	}
 	
 	public function siswaDelete($id)
@@ -182,48 +182,6 @@ class Kelas extends BaseController
 			echo json_encode($data);
 		}
     }
-	
-    public function getTingkat()
-	{
-		if($this->request->isAJAX()){
-			$tingkat = $this->request->getVar('id');
-
-			$isidata = '<option value=""> Pilih Tingkat </option>';
-			
-			foreach($this->tingkatModel->getTingkat($tingkat) as $row ) :
-				$isidata .= '<option value="' . $row['id_tingkat'] . '">' . $row['nama_tingkat'] . '</option>';
-			endforeach;
-
-			$msg = [
-				'data' => $isidata
-			];
-
-			echo json_encode($msg);
-				
-		}
-	}
-
-    public function getKelas()
-	{
-		if($this->request->isAJAX()){
-			$id_kelas = $this->request->getVar('id');
-
-			$kelas = $this->kelasModel->where(['tb_kelas.id_tahunajaran'=> $id_kelas])->findAll();
-
-			$isidata = '<option value=""> Pilih Tingkat </option>';
-			
-			foreach($kelas as $row ) :
-				$isidata .= '<option value="' . $row['id_kelas'] . '">' . $row['nama_kelas'] . '</option>';
-			endforeach;
-
-			$msg = [
-				'data' => $isidata
-			];
-
-			echo json_encode($msg);
-				
-		}
-	}
 
 	public function save()
 	{
@@ -356,7 +314,7 @@ class Kelas extends BaseController
 			if($this->request->getVar('u_nama_kelas') ==  $this->request->getVar('l_nama_kelas')){
 				$rulesKat = 'required';
 			}else{
-				$rulesKat = 'required|is_unique[tb_kelas.nama_kelas]';
+				$rulesKat = 'required';
 			}
 			$valid = $this->validate([
 				'u_nama_kelas' => [
@@ -469,6 +427,48 @@ class Kelas extends BaseController
 
 			echo json_encode($msg);
         }
+	}
+	
+    public function getTingkat()
+	{
+		if($this->request->isAJAX()){
+			$tingkat = $this->request->getVar('id');
+
+			$isidata = '<option value=""> Pilih Tingkat </option>';
+			
+			foreach($this->tingkatModel->getTingkat($tingkat) as $row ) :
+				$isidata .= '<option value="' . $row['id_tingkat'] . '">' . $row['nama_tingkat'] . '</option>';
+			endforeach;
+
+			$msg = [
+				'data' => $isidata
+			];
+
+			echo json_encode($msg);
+				
+		}
+	}
+
+    public function getKelas()
+	{
+		if($this->request->isAJAX()){
+			$id_kelas = $this->request->getVar('id');
+
+			$kelas = $this->kelasModel->where(['tb_kelas.id_tahunajaran'=> $id_kelas])->findAll();
+
+			$isidata = '<option value=""> Pilih Tingkat </option>';
+			
+			foreach($kelas as $row ) :
+				$isidata .= '<option value="' . $row['id_kelas'] . '">' . $row['nama_kelas'] . '</option>';
+			endforeach;
+
+			$msg = [
+				'data' => $isidata
+			];
+
+			echo json_encode($msg);
+				
+		}
 	}
 	
 }

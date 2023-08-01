@@ -32,7 +32,7 @@ class Kehadiran extends BaseController
 			'search_kelas' => $search_kelas,
 		];
 
-		return view('BukuInduk/kehadiran', $data);
+		return view('bukuInduk/kehadiran', $data);
     }
 
 	public function save()
